@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dashboard - Djarna",
-  description: "Monitor platform activity, revenue, and performance in real-time",
+  description:
+    "Monitor platform activity, revenue, and performance in real-time",
 };
 
 export default function RootLayout({
@@ -35,7 +36,7 @@ export default function RootLayout({
           <Sidebar />
           <SidebarInset>
             <Header />
-            <main className="flex flex-1 flex-col p-4 sm:p-8 bg-slate-50/50">
+            <main className="flex flex-1 flex-col p-4 sm:p-8 bg-gray-100/60">
               {children}
             </main>
           </SidebarInset>
