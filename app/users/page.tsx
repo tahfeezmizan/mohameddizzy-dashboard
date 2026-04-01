@@ -4,33 +4,34 @@ import { useState } from "react";
 import UsersTable from "@/components/dashboard/users/users-table";
 import StatsCard from "@/components/dashboard/stats-card";
 import { Input } from "@/components/ui/input";
-import {
-  CheckCircle2,
-  Search,
-  ShieldCheck,
-  Users,
-  UserX,
-} from "lucide-react";
+import { CheckCircle2, Search, ShieldCheck, Users, UserX } from "lucide-react";
 
 const stats = [
   {
     title: "Total Users",
     value: 6,
-    icon: Users,
+
     iconBg: "bg-blue-50",
     iconColor: "text-blue-500",
   },
   {
-    title: "Verified Users",
-    value: 4,
-    icon: ShieldCheck,
+    title: "Sellers",
+    value: 40,
+
     iconBg: "bg-emerald-50",
     iconColor: "text-emerald-500",
   },
   {
-    title: "Suspended",
-    value: 1,
-    icon: UserX,
+    title: "Verified",
+    value: 15,
+
+    iconBg: "bg-orange-50",
+    iconColor: "text-orange-500",
+  },
+  {
+    title: "Active",
+    value: 10,
+
     iconBg: "bg-orange-50",
     iconColor: "text-orange-500",
   },

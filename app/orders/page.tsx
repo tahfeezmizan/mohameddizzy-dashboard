@@ -6,6 +6,7 @@ import StatsCard from "@/components/dashboard/stats-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+  CheckCircle,
   CheckCircle2,
   Clock,
   Filter,
@@ -16,25 +17,32 @@ import {
 
 const stats = [
   {
-    title: "Total Orders",
-    value: 6,
-    icon: Package,
-    iconBg: "bg-blue-50",
-    iconColor: "text-blue-500",
-  },
-  {
-    title: "In Transit",
-    value: 2,
-    icon: Truck,
-    iconBg: "bg-indigo-50",
-    iconColor: "text-indigo-500",
-  },
-  {
     title: "Pending",
     value: 1,
     icon: Clock,
     iconBg: "bg-orange-50",
     iconColor: "text-orange-500",
+  },
+  {
+    title: "Shipped",
+    value: 2,
+    icon: Truck,
+    iconBg: "bg-blue-50",
+    iconColor: "text-blue-500",
+  },
+  {
+    title: "Delivered",
+    value: 1,
+    icon: Package,
+    iconBg: "bg-purple-50",
+    iconColor: "text-purple-500",
+  },
+  {
+    title: "Completed",
+    value: 1,
+    icon: CheckCircle,
+    iconBg: "bg-green-50",
+    iconColor: "text-green-500",
   },
 ];
 

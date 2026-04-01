@@ -10,7 +10,15 @@ export type StatItem = {
 
 export default function StatsCard({ stats }: { stats: StatItem[] }) {
   return (
-    <div className="grid gap-6 md:grid-cols-3">
+    <div
+      className={`grid gap-6 ${
+        stats.length === 3
+          ? "grid-cols-3"
+          : stats.length >= 4
+            ? "grid-cols-4"
+            : "grid-cols-1"
+      }`}
+    >
       {stats?.map((item: any, index: number) => {
         const Icon = item.icon;
 
