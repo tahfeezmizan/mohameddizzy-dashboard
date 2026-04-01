@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { Header } from "@/components/layout/Header";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+
+import { Sidebar } from "../components/layout/Sidebar";
+import { Header } from "../components/layout/Header";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 const inter = Inter({
   variable: "--font-sans",

@@ -1,7 +1,8 @@
 import { Bell, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export function Header() {
   return (

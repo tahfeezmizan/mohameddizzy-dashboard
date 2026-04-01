@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
   Bar,
@@ -11,6 +10,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const data = [
   { week: "Week 1", orders: 155, completed: 155 },

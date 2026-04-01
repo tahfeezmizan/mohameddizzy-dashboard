@@ -1,7 +1,7 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const data = [
   { name: "Vêtements", value: 1200, color: "#3b82f6" }, // Blue
@@ -50,7 +50,10 @@ export function CategoryPerformanceChart() {
 
         <div className="mt-auto space-y-3">
           {data.map((item) => (
-            <div key={item.name} className="flex items-center justify-between text-sm">
+            <div
+              key={item.name}
+              className="flex items-center justify-between text-sm"
+            >
               <div className="flex items-center gap-3 text-slate-600 font-medium">
                 <span
                   className="h-3 w-3 rounded-full shrink-0"
@@ -58,7 +61,9 @@ export function CategoryPerformanceChart() {
                 />
                 {item.name}
               </div>
-              <span className="font-bold text-slate-800">{item.value} listings</span>
+              <span className="font-bold text-slate-800">
+                {item.value} listings
+              </span>
             </div>
           ))}
         </div>

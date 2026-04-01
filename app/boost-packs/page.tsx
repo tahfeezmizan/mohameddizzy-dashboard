@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Zap, Plus, Edit, MinusCircle, Lightbulb } from "lucide-react";
+import { Card, CardContent } from "../../components/ui/card";
+import { Badge } from "../../components/ui/badge";
 
 export default function BoostPacks() {
   return (
@@ -55,12 +55,17 @@ export default function BoostPacks() {
 
               <div className="flex justify-between items-center pt-2">
                 <span className="text-slate-500">Price:</span>
-                <span className="text-xl font-bold text-blue-600">1,500 FCFA</span>
+                <span className="text-xl font-bold text-blue-600">
+                  1,500 FCFA
+                </span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="w-full text-slate-700 border-slate-200">
+              <Button
+                variant="outline"
+                className="w-full text-slate-700 border-slate-200"
+              >
                 <Edit className="mr-2 h-4 w-4" /> Edit
               </Button>
               <Button
@@ -109,12 +114,17 @@ export default function BoostPacks() {
 
               <div className="flex justify-between items-center pt-2">
                 <span className="text-slate-500">Price:</span>
-                <span className="text-xl font-bold text-blue-600">4,000 FCFA</span>
+                <span className="text-xl font-bold text-blue-600">
+                  4,000 FCFA
+                </span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="w-full text-slate-700 border-slate-200">
+              <Button
+                variant="outline"
+                className="w-full text-slate-700 border-slate-200"
+              >
                 <Edit className="mr-2 h-4 w-4" /> Edit
               </Button>
               <Button
@@ -163,12 +173,17 @@ export default function BoostPacks() {
 
               <div className="flex justify-between items-center pt-2">
                 <span className="text-slate-500">Price:</span>
-                <span className="text-xl font-bold text-blue-600">6,500 FCFA</span>
+                <span className="text-xl font-bold text-blue-600">
+                  6,500 FCFA
+                </span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="w-full text-slate-700 border-slate-200">
+              <Button
+                variant="outline"
+                className="w-full text-slate-700 border-slate-200"
+              >
                 <Edit className="mr-2 h-4 w-4" /> Edit
               </Button>
               <Button
@@ -185,9 +200,9 @@ export default function BoostPacks() {
       <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 flex gap-3 text-sm text-blue-800 items-start">
         <Lightbulb className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
         <p>
-          <span className="font-semibold">Tip:</span> Boost your product to increase
-          visibility and attract more buyers. Higher visibility levels result in better
-          placement across the platform.
+          <span className="font-semibold">Tip:</span> Boost your product to
+          increase visibility and attract more buyers. Higher visibility levels
+          result in better placement across the platform.
         </p>
       </div>
     </div>

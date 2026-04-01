@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
 
 export type MetricItem = {
   title: string;

@@ -1,6 +1,6 @@
 "use client";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   LineChart,
   Line,
@@ -35,7 +35,11 @@ export function RevenueChart() {
               data={data}
               margin={{ top: 5, right: 10, left: -20, bottom: 0 }}
             >
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+                stroke="#e2e8f0"
+              />
               <XAxis
                 dataKey="date"
                 axisLine={true}

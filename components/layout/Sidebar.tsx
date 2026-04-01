@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-import logo from "@/../public/logo.png";
+import logo from "@/public/logo.png";
 import {
   DollarSign,
   LayoutDashboard,
