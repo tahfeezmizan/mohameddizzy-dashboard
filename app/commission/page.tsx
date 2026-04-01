@@ -1,12 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  TrendingUp,
   CheckCircle2,
   Clock,
-  Info,
   DollarSign,
-  Lightbulb,
+  Info,
+  TrendingUp
 } from "lucide-react";
 
 export default function Commission() {

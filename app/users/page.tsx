@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import UsersTable from "@/components/dashboard/users/users-table";
 import StatsCard from "@/components/dashboard/stats-card";
+import UsersTable from "@/components/dashboard/users/users-table";
 import { Input } from "@/components/ui/input";
-import { CheckCircle2, Search, ShieldCheck, Users, UserX } from "lucide-react";
+import { CheckCircle2, Search } from "lucide-react";
+import { useState } from "react";
 
 const stats = [
   {
