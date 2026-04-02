@@ -1,6 +1,11 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Eye } from "lucide-react";
+import DisputeDetailsModal from "./dispute-details-modal";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const disputes = [
   {
@@ -43,6 +48,7 @@ const columns = [
 ];
 
 export default function DisputesTable() {
+  const [open, setOpen] = useState(false);
   return (
     <Card className="shadow-sm border-slate-200 overflow-hidden py-0">
       <div className="overflow-x-auto">
@@ -80,15 +86,19 @@ export default function DisputesTable() {
                   </Badge>
                 </td>
                 <td className="px-6 py-4">
-                  <button className="flex items-center gap-1.5 text-blue-600 font-medium hover:text-blue-700">
+                  <Button
+                    onClick={() => setOpen(true)}
+                    className="flex items-center gap-1.5 bg-transparent text-blue-600 font-medium hover:text-blue-700"
+                  >
                     <Eye className="h-4 w-4" /> View
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <DisputeDetailsModal open={open} setOpen={setOpen} />
     </Card>
   );
 }

@@ -1,9 +1,11 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Eye, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import UserDetailsModal from "./user-details-modal";
 
 const allUsers = [
   {
@@ -74,7 +76,15 @@ const allUsers = [
   },
 ];
 
-const columns = ["USER ID", "NAME", "ROLE", "LOCATION", "LISTINGS", "STATUS", "ACTION"];
+const columns = [
+  "USER ID",
+  "NAME",
+  "ROLE",
+  "LOCATION",
+  "LISTINGS",
+  "STATUS",
+  "ACTION",
+];
 
 type FilterType = "All" | "Sellers" | "Buyers" | "Verified";
 
@@ -84,6 +94,8 @@ interface UsersTableProps {
 }
 
 export default function UsersTable({ search, filter }: UsersTableProps) {
+  const [open, setOpen] = useState(false);
+
   const filtered = allUsers.filter((u) => {
     const matchesSearch =
       search === "" ||
@@ -116,14 +128,22 @@ export default function UsersTable({ search, filter }: UsersTableProps) {
           <tbody className="divide-y divide-slate-100">
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-10 text-center text-slate-400">
+                <td
+                  colSpan={7}
+                  className="px-6 py-10 text-center text-slate-400"
+                >
                   No users found.
                 </td>
               </tr>
             ) : (
               filtered.map((item) => (
-                <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-slate-900">{item.id}</td>
+                <tr
+                  key={item.id}
+                  className="hover:bg-slate-50/50 transition-colors"
+                >
+                  <td className="px-6 py-4 font-medium text-slate-900">
+                    {item.id}
+                  </td>
                   <td className="px-6 py-4 text-slate-700 flex items-center gap-1.5 whitespace-nowrap">
                     {item.name}
                     {item.verified && (
@@ -149,9 +169,12 @@ export default function UsersTable({ search, filter }: UsersTableProps) {
                     </Badge>
                   </td>
                   <td className="px-6 py-4">
-                    <button className="flex items-center gap-1.5 text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                    <Button
+                      onClick={() => setOpen(true)}
+                      className="flex items-center gap-1.5 bg-transparent text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                    >
                       <Eye className="h-4 w-4" /> View
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))
@@ -159,6 +182,7 @@ export default function UsersTable({ search, filter }: UsersTableProps) {
           </tbody>
         </table>
       </div>
+      <UserDetailsModal open={open} setOpen={setOpen} />
     </Card>
   );
 }
