@@ -2,7 +2,10 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Button } from "@base-ui/react";
 import { CheckCircle2, Package, Clock, Truck, Eye } from "lucide-react";
+import { useState } from "react";
+import OrderDetailsModal from "./order-details-modal";
 
 const allOrders = [
   {
@@ -89,6 +92,8 @@ interface OrdersTableProps {
 }
 
 export default function OrdersTable({ search }: OrdersTableProps) {
+  const [open, setOpen] = useState(false);
+
   const filtered = allOrders.filter((o) => {
     if (search === "") return true;
     const q = search.toLowerCase();
@@ -116,7 +121,10 @@ export default function OrdersTable({ search }: OrdersTableProps) {
           <tbody className="divide-y divide-slate-100">
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-6 py-10 text-center text-slate-400">
+                <td
+                  colSpan={8}
+                  className="px-6 py-10 text-center text-slate-400"
+                >
                   No orders found.
                 </td>
               </tr>
@@ -124,12 +132,21 @@ export default function OrdersTable({ search }: OrdersTableProps) {
               filtered.map((item) => {
                 const StatusIcon = item.statusIcon;
                 return (
-                  <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="px-6 py-4 font-medium text-slate-900">{item.id}</td>
-                    <td className="px-6 py-4 text-slate-700 whitespace-nowrap">{item.product}</td>
+                  <tr
+                    key={item.id}
+                    className="hover:bg-slate-50/50 transition-colors"
+                  >
+                    <td className="px-6 py-4 font-medium text-slate-900">
+                      {item.id}
+                    </td>
+                    <td className="px-6 py-4 text-slate-700 whitespace-nowrap">
+                      {item.product}
+                    </td>
                     <td className="px-6 py-4 text-slate-700">{item.buyer}</td>
                     <td className="px-6 py-4 text-slate-700">{item.seller}</td>
-                    <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">{item.amount}</td>
+                    <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">
+                      {item.amount}
+                    </td>
                     <td className="px-6 py-4">
                       <Badge
                         variant="secondary"
@@ -139,11 +156,16 @@ export default function OrdersTable({ search }: OrdersTableProps) {
                         {item.status}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 text-slate-600 whitespace-nowrap">{item.delivery}</td>
+                    <td className="px-6 py-4 text-slate-600 whitespace-nowrap">
+                      {item.delivery}
+                    </td>
                     <td className="px-6 py-4">
-                      <button className="flex items-center gap-1.5 text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                      <Button
+                        onClick={() => setOpen(true)}
+                        className="flex items-center gap-1.5 text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                      >
                         <Eye className="h-4 w-4" /> View
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 );
@@ -152,6 +174,7 @@ export default function OrdersTable({ search }: OrdersTableProps) {
           </tbody>
         </table>
       </div>
+      <OrderDetailsModal open={open} setOpen={setOpen} />
     </Card>
   );
 }

@@ -1,10 +1,18 @@
+"use client";
+
 import { Bell, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { usePathname } from "next/navigation";
 
 export function Header() {
+  const pathname = usePathname();
+
+  if (pathname === "/login" || pathname === "/register") {
+    return null;
+  }
   return (
     <header className="sticky top-0 z-30 flex shrink-0 h-16 items-center gap-2 border-b bg-white px-2 sm:px-6">
       <div className="flex items-center gap-2">

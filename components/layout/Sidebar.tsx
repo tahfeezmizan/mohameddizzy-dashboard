@@ -26,6 +26,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import path from "path";
 
 const navItems = [
   { name: "Overview", href: "/", icon: LayoutDashboard },
@@ -41,6 +42,10 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
+
+  if (pathname === "/login" || pathname === "/register") {
+    return null;
+  }
 
   return (
     <ShadcnSidebar className="text-slate-400 bg-[#0F172B]!">
