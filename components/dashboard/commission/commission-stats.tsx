@@ -16,6 +16,7 @@ export default function CommissionStats({ data }: any) {
 
         return (
           <Card
+          
             key={index}
             className={`${item.bgColor} text-white border-0 shadow-sm py-1`}
           >
