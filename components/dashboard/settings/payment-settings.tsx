@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { SectionHeader } from "@/lib/settings-header-section";
-import { DollarSign, Lock } from "lucide-react";
+import { CircleAlert, DollarSign, Lock } from "lucide-react";
 import React, { useState } from "react";
 
 export default function PaymentSettings() {
@@ -71,8 +71,8 @@ export default function PaymentSettings() {
         </div>
 
         {/* Info banner */}
-        <div className="rounded-lg bg-slate-50 border border-slate-200 px-4 py-3 flex items-center gap-2 text-sm text-slate-600">
-          <Lock className="h-4 w-4 text-slate-400 shrink-0" />
+        <div className="rounded-lg bg-[#EFF6FF] border border-[#BEDBFF] px-4 py-3.5 flex items-center gap-2 text-sm text-[#193CB8]">
+          <CircleAlert className="h-4 w-4 text-slate-400 shrink-0" />
           <span>
             Commission becomes available after delivery confirmation +{" "}
             <span className="font-medium">{escrow}h</span> dispute window

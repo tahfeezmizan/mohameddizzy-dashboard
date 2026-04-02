@@ -2,8 +2,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Zap, Edit, MinusCircle } from "lucide-react";
+import { useState } from "react";
+import AddNewPackModal from "./add-new-pack.modal";
 
 export default function BoostPackCard({ data }: any) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {data.map((item: any, index: number) => (
@@ -57,13 +61,14 @@ export default function BoostPackCard({ data }: any) {
             <div className="grid grid-cols-2 gap-3">
               <Button
                 variant="outline"
-                className="w-full text-slate-700 border-slate-200"
+                onClick={() => setOpen(true)}
+                className="w-full py-5.5 text-base! text-slate-700 border-slate-200"
               >
                 <Edit className="mr-2 h-4 w-4" /> Edit
               </Button>
               <Button
                 variant="secondary"
-                className="w-full bg-red-50 text-red-600 hover:bg-red-100"
+                className="w-full py-5.5 text-base! bg-red-50 text-red-600 hover:bg-red-100"
               >
                 <MinusCircle className="mr-2 h-4 w-4" /> Disable
               </Button>
@@ -71,6 +76,7 @@ export default function BoostPackCard({ data }: any) {
           </CardContent>
         </Card>
       ))}
+      <AddNewPackModal open={open} setOpen={setOpen} />
     </div>
   );
 }

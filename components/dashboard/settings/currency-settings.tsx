@@ -22,7 +22,7 @@ export default function CurrencySettings() {
           icon={<Globe className="h-4.5 w-4.5" />}
           title="Currency Settings"
           iconBg="bg-emerald-50"
-          iconColor="text-emerald-500"
+          iconColor="text-[#00C950]"
         />
 
         <p className="text-sm font-medium text-slate-600 mb-3">
@@ -36,7 +36,7 @@ export default function CurrencySettings() {
               onClick={() => setSelectedCurrency(c.code)}
               className={`rounded-lg border-2 px-4 py-3 text-center transition-all ${
                 selectedCurrency === c.code
-                  ? "border-emerald-500 bg-white text-emerald-700 shadow-sm"
+                  ? "border-[#00C950] bg-[#F0FDF4] text-[#008236] shadow-sm"
                   : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
               }`}
             >

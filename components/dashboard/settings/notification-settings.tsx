@@ -20,13 +20,13 @@ export default function NotificationSettings() {
           iconColor="text-orange-500"
         />
 
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
+        <div className="space-y-3.5">
+          <div className="flex items-center justify-between bg-gray-50 p-4 rounded-md">
             <div>
-              <p className="text-sm font-semibold text-slate-800">
+              <p className="text-base font-semibold text-slate-800">
                 Email Notifications
               </p>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-sm text-slate-500 mt-0.5">
                 Send email alerts for important platform events
               </p>
             </div>
@@ -37,14 +37,12 @@ export default function NotificationSettings() {
             />
           </div>
 
-          <div className="border-t border-slate-100" />
-
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between bg-gray-50 p-4 rounded-md">
             <div>
-              <p className="text-sm font-semibold text-slate-800">
+              <p className="text-base font-semibold text-slate-800">
                 Push Notifications
               </p>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-sm text-slate-500 mt-0.5">
                 Enable browser push notifications for real-time updates
               </p>
             </div>

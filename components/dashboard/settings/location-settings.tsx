@@ -52,7 +52,7 @@ export default function LocationSettings() {
             {countries.map((country) => (
               <div
                 key={country}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700"
+                className="rounded-lg border border-slate-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-700"
               >
                 {country}
               </div>
@@ -69,7 +69,7 @@ export default function LocationSettings() {
             {cities.map((city) => (
               <div
                 key={city}
-                className="group flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700"
+                className="group flex items-center justify-between rounded-lg border border-slate-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-700"
               >
                 <span>{city}</span>
                 <button

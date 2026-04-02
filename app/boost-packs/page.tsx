@@ -1,6 +1,10 @@
+"use client";
+
+import AddNewPackModal from "@/components/dashboard/boost-packs/add-new-pack.modal";
 import BoostPackCard from "@/components/dashboard/boost-packs/boost-pack-card";
 import { Button } from "@/components/ui/button";
 import { Lightbulb, Plus } from "lucide-react";
+import { useState } from "react";
 
 const boostPacks = [
   {
@@ -33,6 +37,8 @@ const boostPacks = [
 ];
 
 export default function BoostPacks() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -42,7 +48,10 @@ export default function BoostPacks() {
           </h1>
           <p className="text-slate-500">Manage seller promotion packages</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto">
+        <Button
+          onClick={() => setOpen(true)}
+          className="px-6 py-5.5 text-base! bg-blue-600 hover:bg-blue-700 w-full sm:w-auto text-white"
+        >
           <Plus className="mr-2 h-4 w-4" /> Add New Pack
         </Button>
       </div>
@@ -57,6 +66,8 @@ export default function BoostPacks() {
           result in better placement across the platform.
         </p>
       </div>
+
+      <AddNewPackModal open={open} setOpen={setOpen} />
     </div>
   );
 }
