@@ -1,112 +1,94 @@
 "use client";
 
-import SocialLogin from "@/components/shared/social-login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Lock, Mail } from "lucide-react";
-import Link from "next/link";
+import { Lock, Phone, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import Image from "next/image";
+import logo from "@/public/logo.png";
 
 type FormValues = {
-  email: string;
-  password: string;
+    phone: string;
+    password: string;
 };
 
-export default function page() {
-  const { register, handleSubmit } = useForm<FormValues>();
+export default function LoginPage() {
+    const { register, handleSubmit } = useForm<FormValues>({
+        defaultValues: {
+            phone: "+8801100000000",
+            password: "123456",
+        },
+    });
+    const [login, { isLoading }] = useLoginMutation();
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form Data:", data);
-  };
+    const onSubmit = async (data: FormValues) => {
+        try {
+            const res = await login(data).unwrap();
 
-  return (
-    <div className="flex items-center justify-center h-[calc(100vh-70px)] ">
-      <div className="w-full md:w-lg bg-[#FFC107]/10 p-10 rounded-2xl">
-        {/* Welcome Text */}
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-[#1A1A1A] mb-2">Sign In</h2>
-          <p className="text-sm text-[#757575]">
-            Access your premium marketplace
-          </p>
+            if (res.success) {
+                dispatch(setUser({ user: res.data.user, token: res.data.accessToken }));
+                toast.success("Login successful");
+                router.push("/");
+            } else {
+                toast.error(res.message || "Login failed");
+            }
+        } catch (err: any) {
+            toast.error(err?.data?.message || "Something went wrong. Please try again.");
+        }
+    };
+
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4">
+            <div className="w-full max-w-100 space-y-8 bg-white/5 p-8 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl">
+                {/* Logo Section */}
+                <div className="flex flex-col items-center space-y-4">
+                    <Image src={logo} alt="logo" width={120} height={120} className="w-24 object-contain" />
+                    <div className="text-center">
+                        <h1 className="text-xl font-bold text-white">Admin Login</h1>
+                        <p className="text-sm text-slate-400">Access your dashboard</p>
+                    </div>
+                </div>
+
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="space-y-4">
+                        {/* Phone */}
+                        <div className="space-y-2">
+                            <Label htmlFor="phone" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
+                                Phone Number
+                            </Label>
+                            <div className="relative group">
+                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
+                                <Input id="phone" type="tel" placeholder="+8801100000000" required {...register("phone")} className="h-12 pl-11 bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all rounded-xl shadow-none" />
+                            </div>
+                        </div>
+
+                        {/* Password */}
+                        <div className="space-y-2">
+                            <Label htmlFor="password" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
+                                Password
+                            </Label>
+                            <div className="relative group">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
+                                <Input id="password" type="password" placeholder="••••••••" required {...register("password")} className="h-12 pl-11 bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all rounded-xl shadow-none" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <Button type="submit" disabled={isLoading} className="w-full h-12 text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-[0.98]">
+                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Login"}
+                    </Button>
+                </form>
+
+                <p className="text-center text-[10px] text-slate-600 uppercase tracking-[0.2em]">&copy; {new Date().getFullYear()} Djarna Admin</p>
+            </div>
         </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-5">
-          {/* Email */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold text-[#424242] ml-1">
-              Email
-            </Label>
-            <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9E9E9E]" />
-              <Input
-                type="email"
-                placeholder="your@email.com"
-                {...register("email")}
-                className="w-full pl-12 pr-4 py-6  bg-white border border-[#E0E0E0] rounded-lg focus-visible:ring-2 focus-visible:ring-blue-600/50 focus-visible:border-transparent transition-all shadow-none"
-              />
-            </div>
-          </div>
-
-          {/* Password */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold text-[#424242] ml-1">
-              Password
-            </Label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9E9E9E]" />
-              <Input
-                type="password"
-                placeholder="••••••••"
-                {...register("password")}
-                className="w-full pl-12 pr-4 py-6  bg-white border border-[#E0E0E0] rounded-lg focus-visible:ring-2 focus-visible:ring-blue-600/50 focus-visible:border-transparent transition-all shadow-none"
-              />
-            </div>
-          </div>
-
-          {/* Forgot Password */}
-          {/* <div className="text-right">
-            <Link
-              href={"/"}
-              className="font-semibold text-primary font-public-sans cursor-pointer hover:underline"
-            >
-              Forgot Password?
-            </Link>
-          </div> */}
-
-          {/* Login Button */}
-          <Button
-            type="submit"
-            className="w-full px-6 py-5.5 text-base! bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            Login
-          </Button>
-        </form>
-
-        {/* Divider */}
-        {/* <div className="w-full flex items-center my-8">
-          <div className="flex-1 h-px bg-[#EEEEEE]"></div>
-          <span className="px-4 text-[10px] font-medium text-[#9E9E9E] uppercase tracking-wider">
-            Or continue with
-          </span>
-          <div className="flex-1 h-px bg-[#EEEEEE]"></div>
-        </div> */}
-
-        {/* Social Login */}
-        {/* <SocialLogin />
-
-        
-        <div className="text-sm text-center mt-6">
-          <span className="text-[#0A0A0A]">Don't have an account? </span>
-          <Link
-            href="/register"
-            className="text-base font-semibold text-primary font-public-sans cursor-pointer hover:underline"
-          >
-            Create an account
-          </Link>
-        </div> */}
-      </div>
-    </div>
-  );
+    );
 }

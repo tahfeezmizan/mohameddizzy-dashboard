@@ -1,121 +1,145 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { useGetSingleUserQuery } from "@/redux/features/users/userApi";
+import { Loader2, CheckCircle2, ShieldAlert, Ban, RefreshCcw } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
-export default function UserDetailsModal({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}) {
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-3xl p-0 overflow-hidden gap-0">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b">
-          <div className="flex items-center gap-3">
-            {/* Avatar */}
-            <div className="h-10 w-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold">
-              P
-            </div>
+export default function UserDetailsModal({ open, setOpen, userId }: { open: boolean; setOpen: (open: boolean) => void; userId: string | null }) {
+    const {
+        data: userResponse,
+        isLoading,
+        isError,
+    } = useGetSingleUserQuery(userId as string, {
+        skip: !userId || !open,
+    });
 
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-lg font-semibold text-slate-900">
-                  pavona1977
-                </h2>
-                <span className="text-blue-500 text-sm">✔</span>
-              </div>
-              <p className="text-sm text-slate-500">pavona@example.com</p>
-            </div>
-          </div>
-        </div>
+    const user = userResponse?.data;
 
-        {/* Body */}
-        <div className="p-6 space-y-6">
-          {/* Info Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-slate-500 mb-1">User ID</p>
-              <p className="font-medium text-slate-900">#U102</p>
-            </div>
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent className="sm:max-w-2xl p-0 overflow-hidden gap-0 bg-white">
+                {isLoading ? (
+                    <div className="h-125 flex flex-col items-center justify-center gap-3">
+                        <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
+                        <p className="text-slate-500 font-medium">Loading user details...</p>
+                    </div>
+                ) : isError || !user ? (
+                    <div className="h-100 flex flex-col items-center justify-center gap-3">
+                        <ShieldAlert className="h-12 w-12 text-red-500" />
+                        <p className="text-slate-500 font-medium">Failed to load user details</p>
+                        <Button variant="outline" onClick={() => setOpen(false)}>
+                            Close
+                        </Button>
+                    </div>
+                ) : (
+                    <>
+                        {/* Header */}
+                        <div className="flex items-center justify-between px-6 py-6 border-b bg-slate-50/50">
+                            <div className="flex items-center gap-4">
+                                {/* Avatar */}
+                                <div className="h-14 w-14 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-blue-600/20">{user.name.charAt(0).toUpperCase()}</div>
 
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-slate-500 mb-1">Role</p>
-              <p className="font-medium text-slate-900">Seller</p>
-            </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <h2 className="text-xl font-bold text-slate-900">{user.name}</h2>
+                                        {user.verifiedBadge && <CheckCircle2 className="h-5 w-5 text-blue-500 fill-blue-50" />}
+                                    </div>
+                                    <p className="text-sm text-slate-500">{user.email || "No email provided"}</p>
+                                </div>
+                            </div>
+                            <Badge variant="secondary" className={`${user.isActive ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-red-50 text-red-700 border-red-100"} px-3 py-1`}>
+                                {user.isActive ? "Active Account" : "Suspended"}
+                            </Badge>
+                        </div>
 
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-slate-500 mb-1">Location</p>
-              <p className="font-medium text-slate-900">New York</p>
-            </div>
+                        {/* Body */}
+                        <div className="p-6 space-y-8 max-h-[70vh] overflow-y-auto">
+                            {/* Info Grid */}
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">User ID</p>
+                                    <p className="font-mono text-sm text-slate-900">{user._id}</p>
+                                </div>
 
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-slate-500 mb-1">Join Date</p>
-              <p className="font-medium text-slate-900">2025-11-15</p>
-            </div>
-          </div>
+                                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Phone Number</p>
+                                    <p className="font-medium text-slate-900">{user.phone}</p>
+                                </div>
 
-          {/* Activity */}
-          <div>
-            <h3 className="text-base font-semibold text-slate-800 mb-3">
-              Activity
-            </h3>
+                                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Role</p>
+                                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-100 uppercase text-[10px]">
+                                        {user.role}
+                                    </Badge>
+                                </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-blue-50 rounded-lg p-4">
-                <p className="text-sm text-blue-600 mb-1">Listings</p>
-                <p className="text-xl font-semibold text-slate-900">12</p>
-              </div>
+                                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Member Since</p>
+                                    <p className="font-medium text-slate-900">{new Date(user.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
+                                </div>
+                            </div>
 
-              <div className="bg-green-50 rounded-lg p-4">
-                <p className="text-sm text-green-600 mb-1">Orders</p>
-                <p className="text-xl font-semibold text-slate-900">45</p>
-              </div>
+                            {/* Activity Stats */}
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
+                                    <div className="h-1 w-4 bg-blue-600 rounded-full"></div>
+                                    Activity Overview
+                                </h3>
 
-              <div className="bg-purple-50 rounded-lg p-4">
-                <p className="text-sm text-purple-600 mb-1">Wallet</p>
-                <p className="text-xl font-semibold text-slate-900">15,000</p>
-              </div>
-            </div>
-          </div>
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
+                                        <p className="text-xs font-medium text-slate-500 mb-1">Listings</p>
+                                        <p className="text-2xl font-bold text-slate-900">{user.publishedProductCount}</p>
+                                    </div>
 
-          {/* Verification */}
-          <div>
-            <h3 className="text-base font-semibold text-slate-800 mb-3">
-              Verification Status
-            </h3>
+                                    <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
+                                        <p className="text-xs font-medium text-slate-500 mb-1">Wallet Balance</p>
+                                        <p className="text-2xl font-bold text-blue-600">{user.balance?.toLocaleString() || 0}</p>
+                                    </div>
 
-            <div className="border border-green-200 bg-green-50 rounded-lg p-4">
-              <p className="font-medium text-green-700">✔ Verified User</p>
-              <p className="text-sm text-green-600">
-                User has completed verification process
-              </p>
-            </div>
-          </div>
+                                    <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
+                                        <p className="text-xs font-medium text-slate-500 mb-1">Verification</p>
+                                        <div className="flex items-center gap-1.5 mt-1">
+                                            {user.verifiedBadge ? (
+                                                <Badge className="bg-blue-600 hover:bg-blue-600">Verified</Badge>
+                                            ) : (
+                                                <Badge variant="outline" className="text-slate-400">
+                                                    Standard
+                                                </Badge>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-          {/* Actions */}
-          <div>
-            <h3 className="text-base font-semibold text-slate-800 mb-3">
-              Account Actions
-            </h3>
+                            {/* Account Actions */}
+                            <div className="space-y-4 pt-4 border-t">
+                                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
+                                    <div className="h-1 w-4 bg-red-600 rounded-full"></div>
+                                    Administrative Actions
+                                </h3>
 
-            <div className="grid grid-cols-3 gap-3">
-              <Button className="bg-orange-100 text-orange-700 hover:bg-orange-200 py-5">
-                🚫 Suspend
-              </Button>
+                                <div className="grid grid-cols-3 gap-3">
+                                    <Button variant="outline" className="flex flex-col h-auto py-3 gap-1 border-orange-200 text-orange-700 hover:bg-orange-50 hover:text-orange-800">
+                                        <ShieldAlert className="h-5 w-5" />
+                                        <span className="text-[10px] font-bold uppercase">Suspend</span>
+                                    </Button>
 
-              <Button className="bg-red-100 text-red-600 hover:bg-red-200 py-5">
-                ⛔ Ban User
-              </Button>
+                                    <Button variant="outline" className="flex flex-col h-auto py-3 gap-1 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700">
+                                        <Ban className="h-5 w-5" />
+                                        <span className="text-[10px] font-bold uppercase">Ban User</span>
+                                    </Button>
 
-              <Button className="bg-blue-100 text-blue-700 hover:bg-blue-200 py-5">
-                🔄 Reset Account
-              </Button>
-            </div>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
+                                    <Button variant="outline" className="flex flex-col h-auto py-3 gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800">
+                                        <RefreshCcw className="h-5 w-5" />
+                                        <span className="text-[10px] font-bold uppercase">Reset</span>
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </DialogContent>
+        </Dialog>
+    );
 }
