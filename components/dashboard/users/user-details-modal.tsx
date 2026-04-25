@@ -19,12 +19,12 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="sm:max-w-2xl p-0 overflow-hidden gap-0 bg-white">
                 {isLoading ? (
-                    <div className="h-[500px] flex flex-col items-center justify-center gap-3">
+                    <div className="h-125 flex flex-col items-center justify-center gap-3">
                         <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
                         <p className="text-slate-500 font-medium">Loading user details...</p>
                     </div>
                 ) : isError || !user ? (
-                    <div className="h-[400px] flex flex-col items-center justify-center gap-3">
+                    <div className="h-100 flex flex-col items-center justify-center gap-3">
                         <ShieldAlert className="h-12 w-12 text-red-500" />
                         <p className="text-slate-500 font-medium">Failed to load user details</p>
                         <Button variant="outline" onClick={() => setOpen(false)}>
@@ -114,7 +114,7 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
 
                             {/* Account Actions */}
                             <div className="space-y-4 pt-4 border-t">
-                                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2 text-red-600">
+                                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
                                     <div className="h-1 w-4 bg-red-600 rounded-full"></div>
                                     Administrative Actions
                                 </h3>

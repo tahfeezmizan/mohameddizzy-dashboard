@@ -3,7 +3,7 @@
 import { Sidebar as ShadcnSidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 
 import logo from "@/public/logo.png";
-import { DollarSign, LayoutDashboard, List, LogOut, Scale, Settings, ShoppingCart, Users, Zap } from "lucide-react";
+import { DollarSign, LayoutDashboard, List, LogOut, Scale, Settings, ShoppingCart, Users, Zap, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ import { toast } from "sonner";
 const navItems = [
     { name: "Overview", href: "/", icon: LayoutDashboard },
     { name: "Boost Packs", href: "/boost-packs", icon: Zap },
+    { name: "Verifications", href: "/verifications", icon: ShieldCheck },
     { name: "Disputes", href: "/disputes", icon: Scale },
     { name: "Commission", href: "/commission", icon: DollarSign },
     { name: "Categories", href: "/categories", icon: List },
