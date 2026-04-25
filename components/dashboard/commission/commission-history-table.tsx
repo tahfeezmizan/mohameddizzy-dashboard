@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
-export default function CommissionHistoryTable({ data }: any) {
+export default function CommissionHistoryTable({ data, commissionRate }: any) {
   const columns = [
     "Order ID",
     "Seller",
     "Order Value",
-    "Commission (7%)",
+    "Commission (" + commissionRate + "%)",
     "Date",
     "Status",
   ];
