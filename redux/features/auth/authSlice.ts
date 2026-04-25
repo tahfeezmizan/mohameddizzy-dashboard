@@ -1,27 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-export const roles = {
-    GUEST: "GUEST" as const,
-    HOST: "HOST" as const,
-    ADMIN: "ADMIN" as const,
-};
-
-export type Role = (typeof roles)[keyof typeof roles];
+export type UserRole = "USER" | "ADMIN";
 
 export type TUser = {
+    isPhoneVerified: boolean;
+    verifiedBadge: boolean;
+    balance: number;
+    noCommission: number;
     _id: string;
     name: string;
     email: string;
-    phone?: string;
-    role: Role;
+    role: UserRole;
+    phone: string;
     isActive: boolean;
-    isEmailVerified?: boolean;
-    verificationToken?: string;
-    verificationTokenExpiry?: string;
-    createdAt?: string;
-    updatedAt?: string;
-    profileImg?: string;
+    isEmailVerified: boolean;
+    createdAt: string;
+    updatedAt: string;
+    lastLogin: string;
+    boostEndTime: string;
+    boostPack: string;
+    boostStartTime: string;
+    isBoosted: boolean;
 };
 
 type TAuthState = {

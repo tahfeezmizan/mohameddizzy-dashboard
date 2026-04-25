@@ -1,23 +1,41 @@
 "use client";
 
-import SocialLogin from "@/components/shared/social-login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Lock, Mail } from "lucide-react";
-import Link from "next/link";
+import { Lock, Mail, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type FormValues = {
   email: string;
   password: string;
 };
 
-export default function page() {
+export default function LoginPage() {
   const { register, handleSubmit } = useForm<FormValues>();
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form Data:", data);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const res = await login(data).unwrap();
+      
+      if (res.success) {
+        dispatch(setUser({ user: res.data.user, token: res.data.accessToken }));
+        toast.success("Login successful");
+        router.push("/");
+      } else {
+        toast.error(res.message || "Login failed");
+      }
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -43,6 +61,7 @@ export default function page() {
               <Input
                 type="email"
                 placeholder="your@email.com"
+                required
                 {...register("email")}
                 className="w-full pl-12 pr-4 py-6  bg-white border border-[#E0E0E0] rounded-lg focus-visible:ring-2 focus-visible:ring-blue-600/50 focus-visible:border-transparent transition-all shadow-none"
               />
@@ -59,53 +78,29 @@ export default function page() {
               <Input
                 type="password"
                 placeholder="••••••••"
+                required
                 {...register("password")}
                 className="w-full pl-12 pr-4 py-6  bg-white border border-[#E0E0E0] rounded-lg focus-visible:ring-2 focus-visible:ring-blue-600/50 focus-visible:border-transparent transition-all shadow-none"
               />
             </div>
           </div>
 
-          {/* Forgot Password */}
-          {/* <div className="text-right">
-            <Link
-              href={"/"}
-              className="font-semibold text-primary font-public-sans cursor-pointer hover:underline"
-            >
-              Forgot Password?
-            </Link>
-          </div> */}
-
           {/* Login Button */}
           <Button
             type="submit"
+            disabled={isLoading}
             className="w-full px-6 py-5.5 text-base! bg-blue-600 hover:bg-blue-700 text-white"
           >
-            Login
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Signing In...
+              </>
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
-
-        {/* Divider */}
-        {/* <div className="w-full flex items-center my-8">
-          <div className="flex-1 h-px bg-[#EEEEEE]"></div>
-          <span className="px-4 text-[10px] font-medium text-[#9E9E9E] uppercase tracking-wider">
-            Or continue with
-          </span>
-          <div className="flex-1 h-px bg-[#EEEEEE]"></div>
-        </div> */}
-
-        {/* Social Login */}
-        {/* <SocialLogin />
-
-        
-        <div className="text-sm text-center mt-6">
-          <span className="text-[#0A0A0A]">Don't have an account? </span>
-          <Link
-            href="/register"
-            className="text-base font-semibold text-primary font-public-sans cursor-pointer hover:underline"
-          >
-            Create an account
-          </Link>
-        </div> */}
       </div>
     </div>
   );

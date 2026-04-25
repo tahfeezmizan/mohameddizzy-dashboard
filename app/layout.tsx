@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-import { Sidebar } from "../components/layout/Sidebar";
-import { Header } from "../components/layout/Header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { ReduxProviders } from "@/Providers/ReduxProivder";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -33,15 +31,10 @@ export default function RootLayout({
       className={`${inter.variable} ${geistMono.variable} h-full antialiased font-sans`}
     >
       <body className="min-h-full bg-slate-50 flex flex-col">
-        <SidebarProvider>
-          <Sidebar />
-          <SidebarInset>
-            <Header />
-            <main className="flex flex-1 flex-col p-4 sm:p-8 bg-gray-100/60">
-              {children}
-            </main>
-          </SidebarInset>
-        </SidebarProvider>
+        <ReduxProviders>
+          {children}
+          <Toaster position="top-right" />
+        </ReduxProviders>
       </body>
     </html>
   );
