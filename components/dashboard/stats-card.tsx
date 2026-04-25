@@ -2,7 +2,7 @@ import { Card, CardContent } from "../ui/card";
 
 export type StatItem = {
   title: string;
-  value: number;
+  value: number | string;
   icon?: any;
   iconBg?: string;
   iconColor?: string;

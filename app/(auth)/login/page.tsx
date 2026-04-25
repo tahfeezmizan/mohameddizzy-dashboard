@@ -19,7 +19,12 @@ type FormValues = {
 };
 
 export default function LoginPage() {
-    const { register, handleSubmit } = useForm<FormValues>();
+    const { register, handleSubmit } = useForm<FormValues>({
+        defaultValues: {
+            phone: "+8801100000000",
+            password: "123456",
+        },
+    });
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useAppDispatch();
     const router = useRouter();
@@ -42,7 +47,7 @@ export default function LoginPage() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4">
-            <div className="w-full max-w-[400px] space-y-8 bg-white/5 p-8 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl">
+            <div className="w-full max-w-100 space-y-8 bg-white/5 p-8 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl">
                 {/* Logo Section */}
                 <div className="flex flex-col items-center space-y-4">
                     <Image src={logo} alt="logo" width={120} height={120} className="w-24 object-contain" />

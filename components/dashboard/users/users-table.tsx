@@ -3,118 +3,59 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Eye, CheckCircle2 } from "lucide-react";
+import { Eye, CheckCircle2, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import UserDetailsModal from "./user-details-modal";
-
-const allUsers = [
-  {
-    id: "#U102",
-    name: "pavona1977",
-    verified: true,
-    role: "Seller",
-    roleStyle: "bg-blue-50 text-blue-600",
-    location: "New York",
-    listings: 12,
-    status: "Active",
-    statusStyle: "bg-emerald-50 text-emerald-600",
-  },
-  {
-    id: "#U103",
-    name: "johnsmith",
-    verified: false,
-    role: "Buyer",
-    roleStyle: "bg-purple-50 text-purple-600",
-    location: "Paris",
-    listings: 0,
-    status: "Active",
-    statusStyle: "bg-emerald-50 text-emerald-600",
-  },
-  {
-    id: "#U104",
-    name: "sarahstyle",
-    verified: true,
-    role: "Both",
-    roleStyle: "bg-indigo-50 text-indigo-600",
-    location: "London",
-    listings: 8,
-    status: "Active",
-    statusStyle: "bg-emerald-50 text-emerald-600",
-  },
-  {
-    id: "#U105",
-    name: "mikeshop",
-    verified: true,
-    role: "Seller",
-    roleStyle: "bg-blue-50 text-blue-600",
-    location: "Berlin",
-    listings: 25,
-    status: "Suspended",
-    statusStyle: "bg-orange-50 text-orange-600",
-  },
-  {
-    id: "#U106",
-    name: "emily_buys",
-    verified: false,
-    role: "Buyer",
-    roleStyle: "bg-purple-50 text-purple-600",
-    location: "Toronto",
-    listings: 0,
-    status: "Active",
-    statusStyle: "bg-emerald-50 text-emerald-600",
-  },
-  {
-    id: "#U107",
-    name: "globalstore",
-    verified: true,
-    role: "Seller",
-    roleStyle: "bg-blue-50 text-blue-600",
-    location: "Lagos",
-    listings: 47,
-    status: "Active",
-    statusStyle: "bg-emerald-50 text-emerald-600",
-  },
-];
-
-const columns = [
-  "USER ID",
-  "NAME",
-  "ROLE",
-  "LOCATION",
-  "LISTINGS",
-  "STATUS",
-  "ACTION",
-];
-
-type FilterType = "All" | "Sellers" | "Buyers" | "Verified";
+import { useGetAllUsersQuery } from "@/redux/features/users/userApi";
 
 interface UsersTableProps {
-  search: string;
-  filter: FilterType;
+  searchTerm: string;
+  filter: string;
+  page: number;
+  setPage: (page: number) => void;
 }
 
-export default function UsersTable({ search, filter }: UsersTableProps) {
+export default function UsersTable({ searchTerm, filter, page, setPage }: UsersTableProps) {
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
-  const filtered = allUsers.filter((u) => {
-    const matchesSearch =
-      search === "" ||
-      u.id.toLowerCase().includes(search.toLowerCase()) ||
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.location.toLowerCase().includes(search.toLowerCase());
+  const params: any = {
+    page,
+    limit: 10,
+    searchTerm: searchTerm || undefined,
+  };
 
-    const matchesFilter =
-      filter === "All" ||
-      (filter === "Sellers" && (u.role === "Seller" || u.role === "Both")) ||
-      (filter === "Buyers" && (u.role === "Buyer" || u.role === "Both")) ||
-      (filter === "Verified" && u.verified);
+  if (filter === "Active") params.isActive = true;
+  if (filter === "Suspended") params.isActive = false;
+  if (filter === "Verified") params.verifiedBadge = true;
 
-    return matchesSearch && matchesFilter;
-  });
+  const { data, isLoading, isFetching } = useGetAllUsersQuery(params);
+  const users = data?.data || [];
+  const meta = data?.meta;
+
+  const handleViewUser = (id: string) => {
+    setSelectedUserId(id);
+    setOpen(true);
+  };
+
+  const columns = [
+    "USER ID",
+    "NAME",
+    "ROLE",
+    "PHONE",
+    "LISTINGS",
+    "STATUS",
+    "ACTION",
+  ];
 
   return (
     <Card className="shadow-sm border-slate-200 overflow-hidden py-0">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto relative">
+        {isFetching && (
+          <div className="absolute inset-0 bg-white/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
+            <Loader2 className="h-8 w-8 text-blue-500 animate-spin" />
+          </div>
+        )}
         <table className="w-full text-sm text-left">
           <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
             <tr>
@@ -126,52 +67,54 @@ export default function UsersTable({ search, filter }: UsersTableProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {filtered.length === 0 ? (
+            {isLoading ? (
               <tr>
-                <td
-                  colSpan={7}
-                  className="px-6 py-10 text-center text-slate-400"
-                >
+                <td colSpan={7} className="px-6 py-10 text-center text-slate-400">
+                  <div className="flex flex-col items-center gap-2">
+                    <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
+                    <p>Loading users...</p>
+                  </div>
+                </td>
+              </tr>
+            ) : users.length === 0 ? (
+              <tr>
+                <td colSpan={7} className="px-6 py-10 text-center text-slate-400">
                   No users found.
                 </td>
               </tr>
             ) : (
-              filtered.map((item) => (
-                <tr
-                  key={item.id}
-                  className="hover:bg-slate-50/50 transition-colors"
-                >
-                  <td className="px-6 py-4 font-medium text-slate-900">
-                    {item.id}
+              users.map((item) => (
+                <tr key={item._id} className="hover:bg-slate-50/50 transition-colors">
+                  <td className="px-6 py-4 font-medium text-slate-900 uppercase text-xs">
+                    {item._id.slice(-6)}
                   </td>
                   <td className="px-6 py-4 text-slate-700 flex items-center gap-1.5 whitespace-nowrap">
                     {item.name}
-                    {item.verified && (
+                    {item.verifiedBadge && (
                       <CheckCircle2 className="h-3.5 w-3.5 text-blue-500 shrink-0" />
                     )}
                   </td>
                   <td className="px-6 py-4">
-                    <Badge
-                      variant="secondary"
-                      className={`${item.roleStyle} hover:${item.roleStyle} font-medium`}
-                    >
+                    <Badge variant="secondary" className="bg-blue-50 text-blue-600 font-medium uppercase text-[10px]">
                       {item.role}
                     </Badge>
                   </td>
-                  <td className="px-6 py-4 text-slate-700">{item.location}</td>
-                  <td className="px-6 py-4 text-slate-700">{item.listings}</td>
+                  <td className="px-6 py-4 text-slate-700">{item.phone}</td>
+                  <td className="px-6 py-4 text-slate-700 text-center">{item.publishedProductCount}</td>
                   <td className="px-6 py-4">
                     <Badge
                       variant="secondary"
-                      className={`${item.statusStyle} hover:${item.statusStyle} font-medium`}
+                      className={`${
+                        item.isActive ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600"
+                      } font-medium`}
                     >
-                      {item.status}
+                      {item.isActive ? "Active" : "Suspended"}
                     </Badge>
                   </td>
                   <td className="px-6 py-4">
                     <Button
-                      onClick={() => setOpen(true)}
-                      className="flex items-center gap-1.5 bg-transparent text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                      onClick={() => handleViewUser(item._id)}
+                      className="flex items-center gap-1.5 bg-transparent text-blue-600 font-medium hover:text-blue-700 transition-colors p-0 h-auto"
                     >
                       <Eye className="h-4 w-4" /> View
                     </Button>
@@ -182,7 +125,65 @@ export default function UsersTable({ search, filter }: UsersTableProps) {
           </tbody>
         </table>
       </div>
-      <UserDetailsModal open={open} setOpen={setOpen} />
+
+      {/* Pagination */}
+      {meta && meta.totalPage > 1 && (
+        <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
+          <p className="text-xs text-slate-500">
+            Showing <span className="font-medium">{(page - 1) * 10 + 1}</span> to{" "}
+            <span className="font-medium">{Math.min(page * 10, meta.total)}</span> of{" "}
+            <span className="font-medium">{meta.total}</span> users
+          </p>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === 1 || isFetching}
+              onClick={() => setPage(page - 1)}
+              className="h-8 w-8 p-0"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <div className="flex items-center gap-1">
+              {[...Array(meta.totalPage)].map((_, i) => {
+                const p = i + 1;
+                // Simple pagination logic to show current, first, last and surrounding
+                if (
+                  p === 1 ||
+                  p === meta.totalPage ||
+                  (p >= page - 1 && p <= page + 1)
+                ) {
+                  return (
+                    <Button
+                      key={p}
+                      variant={page === p ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setPage(p)}
+                      disabled={isFetching}
+                      className={`h-8 w-8 p-0 text-xs ${page === p ? "bg-blue-600" : ""}`}
+                    >
+                      {p}
+                    </Button>
+                  );
+                } else if (p === page - 2 || p === page + 2) {
+                  return <span key={p} className="text-slate-400 px-1">...</span>;
+                }
+                return null;
+              })}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === meta.totalPage || isFetching}
+              onClick={() => setPage(page + 1)}
+              className="h-8 w-8 p-0"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      )}
+      <UserDetailsModal open={open} setOpen={setOpen} userId={selectedUserId} />
     </Card>
   );
 }

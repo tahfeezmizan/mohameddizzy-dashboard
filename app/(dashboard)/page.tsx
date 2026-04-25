@@ -1,5 +1,4 @@
 import { Users, ShoppingBag, ShoppingCart, TriangleAlert } from "lucide-react";
-// import { MetricCard } from "../components/dashboard/MetricCard";
 import { FinancialOverview } from "@/components/dashboard/FinancialOverview";
 import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { OrdersChart } from "@/components/dashboard/OrdersChart";
