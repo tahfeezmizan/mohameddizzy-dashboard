@@ -10,7 +10,7 @@ interface RefreshTokenResponse {
 }
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_BASE_API}/api/v1/`,
+    baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/api/v1/`,
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState)?.auth?.token;
@@ -54,6 +54,6 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
 export const baseApi = createApi({
     reducerPath: "api",
     baseQuery: baseQueryWithReauth,
-    tagTypes: ["User"],
+    tagTypes: ["User", "BoostPack"],
     endpoints: () => ({}),
 });
