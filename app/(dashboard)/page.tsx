@@ -1,46 +1,50 @@
-import { Users, ShoppingBag, ShoppingCart, TriangleAlert } from "lucide-react";
+"use client";
+
+import { Users, ShoppingBag, ShoppingCart, Zap } from "lucide-react";
 import { FinancialOverview } from "@/components/dashboard/FinancialOverview";
 import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { OrdersChart } from "@/components/dashboard/OrdersChart";
 import { CategoryPerformanceChart } from "@/components/dashboard/CategoryPerformanceChart";
 import { RecentActivityFeed } from "@/components/dashboard/RecentActivityFeed";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-
-const metricsData = [
-    {
-        title: "Total Users",
-        value: "12,540",
-        subValue: "+8.2% this week",
-        subValueColor: "text-emerald-600",
-        icon: Users,
-    },
-    {
-        title: "Active Listings",
-        value: "3,210",
-        subValue: "+120 new today",
-        subValueColor: "text-emerald-600",
-        icon: ShoppingBag,
-    },
-    {
-        title: "Orders In Progress",
-        value: "842",
-        subValue: "56 awaiting delivery",
-        subValueColor: "text-slate-500",
-        icon: ShoppingCart,
-    },
-    {
-        title: "Disputes Open",
-        value: "24",
-        subValue: "Needs attention",
-        subValueColor: "text-orange-600",
-        subValueIcon: TriangleAlert,
-        icon: TriangleAlert,
-        iconBgColor: "bg-blue-50",
-        iconColor: "text-blue-500",
-    },
-];
+import { useGetDashboardStatsQuery } from "@/redux/features/dashboard/dashboardApi";
 
 export default function Home() {
+    const { data: stats, isLoading } = useGetDashboardStatsQuery();
+
+    const metricsData = [
+        {
+            title: "Total Users",
+            value: isLoading ? "..." : stats?.data?.totalUsers.toLocaleString() || "0",
+            // subValue: "+8.2% this week",
+            // subValueColor: "text-emerald-600",
+            icon: Users,
+        },
+        {
+            title: "Active Listings",
+            value: isLoading ? "..." : stats?.data?.activeListings.toLocaleString() || "0",
+            // subValue: "+120 new today",
+            // subValueColor: "text-emerald-600",
+            icon: ShoppingBag,
+        },
+        {
+            title: "Orders In Progress",
+            value: isLoading ? "..." : stats?.data?.ordersInProgress.toLocaleString() || "0",
+            // subValue: "56 awaiting delivery",
+            // subValueColor: "text-slate-500",
+            icon: ShoppingCart,
+        },
+        {
+            title: "Product Boosted",
+            value: isLoading ? "..." : stats?.data?.productBoosted.toLocaleString() || "0",
+            // subValue: "Active boosts",
+            // subValueColor: "text-emerald-600",
+            icon: Zap,
+            iconBgColor: "bg-yellow-50",
+            iconColor: "text-yellow-500",
+        },
+    ];
+
     return (
         <div className="">
             <div className="mb-8">
