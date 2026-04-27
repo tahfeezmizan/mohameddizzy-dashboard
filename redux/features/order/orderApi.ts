@@ -74,11 +74,11 @@ export type TSingleOrderResponse = {
 const orderApi = baseApi.injectEndpoints({
     overrideExisting: true,
     endpoints: (builder) => ({
-        getAllOrders: builder.query<TOrdersResponse, { page?: number; limit?: number; status?: string } | void>({
-            query: (params) => ({
+        getAllOrders: builder.query<TOrdersResponse, { page?: number; limit?: number; status?: string; searchTerm?: string } | void>({
+            query: (args) => ({
                 url: "/order/admin/all-orders",
                 method: "GET",
-                params,
+                params: args ? args : undefined,
             }),
             providesTags: ["Order"],
         }),

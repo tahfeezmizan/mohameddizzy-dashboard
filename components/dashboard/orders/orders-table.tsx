@@ -2,179 +2,143 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Button } from "@base-ui/react";
-import { CheckCircle2, Package, Clock, Truck, Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2, Package, Clock, Truck, Eye, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import OrderDetailsModal from "./order-details-modal";
-
-const allOrders = [
-  {
-    id: "#O1240",
-    product: "Nike Air Max Sneakers",
-    buyer: "John Doe",
-    seller: "pavona1977",
-    amount: "3,499 FCFA",
-    status: "Completed",
-    statusStyle: "bg-emerald-50 text-emerald-600",
-    statusIcon: CheckCircle2,
-    delivery: "Delivered",
-  },
-  {
-    id: "#O1241",
-    product: "Samsung Galaxy Earbuds",
-    buyer: "Sarah Lee",
-    seller: "alexmarket",
-    amount: "5,200 FCFA",
-    status: "Shipped",
-    statusStyle: "bg-blue-50 text-blue-600",
-    statusIcon: Truck,
-    delivery: "In Transit",
-  },
-  {
-    id: "#O1242",
-    product: "Apple iPad Case",
-    buyer: "Mike Chen",
-    seller: "sarahshop",
-    amount: "8,900 FCFA",
-    status: "Pending",
-    statusStyle: "bg-orange-50 text-orange-600",
-    statusIcon: Clock,
-    delivery: "Processing",
-  },
-  {
-    id: "#O1243",
-    product: "Sony Headphones",
-    buyer: "Emma Davis",
-    seller: "bobstyle",
-    amount: "12,000 FCFA",
-    status: "Delivered",
-    statusStyle: "bg-purple-50 text-purple-600",
-    statusIcon: Package,
-    delivery: "Awaiting Confirmation",
-  },
-  {
-    id: "#O1244",
-    product: "Leather Wallet",
-    buyer: "David Wilson",
-    seller: "emmafashion",
-    amount: "4,500 FCFA",
-    status: "Shipped",
-    statusStyle: "bg-blue-50 text-blue-600",
-    statusIcon: Truck,
-    delivery: "In Transit",
-  },
-  {
-    id: "#O1245",
-    product: "Wireless Keyboard",
-    buyer: "Aisha Bello",
-    seller: "techzone",
-    amount: "7,800 FCFA",
-    status: "Completed",
-    statusStyle: "bg-emerald-50 text-emerald-600",
-    statusIcon: CheckCircle2,
-    delivery: "Delivered",
-  },
-];
-
-const columns = [
-  "ORDER ID",
-  "PRODUCT",
-  "BUYER",
-  "SELLER",
-  "AMOUNT",
-  "STATUS",
-  "DELIVERY",
-  "ACTION",
-];
+import { useGetAllOrdersQuery } from "@/redux/features/order/orderApi";
 
 interface OrdersTableProps {
-  search: string;
+    search: string;
+    status?: string;
 }
 
-export default function OrdersTable({ search }: OrdersTableProps) {
-  const [open, setOpen] = useState(false);
+const statusStyles: Record<string, string> = {
+    PENDING: "bg-orange-50 text-orange-600",
+    SHIPPED: "bg-blue-50 text-blue-600",
+    DELIVERED: "bg-purple-50 text-purple-600",
+    COMPLETED: "bg-emerald-50 text-emerald-600",
+    CANCELLED: "bg-red-50 text-red-600",
+};
 
-  const filtered = allOrders.filter((o) => {
-    if (search === "") return true;
-    const q = search.toLowerCase();
+const statusIcons: Record<string, any> = {
+    PENDING: Clock,
+    SHIPPED: Truck,
+    DELIVERED: Package,
+    COMPLETED: CheckCircle2,
+    CANCELLED: Package,
+};
+
+export default function OrdersTable({ search, status }: OrdersTableProps) {
+    const [open, setOpen] = useState(false);
+    const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const limit = 10;
+
+    const { data: ordersData, isLoading } = useGetAllOrdersQuery({
+        page,
+        limit,
+        status,
+        searchTerm: search || undefined,
+    });
+
+    const orders = ordersData?.data || [];
+    const meta = ordersData?.meta;
+
+    const handleViewDetails = (id: string) => {
+        setSelectedOrderId(id);
+        setOpen(true);
+    };
+
+    const columns = ["ORDER ID", "PRODUCT", "BUYER", "SELLER", "AMOUNT", "STATUS", "DELIVERY", "ACTION"];
+
+    const filtered = orders;
+
     return (
-      o.id.toLowerCase().includes(q) ||
-      o.product.toLowerCase().includes(q) ||
-      o.buyer.toLowerCase().includes(q) ||
-      o.seller.toLowerCase().includes(q)
-    );
-  });
+        <Card className="shadow-sm border-slate-200 overflow-hidden py-0">
+            <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                    <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+                        <tr>
+                            {columns.map((col) => (
+                                <th key={col} className="px-6 py-4 text-xs tracking-wide">
+                                    {col}
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                        {isLoading ? (
+                            <tr>
+                                <td colSpan={8} className="px-6 py-10 text-center">
+                                    <div className="flex items-center justify-center gap-2 text-slate-500">
+                                        <Loader2 className="h-5 w-5 animate-spin" />
+                                        Loading orders...
+                                    </div>
+                                </td>
+                            </tr>
+                        ) : filtered.length === 0 ? (
+                            <tr>
+                                <td colSpan={8} className="px-6 py-10 text-center text-slate-400">
+                                    No orders found.
+                                </td>
+                            </tr>
+                        ) : (
+                            filtered.map((item) => {
+                                const StatusIcon = statusIcons[item.status] || Package;
+                                const statusStyle = statusStyles[item.status] || "bg-slate-50 text-slate-600";
+                                return (
+                                    <tr key={item._id} className="hover:bg-slate-50/50 transition-colors">
+                                        <td className="px-6 py-4 font-medium text-slate-900">#{item._id.slice(-5).toUpperCase()}</td>
+                                        <td className="px-6 py-4 text-slate-700 whitespace-nowrap">{item.product.title}</td>
+                                        <td className="px-6 py-4 text-slate-700">{item.buyer.name}</td>
+                                        <td className="px-6 py-4 text-slate-700">{item.seller.name}</td>
+                                        <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">{item.totalAmount.toLocaleString()} FCFA</td>
+                                        <td className="px-6 py-4">
+                                            <Badge variant="secondary" className={`${statusStyle} hover:${statusStyle} font-medium flex items-center gap-1 w-fit`}>
+                                                <StatusIcon className="h-3.5 w-3.5" />
+                                                {item.status}
+                                            </Badge>
+                                        </td>
+                                        <td className="px-6 py-4 text-slate-600 whitespace-nowrap">{item.deliveryMethod || "N/A"}</td>
+                                        <td className="px-6 py-4">
+                                            <Button variant="ghost" size="sm" onClick={() => handleViewDetails(item._id)} className="flex items-center gap-1.5 text-blue-600 font-medium hover:text-blue-700 hover:bg-blue-50 transition-colors">
+                                                <Eye className="h-4 w-4" /> View
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        )}
+                    </tbody>
+                </table>
+            </div>
 
-  return (
-    <Card className="shadow-sm border-slate-200 overflow-hidden py-0">
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left">
-          <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
-            <tr>
-              {columns.map((col) => (
-                <th key={col} className="px-6 py-4 text-xs tracking-wide">
-                  {col}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {filtered.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={8}
-                  className="px-6 py-10 text-center text-slate-400"
-                >
-                  No orders found.
-                </td>
-              </tr>
-            ) : (
-              filtered.map((item) => {
-                const StatusIcon = item.statusIcon;
-                return (
-                  <tr
-                    key={item.id}
-                    className="hover:bg-slate-50/50 transition-colors"
-                  >
-                    <td className="px-6 py-4 font-medium text-slate-900">
-                      {item.id}
-                    </td>
-                    <td className="px-6 py-4 text-slate-700 whitespace-nowrap">
-                      {item.product}
-                    </td>
-                    <td className="px-6 py-4 text-slate-700">{item.buyer}</td>
-                    <td className="px-6 py-4 text-slate-700">{item.seller}</td>
-                    <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">
-                      {item.amount}
-                    </td>
-                    <td className="px-6 py-4">
-                      <Badge
-                        variant="secondary"
-                        className={`${item.statusStyle} hover:${item.statusStyle} font-medium flex items-center gap-1 w-fit`}
-                      >
-                        <StatusIcon className="h-3.5 w-3.5" />
-                        {item.status}
-                      </Badge>
-                    </td>
-                    <td className="px-6 py-4 text-slate-600 whitespace-nowrap">
-                      {item.delivery}
-                    </td>
-                    <td className="px-6 py-4">
-                      <Button
-                        onClick={() => setOpen(true)}
-                        className="flex items-center gap-1.5 text-blue-600 font-medium hover:text-blue-700 transition-colors"
-                      >
-                        <Eye className="h-4 w-4" /> View
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })
+            {/* Pagination */}
+            {meta && meta.totalPage > 1 && (
+                <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                    <p className="text-sm text-slate-500">
+                        Showing <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> to <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> of <span className="font-semibold text-slate-900">{meta.total}</span> orders
+                    </p>
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" size="icon" disabled={page === 1} onClick={() => setPage((p) => p - 1)} className="h-8 w-8">
+                            <ChevronLeft className="h-4 w-4 text-slate-600" />
+                        </Button>
+                        <div className="flex items-center gap-1">
+                            {[...Array(meta.totalPage)].map((_, i) => (
+                                <Button key={i} variant={page === i + 1 ? "default" : "outline"} size="sm" onClick={() => setPage(i + 1)} className={`h-8 w-8 p-0 ${page === i + 1 ? "bg-blue-600 hover:bg-blue-700" : ""}`}>
+                                    {i + 1}
+                                </Button>
+                            ))}
+                        </div>
+                        <Button variant="outline" size="icon" disabled={page === meta.totalPage} onClick={() => setPage((p) => p + 1)} className="h-8 w-8">
+                            <ChevronRight className="h-4 w-4 text-slate-600" />
+                        </Button>
+                    </div>
+                </div>
             )}
-          </tbody>
-        </table>
-      </div>
-      <OrderDetailsModal open={open} setOpen={setOpen} />
-    </Card>
-  );
+
+            <OrderDetailsModal open={open} setOpen={setOpen} id={selectedOrderId} />
+        </Card>
+    );
 }
