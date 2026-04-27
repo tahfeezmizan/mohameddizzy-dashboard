@@ -23,7 +23,7 @@ const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation({
             query: (userInfo) => ({
-                url: "/auth/login",
+                url: "/auth/admin-login",
                 method: "POST",
                 body: userInfo,
             }),
@@ -50,29 +50,14 @@ const authApi = baseApi.injectEndpoints({
             }),
         }),
         // === Forgot password endpoints ===
-        requestPasswordResetOtp: builder.mutation<void, { email: string }>({
+        forgotPassword: builder.mutation<{ success: boolean; message: string }, { phone: string }>({
             query: (body) => ({
                 url: "/auth/forgot-password",
                 method: "POST",
                 body,
             }),
         }),
-        verifyOtp: builder.mutation<{ success: boolean; message: string; data: { resetToken: string } }, { email: string; otp: string }>({
-            query: (body) => ({
-                url: "/auth/verify-otp",
-                method: "POST",
-                body,
-            }),
-        }),
-
-        resendResetOtp: builder.mutation<void, { email: string }>({
-            query: (body) => ({
-                url: "/auth/resend-reset-otp",
-                method: "POST",
-                body,
-            }),
-        }),
-        resetPasswordWithToken: builder.mutation<void, { resetToken: string; newPassword: string }>({
+        resetPassword: builder.mutation<{ success: boolean; message: string }, { phone: string; otp: string; newPassword: string }>({
             query: (body) => ({
                 url: "/auth/reset-password",
                 method: "POST",
@@ -98,4 +83,4 @@ const authApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation, useRequestPasswordResetOtpMutation, useVerifyOtpMutation, useResendResetOtpMutation, useResetPasswordWithTokenMutation, useVerifyEmailQuery, useSetUserPasswordByAdminMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation, useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailQuery, useSetUserPasswordByAdminMutation } = authApi;

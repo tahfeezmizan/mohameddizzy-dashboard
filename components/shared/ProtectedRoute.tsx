@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
     useEffect(() => {
         const checkAuth = () => {
-            const isAuthPage = pathname === "/login" || pathname === "/register";
+            const isAuthPage = pathname === "/login" || pathname === "/register" || pathname === "/forgot-password" || pathname === "/reset-password";
 
             if (!token || !user) {
                 // Not logged in

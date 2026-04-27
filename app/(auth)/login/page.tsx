@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
 import logo from "@/public/logo.png";
+import Link from "next/link";
 
 type FormValues = {
     phone: string;
@@ -41,7 +42,7 @@ export default function LoginPage() {
                 toast.error(res.message || "Login failed");
             }
         } catch (err: any) {
-            toast.error(err?.data?.message || "Something went wrong. Please try again.");
+            toast.error(err?.data?.message || err?.data?.err?.message || "Something went wrong. Please try again.");
         }
     };
 
@@ -79,6 +80,12 @@ export default function LoginPage() {
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
                                 <Input id="password" type="password" placeholder="••••••••" required {...register("password")} className="h-12 pl-11 bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all rounded-xl shadow-none" />
                             </div>
+                        </div>
+
+                        <div className="flex justify-end">
+                            <Link href="/forgot-password" className="text-xs text-blue-500 hover:text-blue-400 transition-colors">
+                                Forgot password?
+                            </Link>
                         </div>
                     </div>
 
