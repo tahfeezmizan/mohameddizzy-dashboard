@@ -14,6 +14,29 @@ export type TDashboardStatsResponse = {
     data: TDashboardStats;
 };
 
+export type TChartData = {
+    week: string;
+    orders: number;
+    completed: number;
+};
+
+export type TRevenueData = {
+    date: string;
+    revenue: number;
+};
+
+export type TChartResponse = {
+    success: boolean;
+    message: string;
+    data: TChartData[];
+};
+
+export type TRevenueResponse = {
+    success: boolean;
+    message: string;
+    data: TRevenueData[];
+};
+
 const dashboardApi = baseApi.injectEndpoints({
     overrideExisting: true,
     endpoints: (builder) => ({
@@ -24,7 +47,21 @@ const dashboardApi = baseApi.injectEndpoints({
             }),
             providesTags: ["Dashboard"],
         }),
+        getDashboardChart: builder.query<TChartResponse, void>({
+            query: () => ({
+                url: "/dashboard/chart",
+                method: "GET",
+            }),
+            providesTags: ["Dashboard"],
+        }),
+        getRevenueChart: builder.query<TRevenueResponse, void>({
+            query: () => ({
+                url: "/dashboard/revenue",
+                method: "GET",
+            }),
+            providesTags: ["Dashboard"],
+        }),
     }),
 });
 
-export const { useGetDashboardStatsQuery } = dashboardApi;
+export const { useGetDashboardStatsQuery, useGetDashboardChartQuery, useGetRevenueChartQuery } = dashboardApi;
