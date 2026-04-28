@@ -58,10 +58,10 @@ const userApi = baseApi.injectEndpoints({
             providesTags: ["User"],
         }),
         getAllUsers: builder.query<TUsersResponse, Record<string, any> | void>({
-            query: (params) => ({
+            query: (args) => ({
                 url: "/user",
                 method: "GET",
-                params,
+                params: args ? args : undefined,
             }),
             providesTags: ["User"],
         }),
