@@ -109,7 +109,7 @@ export default function VerificationsPage() {
                 </div>
             </Card>
 
-            <Card className="border-slate-200 shadow-sm overflow-hidden bg-white">
+            <Card className="border-slate-200 shadow-sm overflow-hidden bg-white py-0">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
@@ -285,14 +285,14 @@ export default function VerificationsPage() {
                                 </div>
                             </div>
 
-                            {selectedRequest.status === "PENDING" && (
-                                <div className="space-y-4 pt-6 border-t">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <MessageSquare className="h-4 w-4 text-slate-400" />
-                                        <h3 className="font-bold text-slate-800">Admin Decision</h3>
-                                    </div>
-                                    <Textarea placeholder="Add a comment for the user (optional, required if rejecting)..." className="min-h-[100px] border-slate-200 focus:ring-blue-500" value={adminComment} onChange={(e) => setAdminComment(e.target.value)} />
-                                    <div className="flex justify-end gap-3 pt-2">
+                            <div className="space-y-4 pt-6 border-t">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <MessageSquare className="h-4 w-4 text-slate-400" />
+                                    <h3 className="font-bold text-slate-800">Admin Decision</h3>
+                                </div>
+                                <Textarea placeholder="Add a comment for the user (optional, required if rejecting)..." className="min-h-25 border-slate-200 focus:ring-blue-500" value={adminComment} onChange={(e) => setAdminComment(e.target.value)} />
+                                <div className="flex justify-end gap-3 pt-2">
+                                    {selectedRequest.status !== "REJECTED" && (
                                         <Button
                                             variant="outline"
                                             onClick={() => {
@@ -308,13 +308,15 @@ export default function VerificationsPage() {
                                             {isUpdating ? <Loader2 className="h-4 w-4 animate-spin" /> : <XCircle className="mr-2 h-4 w-4" />}
                                             Reject Request
                                         </Button>
+                                    )}
+                                    {selectedRequest.status !== "APPROVED" && (
                                         <Button onClick={() => handleStatusUpdate(selectedRequest._id, "APPROVED")} disabled={isUpdating} className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 px-8 h-11">
                                             {isUpdating ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}
                                             Approve Verification
                                         </Button>
-                                    </div>
+                                    )}
                                 </div>
-                            )}
+                            </div>
                         </div>
                     )}
                 </DialogContent>
