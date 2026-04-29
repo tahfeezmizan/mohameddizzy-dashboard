@@ -24,6 +24,9 @@ const ACTIVITY_TYPES: { label: string; value: ActivityType | "All" }[] = [
     { label: "Order Status Update", value: "ORDER_STATUS_UPDATE" },
     { label: "Payment Completed", value: "PAYMENT_COMPLETED" },
     { label: "Withdrawal Request", value: "WITHDRAWAL_REQUEST" },
+    { label: "Dispute Created", value: "DISPUTE_CREATED" },
+    { label: "Dispute Resolved", value: "DISPUTE_RESOLVED" },
+    { label: "Refund Processed", value: "REFUND_PROCESSED" },
 ];
 
 export default function ActivitiesPage() {
@@ -66,7 +69,11 @@ export default function ActivitiesPage() {
             case "PRODUCT_UPDATE":
                 return "bg-indigo-500";
             case "WITHDRAWAL_REQUEST":
+            case "REFUND_PROCESSED":
                 return "bg-rose-500";
+            case "DISPUTE_CREATED":
+            case "DISPUTE_RESOLVED":
+                return "bg-orange-500";
             default:
                 return "bg-slate-500";
         }
@@ -86,7 +93,11 @@ export default function ActivitiesPage() {
             case "PRODUCT_UPDATE":
                 return "bg-indigo-100 text-indigo-700 hover:bg-indigo-100 border-indigo-200";
             case "WITHDRAWAL_REQUEST":
+            case "REFUND_PROCESSED":
                 return "bg-rose-100 text-rose-700 hover:bg-rose-100 border-rose-200";
+            case "DISPUTE_CREATED":
+            case "DISPUTE_RESOLVED":
+                return "bg-orange-100 text-orange-700 hover:bg-orange-100 border-orange-200";
             default:
                 return "bg-slate-100 text-slate-700 hover:bg-slate-100 border-slate-200";
         }

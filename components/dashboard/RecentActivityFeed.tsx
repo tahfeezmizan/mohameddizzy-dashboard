@@ -62,7 +62,11 @@ export function RecentActivityFeed() {
             case "PRODUCT_UPDATE":
                 return "bg-indigo-500";
             case "WITHDRAWAL_REQUEST":
+            case "REFUND_PROCESSED":
                 return "bg-rose-500";
+            case "DISPUTE_CREATED":
+            case "DISPUTE_RESOLVED":
+                return "bg-orange-500";
             default:
                 return "bg-slate-500";
         }

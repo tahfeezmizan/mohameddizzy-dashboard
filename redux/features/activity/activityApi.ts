@@ -1,6 +1,6 @@
 import { baseApi } from "../../api/baseApi";
 
-export type ActivityType = "LOGIN" | "REGISTER" | "PRODUCT_CREATE" | "PRODUCT_UPDATE" | "ORDER_PLACED" | "ORDER_STATUS_UPDATE" | "PAYMENT_COMPLETED" | "WITHDRAWAL_REQUEST";
+export type ActivityType = "LOGIN" | "REGISTER" | "PRODUCT_CREATE" | "PRODUCT_UPDATE" | "ORDER_PLACED" | "ORDER_STATUS_UPDATE" | "PAYMENT_COMPLETED" | "WITHDRAWAL_REQUEST" | "DISPUTE_CREATED" | "DISPUTE_RESOLVED" | "REFUND_PROCESSED";
 
 export type TActivity = {
     _id: string;
@@ -54,7 +54,7 @@ export const activityApi = baseApi.injectEndpoints({
                 if (params?.searchTerm) queryParams.append("searchTerm", params.searchTerm);
                 if (params?.startDate) queryParams.append("startDate", params.startDate);
                 if (params?.endDate) queryParams.append("endDate", params.endDate);
-                
+
                 const queryString = queryParams.toString();
                 return {
                     url: `/activity/all${queryString ? `?${queryString}` : ""}`,
