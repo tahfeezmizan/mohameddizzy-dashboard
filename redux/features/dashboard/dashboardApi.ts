@@ -37,6 +37,18 @@ export type TRevenueResponse = {
     data: TRevenueData[];
 };
 
+export type TCategoryPerformanceData = {
+    name: string;
+    value: number;
+    color: string;
+};
+
+export type TCategoryPerformanceResponse = {
+    success: boolean;
+    message: string;
+    data: TCategoryPerformanceData[];
+};
+
 const dashboardApi = baseApi.injectEndpoints({
     overrideExisting: true,
     endpoints: (builder) => ({
@@ -61,7 +73,14 @@ const dashboardApi = baseApi.injectEndpoints({
             }),
             providesTags: ["Dashboard"],
         }),
+        getCategoryPerformance: builder.query<TCategoryPerformanceResponse, void>({
+            query: () => ({
+                url: "/dashboard/category-performance",
+                method: "GET",
+            }),
+            providesTags: ["Dashboard"],
+        }),
     }),
 });
 
-export const { useGetDashboardStatsQuery, useGetDashboardChartQuery, useGetRevenueChartQuery } = dashboardApi;
+export const { useGetDashboardStatsQuery, useGetDashboardChartQuery, useGetRevenueChartQuery, useGetCategoryPerformanceQuery } = dashboardApi;
