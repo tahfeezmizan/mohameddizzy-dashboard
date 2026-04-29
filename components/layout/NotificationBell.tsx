@@ -89,12 +89,14 @@ export function NotificationBell() {
 
     return (
         <Popover onOpenChange={handleOpenChange}>
-            <PopoverTrigger>
-                <button className="relative rounded-full p-2 text-slate-500 hover:bg-slate-100 transition-colors">
-                    <Bell className="h-5 w-5 text-slate-600" />
-                    {hasNew && <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white animate-pulse" />}
-                </button>
-            </PopoverTrigger>
+            <PopoverTrigger
+                render={
+                    <button className="relative rounded-full p-2 text-slate-500 hover:bg-slate-100 transition-colors">
+                        <Bell className="h-5 w-5 text-slate-600" />
+                        {hasNew && <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white animate-pulse" />}
+                    </button>
+                }
+            />
             <PopoverContent className="w-80 p-0 mr-4" align="end">
                 <div className="p-4 border-b border-slate-100 flex items-center justify-between">
                     <h3 className="font-semibold text-slate-900">Recent Activity</h3>
