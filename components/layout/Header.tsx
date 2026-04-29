@@ -1,11 +1,9 @@
 "use client";
 
-import { Bell, Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { usePathname } from "next/navigation";
+import { NotificationBell } from "./NotificationBell";
 
 export function Header() {
     const pathname = usePathname();
@@ -20,10 +18,7 @@ export function Header() {
             </div>
 
             <div className="flex items-center gap-6">
-                <button className="relative rounded-full p-2 text-slate-500 hover:bg-slate-100 transition-colors">
-                    <Bell className="h-5 w-5 text-slate-600" />
-                    <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white" />
-                </button>
+                <NotificationBell />
 
                 <div className="flex items-center gap-3 border-l pl-6">
                     <Avatar className="h-9 w-9 border border-slate-200">
