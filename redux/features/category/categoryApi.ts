@@ -4,7 +4,7 @@ export type TCategory = {
     _id: string;
     name: string;
     icon?: string;
-    gender: ("MEN" | "WOMEN" | "KID" | "UNISEX")[];
+    gender: ("MEN" | "WOMEN" | "KID")[];
     isActive: boolean;
     parentCategory: string | null;
     homePosition: number | null;

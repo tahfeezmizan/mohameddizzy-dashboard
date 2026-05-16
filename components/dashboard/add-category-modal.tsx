@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Loader2, Upload, X } from "lucide-react";
 import Image from "next/image";
 
-const GENDER_OPTIONS = ["MEN", "WOMEN", "KID", "UNISEX"] as const;
+const GENDER_OPTIONS = ["MEN", "WOMEN", "KID"] as const;
 
 export default function AddCategoryModal({ open, setOpen, editingCategory, parents }: { open: boolean; setOpen: (open: boolean) => void; editingCategory?: TCategory | null; parents: TCategory[] }) {
     const [createCategory, { isLoading: isCreating }] = useCreateCategoryMutation();
