@@ -72,7 +72,21 @@ const userApi = baseApi.injectEndpoints({
             }),
             providesTags: ["User"],
         }),
+        toggleUserActive: builder.mutation<any, string>({
+            query: (userId) => ({
+                url: `/user/${userId}/toggle-active`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["User"],
+        }),
+        removeVerifiedBadge: builder.mutation<any, string>({
+            query: (userId) => ({
+                url: `/user/${userId}/remove-verified-badge`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["User"],
+        }),
     }),
 });
 
-export const { useGetUserStatsQuery, useGetAllUsersQuery, useGetSingleUserQuery } = userApi;
+export const { useGetUserStatsQuery, useGetAllUsersQuery, useGetSingleUserQuery, useToggleUserActiveMutation, useRemoveVerifiedBadgeMutation } = userApi;
