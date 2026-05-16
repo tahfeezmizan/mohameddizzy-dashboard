@@ -34,7 +34,7 @@ export default function PaymentSettings({ data, onChange }: PaymentSettingsProps
                     <div>
                         <p className="text-sm font-medium text-slate-600 mb-3">Escrow Duration (hours)</p>
                         <div className="flex items-center gap-4">
-                            <input id="escrow-duration" type="range" min={24} max={168} step={24} value={data.escrowDuration} onChange={(e) => onChange({ escrowDuration: Number(e.target.value) })} className="flex-1 accent-blue-600 h-2 rounded-full cursor-pointer" />
+                            <input id="escrow-duration" type="range" min={12} max={168} step={12} value={data.escrowDuration} onChange={(e) => onChange({ escrowDuration: Number(e.target.value) })} className="flex-1 accent-blue-600 h-2 rounded-full cursor-pointer" />
                             <span className="text-2xl font-bold text-blue-600 w-14 text-right">{data.escrowDuration}h</span>
                         </div>
                         <p className="text-xs text-slate-400 mt-2">Time funds are held after delivery confirmation</p>
