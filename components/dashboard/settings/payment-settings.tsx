@@ -24,7 +24,7 @@ export default function PaymentSettings({ data, onChange }: PaymentSettingsProps
                     <div>
                         <p className="text-sm font-medium text-slate-600 mb-3">Commission Rate (%)</p>
                         <div className="flex items-center gap-4">
-                            <input id="commission-rate" type="range" min={1} max={30} value={data.commissionRate} onChange={(e) => onChange({ commissionRate: Number(e.target.value) })} className="flex-1 accent-blue-600 h-2 rounded-full cursor-pointer" />
+                            <input id="commission-rate" type="range" min={1} max={50} value={data.commissionRate} onChange={(e) => onChange({ commissionRate: Number(e.target.value) })} className="flex-1 accent-blue-600 h-2 rounded-full cursor-pointer" />
                             <span className="text-2xl font-bold text-blue-600 w-14 text-right">{data.commissionRate}%</span>
                         </div>
                         <p className="text-xs text-slate-400 mt-2">Platform commission taken from each transaction</p>
