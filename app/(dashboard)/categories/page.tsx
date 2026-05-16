@@ -22,6 +22,7 @@ export default function Categories() {
     const [deleteCategory, { isLoading: isDeleting }] = useDeleteCategoryMutation();
 
     const parents = parentsResponse?.data || [];
+    console.log(parents);
     const subcategories = subResponse?.data || [];
 
     const toggleParent = (parentId: string) => {
@@ -63,7 +64,7 @@ export default function Categories() {
                 </Button>
             </div>
 
-            <Card className="shadow-sm border-slate-200 overflow-hidden bg-white">
+            <Card className="shadow-sm border-slate-200 overflow-hidden bg-white p-0">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
@@ -223,7 +224,7 @@ export default function Categories() {
                 </div>
             </Card>
 
-            <AddCategoryModal open={isModalOpen} setOpen={setIsModalOpen} editingCategory={editingCategory} parents={[...parents, ...subcategories]} />
+            <AddCategoryModal open={isModalOpen} setOpen={setIsModalOpen} editingCategory={editingCategory} parents={parents} />
 
             <AlertDialog open={!!categoryToDelete} onOpenChange={() => setCategoryToDelete(null)}>
                 <AlertDialogContent className="bg-white">
