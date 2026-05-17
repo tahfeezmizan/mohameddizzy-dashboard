@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useGetSingleUserQuery } from "@/redux/features/users/userApi";
-import { Loader2, CheckCircle2, ShieldAlert, Ban, RefreshCcw } from "lucide-react";
+import { useGetSingleUserQuery, useToggleUserActiveMutation, useRemoveVerifiedBadgeMutation } from "@/redux/features/users/userApi";
+import { Loader2, CheckCircle2, ShieldAlert, Ban, UserX, ShieldMinus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function UserDetailsModal({ open, setOpen, userId }: { open: boolean; setOpen: (open: boolean) => void; userId: string | null }) {
@@ -13,7 +13,28 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
         skip: !userId || !open,
     });
 
+    const [toggleActive, { isLoading: isToggling }] = useToggleUserActiveMutation();
+    const [removeBadge, { isLoading: isRemovingBadge }] = useRemoveVerifiedBadgeMutation();
+
     const user = userResponse?.data;
+
+    const handleToggleActive = async () => {
+        if (!userId) return;
+        try {
+            await toggleActive(userId).unwrap();
+        } catch (error) {
+            console.error("Failed to toggle user active status", error);
+        }
+    };
+
+    const handleRemoveBadge = async () => {
+        if (!userId) return;
+        try {
+            await removeBadge(userId).unwrap();
+        } catch (error) {
+            console.error("Failed to remove verified badge", error);
+        }
+    };
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -119,21 +140,18 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                                     Administrative Actions
                                 </h3>
 
-                                <div className="grid grid-cols-3 gap-3">
-                                    <Button variant="outline" className="flex flex-col h-auto py-3 gap-1 border-orange-200 text-orange-700 hover:bg-orange-50 hover:text-orange-800">
-                                        <ShieldAlert className="h-5 w-5" />
-                                        <span className="text-[10px] font-bold uppercase">Suspend</span>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <Button variant="outline" onClick={handleToggleActive} disabled={isToggling} className={`flex flex-col h-auto py-3 gap-1 ${user?.isActive ? "border-orange-200 text-orange-700 hover:bg-orange-50 hover:text-orange-800" : "border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"}`}>
+                                        {isToggling ? <Loader2 className="h-5 w-5 animate-spin" /> : <UserX className="h-5 w-5" />}
+                                        <span className="text-[10px] font-bold uppercase">{user?.isActive ? "Suspend" : "Activate"}</span>
                                     </Button>
 
-                                    <Button variant="outline" className="flex flex-col h-auto py-3 gap-1 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700">
-                                        <Ban className="h-5 w-5" />
-                                        <span className="text-[10px] font-bold uppercase">Ban User</span>
-                                    </Button>
-
-                                    <Button variant="outline" className="flex flex-col h-auto py-3 gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800">
-                                        <RefreshCcw className="h-5 w-5" />
-                                        <span className="text-[10px] font-bold uppercase">Reset</span>
-                                    </Button>
+                                    {user?.verifiedBadge && (
+                                        <Button variant="outline" onClick={handleRemoveBadge} disabled={isRemovingBadge} className="flex flex-col h-auto py-3 gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800">
+                                            {isRemovingBadge ? <Loader2 className="h-5 w-5 animate-spin" /> : <ShieldMinus className="h-5 w-5" />}
+                                            <span className="text-[10px] font-bold uppercase">Remove Badge</span>
+                                        </Button>
+                                    )}
                                 </div>
                             </div>
                         </div>

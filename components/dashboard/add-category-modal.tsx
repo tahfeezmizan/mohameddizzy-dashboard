@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Loader2, Upload, X } from "lucide-react";
 import Image from "next/image";
 
-const GENDER_OPTIONS = ["MEN", "WOMEN", "KID", "UNISEX"] as const;
+const GENDER_OPTIONS = ["MEN", "WOMEN", "KID"] as const;
 
 export default function AddCategoryModal({ open, setOpen, editingCategory, parents }: { open: boolean; setOpen: (open: boolean) => void; editingCategory?: TCategory | null; parents: TCategory[] }) {
     const [createCategory, { isLoading: isCreating }] = useCreateCategoryMutation();
@@ -161,8 +161,8 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                         <div className="space-y-2">
                             <Label>Parent Category</Label>
                             <Select value={parentCategory} onValueChange={(value) => setParentCategory(value || "none")}>
-                                <SelectTrigger className="h-11">
-                                    <SelectValue placeholder="Select Parent (Optional)" />
+                                <SelectTrigger className="h-11 w-full">
+                                    <SelectValue placeholder="Select Parent (Optional)">{parentCategory === "none" ? "Main Category (None)" : parents.find((p) => p._id === parentCategory)?.name || parentCategory}</SelectValue>
                                 </SelectTrigger>
                                 <SelectContent className="bg-white">
                                     <SelectItem value="none">Main Category (None)</SelectItem>
