@@ -18,6 +18,16 @@ type SetUserPasswordResponse = {
     };
 };
 
+type ValidateReferralResponse = {
+    success: boolean;
+    message: string;
+    data: {
+        valid: boolean;
+        referralCode: string;
+        referrerName: string;
+    };
+};
+
 const authApi = baseApi.injectEndpoints({
     overrideExisting: true,
     endpoints: (builder) => ({
@@ -47,6 +57,12 @@ const authApi = baseApi.injectEndpoints({
                 url: "/auth/logout",
                 method: "POST",
                 credentials: "include",
+            }),
+        }),
+        validateReferralCode: builder.query<ValidateReferralResponse, string>({
+            query: (code) => ({
+                url: `/auth/referral/${code}`,
+                method: "GET",
             }),
         }),
         // === Forgot password endpoints ===
@@ -83,4 +99,4 @@ const authApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation, useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailQuery, useSetUserPasswordByAdminMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation, useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailQuery, useSetUserPasswordByAdminMutation, useValidateReferralCodeQuery } = authApi;

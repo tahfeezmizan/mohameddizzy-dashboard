@@ -17,6 +17,7 @@ export type TUser = {
     verifiedBadge: boolean;
     publishedProductCount: number;
     balance?: number;
+    referralCode?: string;
     createdAt: string;
     updatedAt: string;
 };
