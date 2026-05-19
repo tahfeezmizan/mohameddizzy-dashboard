@@ -26,6 +26,7 @@ const ACTIVITY_TYPES: { label: string; value: ActivityType | "All" }[] = [
     { label: "Withdrawal Request", value: "WITHDRAWAL_REQUEST" },
     { label: "Dispute Created", value: "DISPUTE_CREATED" },
     { label: "Dispute Resolved", value: "DISPUTE_RESOLVED" },
+    { label: "Dispute Cancelled", value: "DISPUTE_CANCELLED" },
     { label: "Refund Processed", value: "REFUND_PROCESSED" },
 ];
 
@@ -73,6 +74,7 @@ export default function ActivitiesPage() {
                 return "bg-rose-500";
             case "DISPUTE_CREATED":
             case "DISPUTE_RESOLVED":
+            case "DISPUTE_CANCELLED":
                 return "bg-orange-500";
             default:
                 return "bg-slate-500";
@@ -97,6 +99,7 @@ export default function ActivitiesPage() {
                 return "bg-rose-100 text-rose-700 hover:bg-rose-100 border-rose-200";
             case "DISPUTE_CREATED":
             case "DISPUTE_RESOLVED":
+            case "DISPUTE_CANCELLED":
                 return "bg-orange-100 text-orange-700 hover:bg-orange-100 border-orange-200";
             default:
                 return "bg-slate-100 text-slate-700 hover:bg-slate-100 border-slate-200";
