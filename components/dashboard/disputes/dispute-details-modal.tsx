@@ -105,7 +105,16 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                         </h3>
                         <div className="border border-red-200 bg-red-50 rounded-xl p-4">
                             <p className="font-medium text-slate-900 mb-0.5">{dispute.buyer.name}</p>
-                            <p className="text-sm text-slate-600">{dispute.description}</p>
+                            <p className="text-sm text-slate-600 mb-4">{dispute.description}</p>
+                            {dispute.images && dispute.images.length > 0 && (
+                                <div className="grid grid-cols-3 gap-2">
+                                    {dispute.images.map((image, index) => (
+                                        <div key={index} className="aspect-square rounded-lg overflow-hidden border border-red-200">
+                                            <img src={`${process.env.NEXT_PUBLIC_API_URL}${image}`} alt={`Dispute image ${index + 1}`} className="w-full h-full object-cover" />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
 

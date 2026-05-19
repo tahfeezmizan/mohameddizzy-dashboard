@@ -12,6 +12,7 @@ export type TDispute = {
     status: "PENDING" | "RESOLVED" | "CANCELLED";
     reason: string;
     description: string;
+    images?: string[];
     buyer: { name: string; phone: string };
     seller: { name: string; phone: string };
     order: any;
