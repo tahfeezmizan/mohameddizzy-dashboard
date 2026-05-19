@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Loader2, XCircle, CheckCircle2 } from "lucide-react";
+import { Loader2, XCircle, CheckCircle2, Package, CreditCard } from "lucide-react";
 import { useGetDisputeByIdQuery, useResolveDisputeMutation } from "@/redux/features/dispute/disputeApi";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -94,8 +94,78 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Created At</p>
                                 <p className="font-medium text-slate-900">{new Date(dispute.createdAt).toLocaleDateString()}</p>
                             </div>
+                            {dispute.resolvedAt && (
+                                <div>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Resolved At</p>
+                                    <p className="font-medium text-slate-900">{new Date(dispute.resolvedAt).toLocaleDateString()}</p>
+                                </div>
+                            )}
+                            {dispute.refundAmount !== undefined && (
+                                <div>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Refund Amount</p>
+                                    <p className="font-medium text-slate-900">
+                                        {dispute.refundAmount} {dispute.payment?.currency || "FCFA"}
+                                    </p>
+                                </div>
+                            )}
+                            {dispute.adminNote && (
+                                <div className="col-span-2">
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Admin Note</p>
+                                    <p className="font-medium text-slate-900">{dispute.adminNote}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
+
+                    {/* Order Details */}
+                    {dispute.order && (
+                        <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                            <h3 className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <Package className="h-4 w-4" />
+                                Order Details
+                            </h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">Product Price</p>
+                                    <p className="font-medium text-slate-900">
+                                        {dispute.order.productPrice || "-"} {dispute.payment?.currency || "FCFA"}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">Shipping Cost</p>
+                                    <p className="font-medium text-slate-900">
+                                        {dispute.order.shippingCost || "-"} {dispute.payment?.currency || "FCFA"}
+                                    </p>
+                                </div>
+                                <div className="col-span-2">
+                                    <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">Total Amount</p>
+                                    <p className="text-xl font-bold text-blue-700">
+                                        {dispute.order.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "FCFA"}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Payment Details */}
+                    {dispute.payment && (
+                        <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                            <h3 className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <CreditCard className="h-4 w-4" />
+                                Payment Details
+                            </h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">Method</p>
+                                    <p className="font-medium text-slate-900">{dispute.payment.method || "-"}</p>
+                                </div>
+                                <div>
+                                    <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">Status</p>
+                                    <p className="font-medium text-slate-900">{dispute?.payment?.status || "-"}</p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Buyer Complaint */}
                     <div>
@@ -105,7 +175,16 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                         </h3>
                         <div className="border border-red-200 bg-red-50 rounded-xl p-4">
                             <p className="font-medium text-slate-900 mb-0.5">{dispute.buyer.name}</p>
-                            <p className="text-sm text-slate-600">{dispute.description}</p>
+                            <p className="text-sm text-slate-600 mb-4">{dispute.description}</p>
+                            {dispute.images && dispute.images.length > 0 && (
+                                <div className="grid grid-cols-3 gap-2">
+                                    {dispute.images.map((image, index) => (
+                                        <div key={index} className="aspect-square rounded-lg overflow-hidden border border-red-200">
+                                            <img src={`${process.env.NEXT_PUBLIC_API_URL}${image}`} alt={`Dispute image ${index + 1}`} className="w-full h-full object-cover" />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -130,6 +209,29 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
 
                                 {resolution === "RESOLVED" && (
                                     <div className="space-y-3">
+                                        <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Order Summary</p>
+                                            <div className="space-y-1.5">
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-slate-600">Product Price</span>
+                                                    <span className="font-medium">
+                                                        {dispute.order?.productPrice || "-"} {dispute.payment?.currency || "FCFA"}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-slate-600">Shipping Cost</span>
+                                                    <span className="font-medium">
+                                                        {dispute.order?.shippingCost || "-"} {dispute.payment?.currency || "FCFA"}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between text-sm border-t border-slate-200 pt-1.5 mt-1.5">
+                                                    <span className="font-semibold text-slate-900">Total</span>
+                                                    <span className="font-bold text-blue-700">
+                                                        {dispute.order?.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "FCFA"}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div>
                                             <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 block">Refund Amount</label>
                                             <Input type="number" placeholder="Enter refund amount" value={refundAmount} onChange={(e) => setRefundAmount(e.target.value)} />

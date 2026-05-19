@@ -12,11 +12,25 @@ export type TDispute = {
     status: "PENDING" | "RESOLVED" | "CANCELLED";
     reason: string;
     description: string;
+    images?: string[];
     buyer: { name: string; phone: string };
     seller: { name: string; phone: string };
-    order: any;
-    payment: any;
+    order: {
+        totalAmount?: number;
+        productPrice?: number;
+        shippingCost?: number;
+    };
+    payment: {
+        totalAmount?: number;
+        currency?: string;
+        method?: string;
+        status?: string;
+    };
+    adminNote?: string;
+    refundAmount?: number;
+    resolvedAt?: string;
     createdAt: string;
+    updatedAt?: string;
 };
 
 export type TDisputeStatsResponse = {
