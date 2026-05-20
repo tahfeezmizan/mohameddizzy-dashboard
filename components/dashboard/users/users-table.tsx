@@ -38,7 +38,8 @@ export default function UsersTable({ searchTerm, filter, page, setPage }: UsersT
         setOpen(true);
     };
 
-    const columns = ["USER ID", "NAME", "ROLE", "PHONE", "LISTINGS", "STATUS", "ACTION"];
+    // const columns = ["USER ID", "NAME", "ROLE", "PHONE", "LISTINGS", "STATUS", "ACTION"];
+    const columns = ["ID UTILISATEUR", "NOM", "RÔLE", "TÉLÉPHONE", "ANNONCES", "STATUT", "ACTION"];
 
     return (
         <Card className="shadow-sm border-slate-200 overflow-hidden py-0">
@@ -64,14 +65,16 @@ export default function UsersTable({ searchTerm, filter, page, setPage }: UsersT
                                 <td colSpan={7} className="px-6 py-10 text-center text-slate-400">
                                     <div className="flex flex-col items-center gap-2">
                                         <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
-                                        <p>Loading users...</p>
+                                        {/* <p>Loading users...</p> */}
+                                        <p>Chargement des utilisateurs...</p>
                                     </div>
                                 </td>
                             </tr>
                         ) : users.length === 0 ? (
                             <tr>
                                 <td colSpan={7} className="px-6 py-10 text-center text-slate-400">
-                                    No users found.
+                                    {/* No users found. */}
+                                    Aucun utilisateur trouvé.
                                 </td>
                             </tr>
                         ) : (
@@ -91,12 +94,15 @@ export default function UsersTable({ searchTerm, filter, page, setPage }: UsersT
                                     <td className="px-6 py-4 text-slate-700 text-center">{item.publishedProductCount}</td>
                                     <td className="px-6 py-4">
                                         <Badge variant="secondary" className={`${item.isActive ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600"} font-medium`}>
-                                            {item.isActive ? "Active" : "Suspended"}
+                                            {/* {item.isActive ? "Active" : "Suspended"} */}
+                                            {item.isActive ? "Actif" : "Suspendu"}
                                         </Badge>
                                     </td>
                                     <td className="px-6 py-4">
                                         <Button onClick={() => handleViewUser(item._id)} className="flex items-center gap-1.5 bg-transparent text-blue-600 font-medium hover:text-blue-700 transition-colors p-0 h-auto">
-                                            <Eye className="h-4 w-4" /> View
+                                            <Eye className="h-4 w-4" />
+                                            {/* View */}
+                                            Voir
                                         </Button>
                                     </td>
                                 </tr>
@@ -110,7 +116,8 @@ export default function UsersTable({ searchTerm, filter, page, setPage }: UsersT
             {meta && meta.totalPage > 1 && (
                 <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
                     <p className="text-xs text-slate-500">
-                        Showing <span className="font-medium">{(page - 1) * 10 + 1}</span> to <span className="font-medium">{Math.min(page * 10, meta.total)}</span> of <span className="font-medium">{meta.total}</span> users
+                        {/* Showing <span className="font-medium">{(page - 1) * 10 + 1}</span> to <span className="font-medium">{Math.min(page * 10, meta.total)}</span> of <span className="font-medium">{meta.total}</span> users */}
+                        Affichage de <span className="font-medium">{(page - 1) * 10 + 1}</span> à <span className="font-medium">{Math.min(page * 10, meta.total)}</span> sur <span className="font-medium">{meta.total}</span> utilisateurs
                     </p>
                     <div className="flex items-center gap-2">
                         <Button variant="outline" size="sm" disabled={page === 1 || isFetching} onClick={() => setPage(page - 1)} className="h-8 w-8 p-0">

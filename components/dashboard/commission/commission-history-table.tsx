@@ -32,12 +32,14 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
     const payments = paymentsData?.data || [];
     const meta = paymentsData?.meta;
 
-    const columns = ["Order ID", "Seller", "Order Value", "Commission (" + commissionRate + "%)", "Date", "Status"];
+    // const columns = ["Order ID", "Seller", "Order Value", "Commission (" + commissionRate + "%)", "Date", "Status"];
+    const columns = ["ID Commande", "Vendeur", "Valeur de la Commande", "Commission (" + commissionRate + "%)", "Date", "Statut"];
 
     return (
         <Card className="shadow-sm border-slate-200 overflow-hidden py-0 gap-0">
             <div className="px-6 py-4 border-b border-slate-100">
-                <h2 className="text-lg font-bold text-slate-800">Commission History</h2>
+                {/* <h2 className="text-lg font-bold text-slate-800">Commission History</h2> */}
+                <h2 className="text-lg font-bold text-slate-800">Historique des Commissions</h2>
             </div>
 
             <div className="overflow-x-auto">
@@ -58,14 +60,16 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
                                 <td colSpan={6} className="px-6 py-10 text-center">
                                     <div className="flex items-center justify-center gap-2 text-slate-500">
                                         <Loader2 className="h-5 w-5 animate-spin" />
-                                        Loading commission history...
+                                        {/* Loading commission history... */}
+                                        Chargement de l'historique des commissions...
                                     </div>
                                 </td>
                             </tr>
                         ) : payments.length === 0 ? (
                             <tr>
                                 <td colSpan={6} className="px-6 py-10 text-center text-slate-400">
-                                    No commission history found.
+                                    {/* No commission history found. */}
+                                    Aucun historique de commission trouvé.
                                 </td>
                             </tr>
                         ) : (
@@ -93,7 +97,8 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
             {meta && (
                 <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
                     <p className="text-sm text-slate-500">
-                        Showing <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> to <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> of <span className="font-semibold text-slate-900">{meta.total}</span> records
+                        {/* Showing <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> to <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> of <span className="font-semibold text-slate-900">{meta.total}</span> records */}
+                        Affichage de <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> à <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> sur <span className="font-semibold text-slate-900">{meta.total}</span> enregistrements
                     </p>
                     {meta.totalPage > 1 && (
                         <div className="flex items-center gap-2">

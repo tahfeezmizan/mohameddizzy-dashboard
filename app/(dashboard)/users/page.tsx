@@ -17,25 +17,29 @@ export default function UsersPage() {
     const { data: statsData, isLoading: isStatsLoading } = useGetUserStatsQuery();
     const stats = [
         {
-            title: "Total Users",
+            // title: "Total Users",
+            title: "Total des Utilisateurs",
             value: isStatsLoading ? "..." : statsData?.data?.totalUsers || 0,
             iconBg: "bg-blue-50",
             iconColor: "text-blue-500",
         },
         {
-            title: "Active Users",
+            // title: "Active Users",
+            title: "Utilisateurs Actifs",
             value: isStatsLoading ? "..." : statsData?.data?.activeUsers || 0,
             iconBg: "bg-emerald-50",
             iconColor: "text-emerald-500",
         },
         {
-            title: "Suspended",
+            // title: "Suspended",
+            title: "Suspendus",
             value: isStatsLoading ? "..." : statsData?.data?.suspendedUsers || 0,
             iconBg: "bg-red-50",
             iconColor: "text-red-500",
         },
         {
-            title: "Verified",
+            // title: "Verified",
+            title: "Vérifiés",
             value: isStatsLoading ? "..." : statsData?.data?.verifiedUsers || 0,
             iconBg: "bg-orange-50",
             iconColor: "text-orange-500",
@@ -52,8 +56,10 @@ export default function UsersPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-slate-900 mb-1">User Management</h1>
-                <p className="text-slate-500">Manage all platform users</p>
+                {/* <h1 className="text-3xl font-bold text-slate-900 mb-1">User Management</h1> */}
+                <h1 className="text-3xl font-bold text-slate-900 mb-1">Gestion des Utilisateurs</h1>
+                {/* <p className="text-slate-500">Manage all platform users</p> */}
+                <p className="text-slate-500">Gérer tous les utilisateurs de la plateforme</p>
             </div>
 
             {/* Filter tabs + Search */}
@@ -67,7 +73,8 @@ export default function UsersPage() {
                 </div>
                 <div className="relative w-full sm:w-72">
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                    <Input placeholder="Search by name, email, or phone..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-10 bg-white border-slate-200" />
+                    {/* <Input placeholder="Search by name, email, or phone..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-10 bg-white border-slate-200" /> */}
+                    <Input placeholder="Rechercher par nom, e-mail ou téléphone..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-10 bg-white border-slate-200" />
                 </div>
             </div>
 
@@ -79,7 +86,8 @@ export default function UsersPage() {
             <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-4 flex gap-3 text-sm text-emerald-800 items-start">
                 <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
                 <p>
-                    <span className="font-semibold">Tip:</span> Verified sellers gain more trust and higher conversions. Encourage users to complete verification for better marketplace experience.
+                    {/* <span className="font-semibold">Tip:</span> Verified sellers gain more trust and higher conversions. Encourage users to complete verification for better marketplace experience. */}
+                    <span className="font-semibold">Astuce :</span> Les vendeurs vérifiés gagnent plus de confiance et de taux de conversion. Encouragez les utilisateurs à terminer la vérification pour une meilleure expérience de marché.
                 </p>
             </div>
         </div>
