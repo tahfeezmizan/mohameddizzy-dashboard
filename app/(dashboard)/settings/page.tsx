@@ -36,9 +36,11 @@ export default function SettingsPage() {
                 notifications,
             };
             await updateSettings(payload).unwrap();
-            toast.success("Settings updated successfully");
+            // toast.success("Settings updated successfully");
+            toast.success("Paramètres mis à jour avec succès");
         } catch (error: any) {
-            toast.error(error?.data?.message || "Failed to update settings");
+            // toast.error(error?.data?.message || "Failed to update settings");
+            toast.error(error?.data?.message || "Échec de la mise à jour des paramètres");
         }
     };
 
@@ -55,12 +57,15 @@ export default function SettingsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 mb-1">Platform Settings</h1>
-                    <p className="text-slate-500">Configure system rules and preferences</p>
+                    {/* <h1 className="text-3xl font-bold text-slate-900 mb-1">Platform Settings</h1> */}
+                    <h1 className="text-3xl font-bold text-slate-900 mb-1">Paramètres de la Plateforme</h1>
+                    {/* <p className="text-slate-500">Configure system rules and preferences</p> */}
+                    <p className="text-slate-500">Configurer les règles et préférences du système</p>
                 </div>
                 <Button onClick={() => handleSave()} disabled={isUpdating} className="h-11 px-8 bg-blue-600 hover:bg-blue-700 text-white gap-2">
                     {isUpdating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                    Save Changes
+                    {/* Save Changes */}
+                    Enregistrer les Modifications
                 </Button>
             </div>
 
