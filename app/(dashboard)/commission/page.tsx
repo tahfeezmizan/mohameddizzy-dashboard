@@ -1,16 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import CommissionHistoryTable from "@/components/dashboard/commission/commission-history-table";
 import CommissionStats from "@/components/dashboard/commission/commission-stats";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useGetSettingsQuery } from "@/redux/features/settings/settingsApi";
 import { useGetCommissionDataQuery, useGetThisMonthStatsQuery } from "@/redux/features/dashboard/dashboardApi";
 import { DollarSign, Info, Loader2 } from "lucide-react";
+import { TPaymentStatus } from "@/redux/features/payment/paymentApi";
 
 export default function Commission() {
     const { data: settingsData, isLoading: settingsLoading } = useGetSettingsQuery();
     const { data: commissionData, isLoading: commissionLoading } = useGetCommissionDataQuery();
     const { data: thisMonthData, isLoading: thisMonthLoading } = useGetThisMonthStatsQuery();
+    const [status, setStatus] = useState<TPaymentStatus | "all">("all");
     const commissionRate = settingsData?.data?.payment?.commissionRate || 0;
 
     const isLoading = settingsLoading || commissionLoading || thisMonthLoading;
@@ -48,54 +52,6 @@ export default function Commission() {
         },
     ];
 
-    const commissionHistory = [
-        {
-            orderId: "#O1234",
-            seller: "pavona1977",
-            orderValue: "3,499 FCFA",
-            commission: "245 FCFA",
-            date: "2026-03-23",
-            status: "Pending",
-            statusStyle: "bg-orange-50 text-orange-600",
-        },
-        {
-            orderId: "#O1235",
-            seller: "alexmarket",
-            orderValue: "5,200 FCFA",
-            commission: "364 FCFA",
-            date: "2026-03-20",
-            status: "Available",
-            statusStyle: "bg-emerald-50 text-emerald-600",
-        },
-        {
-            orderId: "#O1236",
-            seller: "sarahshop",
-            orderValue: "8,900 FCFA",
-            commission: "623 FCFA",
-            date: "2026-03-18",
-            status: "Released",
-            statusStyle: "bg-blue-50 text-blue-600",
-        },
-        {
-            orderId: "#O1237",
-            seller: "bobstyle",
-            orderValue: "12,000 FCFA",
-            commission: "840 FCFA",
-            date: "2026-03-21",
-            status: "Available",
-            statusStyle: "bg-emerald-50 text-emerald-600",
-        },
-        {
-            orderId: "#O1238",
-            seller: "emmafashion",
-            orderValue: "4,500 FCFA",
-            commission: "315 FCFA",
-            date: "2026-03-24",
-            status: "Pending",
-            statusStyle: "bg-orange-50 text-orange-600",
-        },
-    ];
-
     if (isLoading) {
         return (
             <div className="flex items-center justify-center min-h-100">
@@ -121,7 +77,24 @@ export default function Commission() {
                 </div>
             </div>
 
-            <CommissionHistoryTable data={commissionHistory} commissionRate={commissionRate} />
+            <div className="flex items-center gap-4">
+                <Select value={status} onValueChange={(val) => setStatus(val as TPaymentStatus | "all")}>
+                    <SelectTrigger className="h-11 w-40 bg-white border-slate-200">
+                        <SelectValue placeholder="All Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Status</SelectItem>
+                        <SelectItem value="PENDING">Pending</SelectItem>
+                        <SelectItem value="COMPLETED">Completed</SelectItem>
+                        <SelectItem value="FAILED">Failed</SelectItem>
+                        <SelectItem value="REFUNDED">Refunded</SelectItem>
+                        <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                        <SelectItem value="DISPUTED">Disputed</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+
+            <CommissionHistoryTable commissionRate={commissionRate} status={status === "all" ? undefined : status} />
 
             <div className="grid gap-6 md:grid-cols-2">
                 <Card className="shadow-sm border-slate-200">
