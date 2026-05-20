@@ -14,28 +14,32 @@ export default function Home() {
 
     const metricsData = [
         {
-            title: "Total Users",
+            // title: "Total Users",
+            title: "Utilisateurs totaux",
             value: isLoading ? "..." : stats?.data?.totalUsers.toLocaleString() || "0",
             // subValue: "+8.2% this week",
             // subValueColor: "text-emerald-600",
             icon: Users,
         },
         {
-            title: "Active Listings",
+            // title: "Active Listings",
+            title: "Listes actives",
             value: isLoading ? "..." : stats?.data?.activeListings.toLocaleString() || "0",
             // subValue: "+120 new today",
             // subValueColor: "text-emerald-600",
             icon: ShoppingBag,
         },
         {
-            title: "Orders In Progress",
+            // title: "Orders In Progress",
+            title: "Commandes en cours",
             value: isLoading ? "..." : stats?.data?.ordersInProgress.toLocaleString() || "0",
             // subValue: "56 awaiting delivery",
             // subValueColor: "text-slate-500",
             icon: ShoppingCart,
         },
         {
-            title: "Product Boosted",
+            // title: "Product Boosted",
+            title: "Produits boostés",
             value: isLoading ? "..." : stats?.data?.productBoosted.toLocaleString() || "0",
             // subValue: "Active boosts",
             // subValueColor: "text-emerald-600",
@@ -48,8 +52,10 @@ export default function Home() {
     return (
         <div className="">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900 mb-2">Dashboard Overview</h1>
-                <p className="text-slate-500">Monitor platform activity, revenue, and performance in real-time</p>
+                {/* <h1 className="text-3xl font-bold text-slate-900 mb-2">Dashboard Overview</h1>
+                <p className="text-slate-500">Monitor platform activity, revenue, and performance in real-time</p> */}
+                <h1 className="text-3xl font-bold text-slate-900 mb-2">Vue d'ensemble</h1>
+                <p className="text-slate-500">Vue d'ensemble de la plateforme</p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">

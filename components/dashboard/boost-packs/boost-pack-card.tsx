@@ -17,10 +17,12 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
         try {
             const res = await deleteBoostPack(id).unwrap();
             if (res.success) {
-                toast.success("Pack deleted successfully");
+                // toast.success("Pack deleted successfully");
+                toast.success("Pack supprimé avec succès");
             }
         } catch (error: any) {
-            toast.error(error?.data?.message || "Failed to delete pack");
+            // toast.error(error?.data?.message || "Failed to delete pack");
+            toast.error(error?.data?.message || "Échec de la suppression du pack");
         }
     };
 
@@ -28,10 +30,12 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
         try {
             const res = await toggleStatus(id).unwrap();
             if (res.success) {
-                toast.success(res.message || "Status updated");
+                // toast.success(res.message || "Status updated");
+                toast.success(res.message || "Statut mis à jour");
             }
         } catch (error: any) {
-            toast.error(error?.data?.message || "Failed to update status");
+            // toast.error(error?.data?.message || "Failed to update status");
+            toast.error(error?.data?.message || "Échec de la mise à jour du statut");
         }
     };
 
@@ -39,10 +43,12 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
         try {
             const res = await setRecommended(id).unwrap();
             if (res.success) {
-                toast.success(res.message || "Recommended status updated");
+                // toast.success(res.message || "Recommended status updated");
+                toast.success(res.message || "Statut recommandé mis à jour");
             }
         } catch (error: any) {
-            toast.error(error?.data?.message || "Failed to set recommended");
+            // toast.error(error?.data?.message || "Failed to set recommended");
+            toast.error(error?.data?.message || "Échec de la définition du statut recommandé");
         }
     };
 
@@ -52,7 +58,9 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                 <Card key={item._id} className={`shadow-sm border-slate-200 relative overflow-hidden ${item.isRecommended ? "ring-2 ring-blue-500/50" : ""}`}>
                     {item.isRecommended && (
                         <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider flex items-center gap-1">
-                            <Star className="h-3 w-3 fill-white" /> Recommended
+                            <Star className="h-3 w-3 fill-white" />
+                            {/* Recommended */}
+                            Recommandé
                         </div>
                     )}
 
@@ -65,7 +73,8 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                                 <h3 className="text-lg font-bold text-slate-900 leading-none mb-2 pr-20">{item.name}</h3>
                                 <div className="flex gap-2 items-center">
                                     <Badge variant="secondary" className={`${item.isActive ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-600"} hover:opacity-80 cursor-pointer`} onClick={() => handleToggleStatus(item._id)}>
-                                        {item.isActive ? "Active" : "Inactive"}
+                                        {/* {item.isActive ? "Active" : "Inactive"} */}
+                                        {item.isActive ? "Actif" : "Inactif"}
                                     </Badge>
                                 </div>
                             </div>
@@ -73,22 +82,30 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
 
                         <div className="space-y-4 text-sm mb-6">
                             <div className="flex justify-between border-b pb-2">
-                                <span className="text-slate-500">Duration:</span>
-                                <span className="font-bold text-slate-800">{item.duration} Days</span>
+                                {/* <span className="text-slate-500">Duration:</span> */}
+                                <span className="text-slate-500">Durée :</span>
+                                {/* <span className="font-bold text-slate-800">{item.duration} Days</span> */}
+                                <span className="font-bold text-slate-800">{item.duration} Jours</span>
                             </div>
 
                             <div className="flex justify-between border-b pb-2">
-                                <span className="text-slate-500">Status:</span>
-                                <span className={`font-bold ${item.isActive ? "text-emerald-600" : "text-amber-600"}`}>{item.isActive ? "Active" : "Inactive"}</span>
+                                {/* <span className="text-slate-500">Status:</span> */}
+                                <span className="text-slate-500">Statut :</span>
+                                <span className={`font-bold ${item.isActive ? "text-emerald-600" : "text-amber-600"}`}>
+                                    {/* {item.isActive ? "Active" : "Inactive"} */}
+                                    {item.isActive ? "Actif" : "Inactif"}
+                                </span>
                             </div>
 
                             <div className="flex justify-between border-b pb-2">
-                                <span className="text-slate-500">Type:</span>
+                                {/* <span className="text-slate-500">Type:</span> */}
+                                <span className="text-slate-500">Type :</span>
                                 <span className="font-bold text-slate-800">{item.type}</span>
                             </div>
 
                             <div className="flex justify-between items-center pt-2">
-                                <span className="text-slate-500">Price:</span>
+                                {/* <span className="text-slate-500">Price:</span> */}
+                                <span className="text-slate-500">Prix :</span>
                                 <span className="text-xl font-bold text-blue-600">{item.price.toLocaleString()} FCFA</span>
                             </div>
                         </div>
@@ -96,7 +113,9 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                         <div className="flex flex-col gap-2">
                             <div className="grid grid-cols-2 gap-3">
                                 <Button variant="outline" onClick={() => setEditingPack(item)} className="w-full py-5.5 text-base! text-slate-700 border-slate-200">
-                                    <Edit className="mr-2 h-4 w-4" /> Edit
+                                    <Edit className="mr-2 h-4 w-4" />
+                                    {/* Edit */}
+                                    Modifier
                                 </Button>
                                 <Button variant="secondary" onClick={() => handleToggleStatus(item._id)} disabled={isToggling} className={`w-full py-5.5 text-base! ${item.isActive ? "bg-amber-50 text-amber-600 hover:bg-amber-100" : "bg-emerald-50 text-emerald-600 hover:bg-emerald-100"}`}>
                                     {isToggling ? (
@@ -104,7 +123,8 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                                     ) : (
                                         <>
                                             {item.isActive ? <MinusCircle className="mr-2 h-4 w-4" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}
-                                            {item.isActive ? "Disable" : "Enable"}
+                                            {/* {item.isActive ? "Disable" : "Enable"} */}
+                                            {item.isActive ? "Désactiver" : "Activer"}
                                         </>
                                     )}
                                 </Button>
@@ -117,7 +137,8 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                                     ) : (
                                         <>
                                             <Star className={`mr-2 h-4 w-4 ${item.isRecommended ? "fill-blue-600" : ""}`} />
-                                            {item.isRecommended ? "Recommended" : "Recommend"}
+                                            {/* {item.isRecommended ? "Recommended" : "Recommend"} */}
+                                            {item.isRecommended ? "Recommandé" : "Recommander"}
                                         </>
                                     )}
                                 </Button>
@@ -126,7 +147,9 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                                         <Loader2 className="h-4 w-4 animate-spin" />
                                     ) : (
                                         <>
-                                            <Trash2 className="mr-2 h-4 w-4" /> Delete
+                                            <Trash2 className="mr-2 h-4 w-4" />
+                                            {/* Delete */}
+                                            Supprimer
                                         </>
                                     )}
                                 </Button>

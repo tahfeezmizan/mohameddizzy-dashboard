@@ -8,11 +8,13 @@ import { Loader2 } from "lucide-react";
 export function CategoryPerformanceChart() {
     const { data: performanceResponse, isLoading } = useGetCategoryPerformanceQuery();
     const data = performanceResponse?.data || [];
+    console.log(data);
 
     return (
         <Card className="col-span-1 lg:col-span-3 shadow-sm border-slate-200 flex flex-col">
             <CardHeader className="pb-0">
-                <CardTitle className="text-base font-bold text-slate-800">Category Performance</CardTitle>
+                {/* <CardTitle className="text-base font-bold text-slate-800"> Performance of the day by category</CardTitle> */}
+                <CardTitle className="text-base font-bold text-slate-800">Vue d'ensemble de la performance par catégorie</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col flex-1 p-6">
                 <div className="h-62.5 w-full flex items-center justify-center -mt-4">
@@ -40,7 +42,8 @@ export function CategoryPerformanceChart() {
                             </PieChart>
                         </ResponsiveContainer>
                     ) : (
-                        <div className="text-slate-400 text-sm">No performance data available</div>
+                        // <div className="text-slate-400 text-sm">No performance data available</div>
+                        <div className="text-slate-400 text-sm">Aucune donnée de performance disponible pour cette catégorie</div>
                     )}
                 </div>
 
@@ -51,7 +54,8 @@ export function CategoryPerformanceChart() {
                                 <span className="h-3 w-3 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
                                 {item.name}
                             </div>
-                            <span className="font-bold text-slate-800">{item.value} listings</span>
+                            <span className="font-bold text-slate-800">{item.value} annonces</span>
+                            {/* <span className="font-bold text-slate-800">{item.value} listings</span> */}
                         </div>
                     ))}
                 </div>

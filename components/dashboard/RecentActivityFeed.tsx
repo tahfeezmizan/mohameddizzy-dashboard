@@ -83,7 +83,8 @@ export function RecentActivityFeed() {
     return (
         <Card className="col-span-1 lg:col-span-2 shadow-sm border-slate-200 flex flex-col h-full">
             <CardHeader className="pb-4">
-                <CardTitle className="text-base font-bold text-slate-800">Recent Activity Feed</CardTitle>
+                {/* <CardTitle className="text-base font-bold text-slate-800">Recent Activity Feed</CardTitle> */}
+                <CardTitle className="text-base font-bold text-slate-800">Vue d'ensemble des activités récentes</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-3 flex-1 overflow-y-auto max-h-100 scrollbar-thin scrollbar-thumb-slate-200">
                 {isLoading && activities.length === 0 ? (

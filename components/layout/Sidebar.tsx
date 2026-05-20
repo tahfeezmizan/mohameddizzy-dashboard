@@ -12,16 +12,28 @@ import { logOut } from "@/redux/features/auth/authSlice";
 import { useLogoutMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
 
+// const navItems = [
+//     { name: "Overview", href: "/", icon: LayoutDashboard },
+//     { name: "Boost Packs", href: "/boost-packs", icon: Zap },
+//     { name: "Verifications", href: "/verifications", icon: ShieldCheck },
+//     { name: "Disputes", href: "/disputes", icon: Scale },
+//     { name: "Commission", href: "/commission", icon: DollarSign },
+//     { name: "Categories", href: "/categories", icon: List },
+//     { name: "Users", href: "/users", icon: Users },
+//     { name: "Orders", href: "/orders", icon: ShoppingCart },
+//     { name: "Settings", href: "/settings", icon: Settings },
+// ];
+
 const navItems = [
-    { name: "Overview", href: "/", icon: LayoutDashboard },
-    { name: "Boost Packs", href: "/boost-packs", icon: Zap },
-    { name: "Verifications", href: "/verifications", icon: ShieldCheck },
-    { name: "Disputes", href: "/disputes", icon: Scale },
+    { name: "Vue d'ensemble", href: "/", icon: LayoutDashboard },
+    { name: "Packs de Boost", href: "/boost-packs", icon: Zap },
+    { name: "Vérifications", href: "/verifications", icon: ShieldCheck },
+    { name: "Litiges", href: "/disputes", icon: Scale },
     { name: "Commission", href: "/commission", icon: DollarSign },
-    { name: "Categories", href: "/categories", icon: List },
-    { name: "Users", href: "/users", icon: Users },
-    { name: "Orders", href: "/orders", icon: ShoppingCart },
-    { name: "Settings", href: "/settings", icon: Settings },
+    { name: "Catégories", href: "/categories", icon: List },
+    { name: "Utilisateurs", href: "/users", icon: Users },
+    { name: "Commandes", href: "/orders", icon: ShoppingCart },
+    { name: "Paramètres", href: "/settings", icon: Settings },
 ];
 
 export function Sidebar() {
@@ -83,7 +95,8 @@ export function Sidebar() {
                     <SidebarMenuItem className="relative mx-3 px-5 py-2 transition-colors rounded-md bg-red-500 cursor-pointer" onClick={handleLogout}>
                         <SidebarMenuButton className="text-base! flex items-center text-white hover:text-white gap-2.5 p-0! bg-transparent! focus-visible:shadow-none">
                             <LogOut className="size-6!" />
-                            <span>Logout</span>
+                            <span>Déconnexion</span>
+                            {/* <span>Logout</span> */}
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
