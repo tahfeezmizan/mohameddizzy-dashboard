@@ -12,7 +12,8 @@ export function RevenueChart() {
     return (
         <Card className="col-span-1 lg:col-span-3 shadow-sm border-slate-200">
             <CardHeader className="pb-2">
-                <CardTitle className="text-base font-bold text-slate-800">Revenue Trend (Last 30 days)</CardTitle>
+                {/* <CardTitle className="text-base font-bold text-slate-800">Revenue Trend (Last 30 days)</CardTitle> */}
+                <CardTitle className="text-base font-bold text-slate-800">Évolution du chiffre d'affaires (30 derniers jours)</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="h-62.5 w-full mt-4 flex items-center justify-center">
