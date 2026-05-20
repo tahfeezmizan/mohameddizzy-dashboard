@@ -49,6 +49,31 @@ export type TCategoryPerformanceResponse = {
     data: TCategoryPerformanceData[];
 };
 
+export type TCommissionData = {
+    totalRevenue: number;
+    thisMonthCommission: number;
+    pendingEscrow: number;
+};
+
+export type TCommissionResponse = {
+    success: boolean;
+    message: string;
+    data: TCommissionData;
+};
+
+export type TThisMonthData = {
+    totalOrders: number;
+    commissionEarned: number;
+    averagePerOrder: number;
+    growthVsLastMonth: number;
+};
+
+export type TThisMonthResponse = {
+    success: boolean;
+    message: string;
+    data: TThisMonthData;
+};
+
 const dashboardApi = baseApi.injectEndpoints({
     overrideExisting: true,
     endpoints: (builder) => ({
@@ -80,7 +105,21 @@ const dashboardApi = baseApi.injectEndpoints({
             }),
             providesTags: ["Dashboard"],
         }),
+        getCommissionData: builder.query<TCommissionResponse, void>({
+            query: () => ({
+                url: "/dashboard/commission",
+                method: "GET",
+            }),
+            providesTags: ["Dashboard"],
+        }),
+        getThisMonthStats: builder.query<TThisMonthResponse, void>({
+            query: () => ({
+                url: "/dashboard/this-month",
+                method: "GET",
+            }),
+            providesTags: ["Dashboard"],
+        }),
     }),
 });
 
-export const { useGetDashboardStatsQuery, useGetDashboardChartQuery, useGetRevenueChartQuery, useGetCategoryPerformanceQuery } = dashboardApi;
+export const { useGetDashboardStatsQuery, useGetDashboardChartQuery, useGetRevenueChartQuery, useGetCategoryPerformanceQuery, useGetCommissionDataQuery, useGetThisMonthStatsQuery } = dashboardApi;

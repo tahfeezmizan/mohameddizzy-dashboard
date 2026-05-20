@@ -4,16 +4,21 @@ import CommissionHistoryTable from "@/components/dashboard/commission/commission
 import CommissionStats from "@/components/dashboard/commission/commission-stats";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGetSettingsQuery } from "@/redux/features/settings/settingsApi";
+import { useGetCommissionDataQuery, useGetThisMonthStatsQuery } from "@/redux/features/dashboard/dashboardApi";
 import { DollarSign, Info, Loader2 } from "lucide-react";
 
 export default function Commission() {
-    const { data: settingsData, isLoading } = useGetSettingsQuery();
+    const { data: settingsData, isLoading: settingsLoading } = useGetSettingsQuery();
+    const { data: commissionData, isLoading: commissionLoading } = useGetCommissionDataQuery();
+    const { data: thisMonthData, isLoading: thisMonthLoading } = useGetThisMonthStatsQuery();
     const commissionRate = settingsData?.data?.payment?.commissionRate || 0;
+
+    const isLoading = settingsLoading || commissionLoading || thisMonthLoading;
 
     const commissionStats = [
         {
             title: "Total Earned Commission",
-            value: "2,387 FCFA",
+            value: `${commissionData?.data.totalRevenue.toLocaleString()} FCFA`,
             description: `${commissionRate}% from all orders`,
             badge: "Total",
             bgColor: "bg-[#2f6bf8]",
@@ -22,8 +27,8 @@ export default function Commission() {
             icon: "TrendingUp",
         },
         {
-            title: "Available Balance",
-            value: "1,204 FCFA",
+            title: "This Month Commission",
+            value: `${commissionData?.data.thisMonthCommission.toLocaleString()} FCFA`,
             description: "Ready to withdraw",
             badge: "Ready",
             bgColor: "bg-[#12b362]",
@@ -33,7 +38,7 @@ export default function Commission() {
         },
         {
             title: "Pending (Escrow)",
-            value: "560 FCFA",
+            value: `${commissionData?.data.pendingEscrow.toLocaleString()} FCFA`,
             description: "In dispute window",
             badge: "Waiting",
             bgColor: "bg-[#fb610c]",
@@ -157,19 +162,19 @@ export default function Commission() {
                         <div className="space-y-3">
                             <div className="flex justify-between items-center p-4 bg-slate-50 rounded-xl">
                                 <span className="text-sm font-medium text-slate-600">Total Orders</span>
-                                <span className="font-bold text-slate-900 text-lg">156</span>
+                                <span className="font-bold text-slate-900 text-lg">{thisMonthData?.data.totalOrders}</span>
                             </div>
                             <div className="flex justify-between items-center p-4 bg-emerald-50 rounded-xl">
                                 <span className="text-sm font-medium text-slate-600">Commission Earned</span>
-                                <span className="font-bold text-emerald-600 text-lg">2,387 FCFA</span>
+                                <span className="font-bold text-emerald-600 text-lg">{thisMonthData?.data.commissionEarned.toLocaleString()} FCFA</span>
                             </div>
                             <div className="flex justify-between items-center p-4 bg-orange-50 rounded-xl">
                                 <span className="text-sm font-medium text-slate-600">Average per Order</span>
-                                <span className="font-bold text-orange-600 text-lg">15 FCFA</span>
+                                <span className="font-bold text-orange-600 text-lg">{thisMonthData?.data.averagePerOrder} FCFA</span>
                             </div>
                             <div className="flex justify-between items-center p-4 bg-purple-50 rounded-xl">
                                 <span className="text-sm font-medium text-slate-600">Growth vs Last Month</span>
-                                <span className="font-bold text-purple-600 text-lg">+12.5%</span>
+                                <span className="font-bold text-purple-600 text-lg">+{thisMonthData?.data.growthVsLastMonth}%</span>
                             </div>
                         </div>
                     </CardContent>
