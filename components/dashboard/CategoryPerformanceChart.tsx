@@ -4,8 +4,10 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { useGetCategoryPerformanceQuery } from "@/redux/features/dashboard/dashboardApi";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function CategoryPerformanceChart() {
+    const t = useTranslations("dashboard");
     const { data: performanceResponse, isLoading } = useGetCategoryPerformanceQuery();
     const data = performanceResponse?.data || [];
     console.log(data);
@@ -13,15 +15,14 @@ export function CategoryPerformanceChart() {
     return (
         <Card className="col-span-1 lg:col-span-3 shadow-sm border-slate-200 flex flex-col">
             <CardHeader className="pb-0">
-                {/* <CardTitle className="text-base font-bold text-slate-800"> Performance of the day by category</CardTitle> */}
-                <CardTitle className="text-base font-bold text-slate-800">Vue d'ensemble de la performance par catégorie</CardTitle>
+                <CardTitle className="text-base font-bold text-slate-800">{t("categoryPerformance")}</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col flex-1 p-6">
                 <div className="h-62.5 w-full flex items-center justify-center -mt-4">
                     {isLoading ? (
                         <div className="flex flex-col items-center gap-2 text-slate-500">
                             <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
-                            <p className="text-sm font-medium">Loading performance data...</p>
+                            <p className="text-sm font-medium">{t("loadingPerformance")}</p>
                         </div>
                     ) : data.length > 0 ? (
                         <ResponsiveContainer width="100%" height="100%">
@@ -42,8 +43,7 @@ export function CategoryPerformanceChart() {
                             </PieChart>
                         </ResponsiveContainer>
                     ) : (
-                        // <div className="text-slate-400 text-sm">No performance data available</div>
-                        <div className="text-slate-400 text-sm">Aucune donnée de performance disponible pour cette catégorie</div>
+                        <div className="text-slate-400 text-sm">{t("noPerformanceData")}</div>
                     )}
                 </div>
 
@@ -54,8 +54,9 @@ export function CategoryPerformanceChart() {
                                 <span className="h-3 w-3 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
                                 {item.name}
                             </div>
-                            <span className="font-bold text-slate-800">{item.value} annonces</span>
-                            {/* <span className="font-bold text-slate-800">{item.value} listings</span> */}
+                            <span className="font-bold text-slate-800">
+                                {t("listingsCount", { count: item.value })}
+                            </span>
                         </div>
                     ))}
                 </div>

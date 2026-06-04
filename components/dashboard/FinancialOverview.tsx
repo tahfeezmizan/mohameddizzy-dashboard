@@ -1,7 +1,9 @@
 import { TrendingUp } from "lucide-react";
 import { useGetCommissionDataQuery } from "../../redux/features/dashboard/dashboardApi";
+import { useTranslations } from "next-intl";
 
 export function FinancialOverview() {
+    const t = useTranslations("dashboard");
     const { data: commissionData, isLoading, error } = useGetCommissionDataQuery();
 
     if (isLoading) {
@@ -9,8 +11,7 @@ export function FinancialOverview() {
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                 <div className="flex items-center gap-2 mb-4">
                     <TrendingUp className="h-5 w-5 text-green-500" />
-                    {/* <h2 className="text-xl font-bold text-slate-800">Financial Overview</h2> */}
-                    <h2 className="text-xl font-bold text-slate-800">Vue d'ensemble financier</h2>
+                    <h2 className="text-xl font-bold text-slate-800">{t("financialOverview")}</h2>
                 </div>
                 <div className="grid gap-4 md:grid-cols-3">
                     {[1, 2, 3].map((i) => (
@@ -29,19 +30,16 @@ export function FinancialOverview() {
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                 <div className="flex items-center gap-2 mb-4">
                     <TrendingUp className="h-5 w-5 text-green-500" />
-                    {/* <h2 className="text-xl font-bold text-slate-800">Financial Overview</h2> */}
-                    <h2 className="text-xl font-bold text-slate-800">Vue d'ensemble financier</h2>
+                    <h2 className="text-xl font-bold text-slate-800">{t("financialOverview")}</h2>
                 </div>
-                {/* <p className="text-red-500">Failed to load commission data</p> */}
-                <p className="text-red-500">Échec du chargement des données de commission</p>
+                <p className="text-red-500">{t("failedLoadCommission")}</p>
             </div>
         );
     }
 
     const financialData = [
         {
-            title: "Revenu total (Commission)",
-            // title: "Total Revenue (Commission)",
+            title: t("totalRevenueCommission"),
             value: `${commissionData?.data.totalRevenue.toLocaleString()} FCFA`,
             textColor: "text-blue-600",
             valueColor: "text-blue-700",
@@ -49,8 +47,7 @@ export function FinancialOverview() {
             borderColor: "border-blue-100",
         },
         {
-            title: "Commission de ce mois-ci",
-            // title: "This Month Commission",
+            title: t("thisMonthCommission"),
             value: `${commissionData?.data.thisMonthCommission.toLocaleString()} FCFA`,
             textColor: "text-emerald-600",
             valueColor: "text-emerald-700",
@@ -58,8 +55,7 @@ export function FinancialOverview() {
             borderColor: "border-emerald-100",
         },
         {
-            title: "en attente de dépôt fiduciaire",
-            // title: "Pending Escrow",
+            title: t("pendingEscrow"),
             value: `${commissionData?.data.pendingEscrow.toLocaleString()} FCFA`,
             textColor: "text-orange-600",
             valueColor: "text-orange-700",
@@ -72,8 +68,7 @@ export function FinancialOverview() {
         <div className=" bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
             <div className="flex items-center gap-2 mb-4">
                 <TrendingUp className="h-5 w-5 text-green-500" />
-                {/* <h2 className="text-xl font-bold text-slate-800">Financial Overview</h2> */}
-                <h2 className="text-xl font-bold text-slate-800">Vue d'ensemble financier</h2>
+                <h2 className="text-xl font-bold text-slate-800">{t("financialOverview")}</h2>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
