@@ -2,13 +2,43 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { NotificationBell } from "./NotificationBell";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+
+const locales = [
+    { code: "en", name: "English" },
+    { code: "fr", name: "Français" },
+];
 
 export function Header() {
     const pathname = usePathname();
+    const router = useRouter();
+    const [currentLocale, setCurrentLocale] = useState("fr");
 
-    if (pathname === "/login" || pathname === "/register") {
+    useEffect(() => {
+        const pathSegments = pathname.split("/");
+        const firstSegment = pathSegments[1];
+        const localeFromPath = locales.find((l) => l.code === firstSegment);
+        if (localeFromPath) {
+            setCurrentLocale(localeFromPath.code);
+        } else {
+            const savedLocale = localStorage.getItem("locale");
+            if (savedLocale && locales.find((l) => l.code === savedLocale)) {
+                setCurrentLocale(savedLocale);
+            }
+        }
+    }, [pathname]);
+
+    const changeLocale = (newLocale: string) => {
+        const pathWithoutLocale = pathname.split("/").slice(2).join("/");
+        const newPath = `/${newLocale}${pathWithoutLocale ? "/" + pathWithoutLocale : ""}`;
+        localStorage.setItem("locale", newLocale);
+        router.push(newPath);
+    };
+
+    if (pathname.includes("/login") || pathname.includes("/register")) {
         return null;
     }
     return (
@@ -18,6 +48,13 @@ export function Header() {
             </div>
 
             <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                    {locales.map((locale) => (
+                        <Button key={locale.code} size="sm" onClick={() => changeLocale(locale.code)} className={`h-8 cursor-pointer px-3 font-medium transition-all duration-200 ${currentLocale === locale.code ? "bg-[#155DFC] text-white hover:bg-[#0f46c0] border-[#155DFC]" : "bg-white text-slate-700 border-slate-200 hover:border-[#155DFC] hover:text-[#155DFC]"}`}>
+                            {locale.code.toUpperCase()}
+                        </Button>
+                    ))}
+                </div>
                 <NotificationBell />
 
                 <div className="flex items-center gap-3 border-l pl-6">
