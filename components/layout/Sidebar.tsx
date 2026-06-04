@@ -56,14 +56,22 @@ export function Sidebar() {
         }
     };
 
-    if (pathname === "/login" || pathname === "/register") {
+    // Remove locale prefix from pathname for matching
+    const pathnameWithoutLocale = pathname.replace(/^\/(en|fr)/, "") || "/";
+    const getHrefWithLocale = (href: string) => {
+        const pathSegments = pathname.split("/");
+        const locale = pathSegments[1] === "en" || pathSegments[1] === "fr" ? pathSegments[1] : "fr";
+        return `/${locale}${href}`;
+    };
+
+    if (pathname.includes("/login") || pathname.includes("/register")) {
         return null;
     }
 
     return (
         <ShadcnSidebar className="text-slate-400 bg-[#0F172B]!">
             <div className="flex items-center justify-center bg-[#0F172B] py-2 pb-6">
-                <Link href="/" onClick={() => setOpenMobile(false)}>
+                <Link href={getHrefWithLocale("/")} onClick={() => setOpenMobile(false)}>
                     <Image src={logo} alt="logo" width={500} height={500} className="w-32 object-cover" />
                 </Link>
             </div>
@@ -73,10 +81,10 @@ export function Sidebar() {
                     <SidebarGroupContent>
                         <SidebarMenu className="gap-2.5">
                             {navItems.map((item) => {
-                                const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                                const isActive = item.href === "/" ? pathnameWithoutLocale === "/" : pathnameWithoutLocale.startsWith(item.href);
                                 return (
                                     <SidebarMenuItem key={item.name}>
-                                        <SidebarMenuButton render={<Link href={item.href} onClick={() => setOpenMobile(false)} />} className={`h-12 px-3 transition-colors hover:bg-[#155DFC] text-white! ${isActive ? "bg-[#155DFC]! text-white" : ""}`}>
+                                        <SidebarMenuButton render={<Link href={getHrefWithLocale(item.href)} onClick={() => setOpenMobile(false)} />} className={`h-12 px-3 transition-colors hover:bg-[#155DFC] text-white! ${isActive ? "bg-[#155DFC]! text-white" : ""}`}>
                                             <div className="flex items-center gap-4">
                                                 <item.icon className="size-5.5! shrink-0" />
                                                 <span className="truncate text-base">{item.name}</span>

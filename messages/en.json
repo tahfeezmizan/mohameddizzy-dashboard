@@ -1,0 +1,343 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "noData": "No data found",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "save": "Save",
+        "edit": "Edit",
+        "add": "Add",
+        "logout": "Logout",
+        "close": "Close",
+        "view": "View",
+        "reset": "Reset",
+        "search": "Search"
+    },
+    "dashboard": {
+        "title": "Dashboard Overview",
+        "description": "Monitor platform activity, revenue, and performance in real-time",
+        "metrics": {
+            "totalUsers": "Total Users",
+            "activeListings": "Active Listings",
+            "ordersInProgress": "Orders In Progress",
+            "productBoosted": "Product Boosted"
+        }
+    },
+    "sidebar": {
+        "overview": "Overview",
+        "boostPacks": "Boost Packs",
+        "verifications": "Verifications",
+        "disputes": "Disputes",
+        "commission": "Commission",
+        "categories": "Categories",
+        "users": "Users",
+        "orders": "Orders",
+        "settings": "Settings",
+        "activities": "Activity Log"
+    },
+    "categories": {
+        "title": "Categories & Attributes",
+        "description": "Manage product structure and hierarchy",
+        "addCategory": "Add Category",
+        "table": {
+            "category": "Category",
+            "genders": "Genders",
+            "homePos": "Home Pos.",
+            "status": "Status",
+            "action": "Action"
+        },
+        "noCategories": "No categories found.",
+        "subcategories": "subcategories",
+        "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+        },
+        "delete": {
+            "confirmTitle": "Are you absolutely sure?",
+            "confirmMessage": "This action cannot be undone. This will permanently delete the category and may affect products associated with it.",
+            "success": "Category deleted successfully",
+            "error": "Failed to delete category"
+        },
+        "parentCategory": {
+            "select": "Select Parent (Optional)",
+            "main": "Main Category (None)",
+            "noParent": "No parent category"
+        }
+    },
+    "users": {
+        "title": "User Management",
+        "description": "Manage all platform users",
+        "stats": {
+            "totalUsers": "Total Users",
+            "activeUsers": "Active Users",
+            "suspended": "Suspended",
+            "verified": "Verified"
+        },
+        "filters": {
+            "all": "All",
+            "active": "Active",
+            "suspended": "Suspended",
+            "verified": "Verified"
+        },
+        "search": {
+            "placeholder": "Search by name, email, or phone..."
+        },
+        "tip": {
+            "title": "Tip:",
+            "message": "Verified sellers gain more trust and higher conversions. Encourage users to complete verification for better marketplace experience."
+        },
+        "table": {
+            "userId": "USER ID",
+            "name": "NAME",
+            "role": "ROLE",
+            "phone": "PHONE",
+            "listings": "LISTINGS",
+            "status": "STATUS",
+            "action": "ACTION",
+            "loading": "Loading users...",
+            "noUsers": "No users found.",
+            "showing": "Showing {from} to {to} of {total} users"
+        },
+        "modal": {
+            "title": "User Details",
+            "loading": "Loading user details...",
+            "error": "Failed to load user details",
+            "info": {
+                "userId": "User ID",
+                "phoneNumber": "Phone Number",
+                "role": "Role",
+                "memberSince": "Member Since"
+            },
+            "activity": {
+                "title": "Activity Overview",
+                "listings": "Listings",
+                "walletBalance": "Wallet Balance",
+                "verification": "Verification",
+                "verified": "Verified",
+                "standard": "Standard"
+            },
+            "actions": {
+                "title": "Administrative Actions",
+                "suspend": "Suspend",
+                "activate": "Activate",
+                "removeBadge": "Remove Badge"
+            },
+            "status": {
+                "activeAccount": "Active Account",
+                "suspended": "Suspended"
+            },
+            "noEmail": "No email provided"
+        }
+    },
+    "orders": {
+        "title": "Orders Management",
+        "description": "Track and manage all platform orders",
+        "stats": {
+            "pending": "Pending",
+            "shipped": "Shipped",
+            "delivered": "Delivered",
+            "completed": "Completed"
+        },
+        "search": {
+            "placeholder": "Search by Order ID, Buyer, Seller, or Product..."
+        },
+        "filter": {
+            "allStatus": "All Status",
+            "pending": "Pending",
+            "shipped": "Shipped",
+            "delivered": "Delivered",
+            "completed": "Completed",
+            "cancelled": "Cancelled"
+        },
+        "flow": {
+            "title": "Order Flow:",
+            "message": "Pending → Shipped → Delivered → Completed (after 72h dispute window)"
+        }
+    },
+    "boostPacks": {
+        "title": "Boost & Subscription Packs",
+        "description": "Manage seller promotion packages",
+        "addNewPack": "Add New Pack",
+        "productBoost": {
+            "title": "Product Boost Packs",
+            "subtitle": "Seller Products",
+            "loading": "Loading product boost packs...",
+            "error": "Failed to load product boost packs.",
+            "noPacks": "No product boost packs found."
+        },
+        "shopBoost": {
+            "title": "Shop Boost Packs",
+            "subtitle": "Seller Shops",
+            "loading": "Loading shop boost packs...",
+            "error": "Failed to load shop boost packs.",
+            "noPacks": "No shop boost packs found."
+        },
+        "tip": {
+            "title": "Tip:",
+            "message": "Boost your product to increase visibility and attract more buyers. Higher visibility levels result in better placement across the platform."
+        }
+    },
+    "verifications": {
+        "title": "Identity Verifications",
+        "description": "Review and manage user identity verification requests",
+        "search": {
+            "placeholder": "Search by user name or phone..."
+        },
+        "filters": {
+            "all": "All",
+            "pending": "Pending",
+            "approved": "Approved",
+            "rejected": "Rejected"
+        },
+        "table": {
+            "user": "User",
+            "documentType": "Document Type",
+            "submitted": "Submitted",
+            "status": "Status",
+            "action": "Action",
+            "viewDetails": "View Details",
+            "noRequests": "No verification requests found",
+            "showing": "Showing {from} to {to} of {total} requests"
+        },
+        "modal": {
+            "title": "Verification Request Details",
+            "userInfo": {
+                "title": "User Information",
+                "fullName": "Full Name",
+                "phone": "Phone",
+                "document": "Document",
+                "submittedOn": "Submitted On"
+            },
+            "status": {
+                "title": "Current Status"
+            },
+            "documents": {
+                "title": "Documents",
+                "frontImage": "Front Image",
+                "backImage": "Back Image",
+                "selfieImage": "Selfie Image",
+                "clickToExpand": "Click to Expand"
+            },
+            "adminDecision": {
+                "title": "Admin Decision",
+                "commentPlaceholder": "Add a comment for the user (optional, required if rejecting)...",
+                "rejectRequest": "Reject Request",
+                "approveVerification": "Approve Verification",
+                "provideReason": "Please provide a reason for rejection"
+            }
+        },
+        "toast": {
+            "success": "Request {status} successfully",
+            "error": "Failed to update status"
+        }
+    },
+    "disputes": {
+        "title": "Disputes Center",
+        "description": "Resolve buyer-seller conflicts",
+        "stats": {
+            "totalDisputes": "Total Disputes",
+            "pendingDisputes": "Pending Disputes",
+            "resolved": "Resolved"
+        },
+        "tip": {
+            "title": "Secure:",
+            "message": "Funds are held securely in escrow until delivery is confirmed. Commission is released after dispute window closes."
+        }
+    },
+    "commission": {
+        "title": "Commission & Earnings",
+        "description": "Track platform earnings",
+        "stats": {
+            "totalEarnedCommission": "Total Earned Commission",
+            "thisMonthCommission": "This Month Commission",
+            "pendingEscrow": "Pending (Escrow)",
+            "fromAllOrders": "{rate}% from all orders",
+            "readyToWithdraw": "Ready to withdraw",
+            "inDisputeWindow": "In dispute window",
+            "total": "Total",
+            "ready": "Ready",
+            "waiting": "Waiting"
+        },
+        "policy": {
+            "title": "Commission Release Policy",
+            "message": "👉 Commission becomes available after delivery confirmation + 72h dispute window. This ensures fair resolution of any potential disputes."
+        },
+        "filter": {
+            "allStatus": "All Status",
+            "pending": "Pending",
+            "completed": "Completed",
+            "failed": "Failed",
+            "refunded": "Refunded",
+            "cancelled": "Cancelled",
+            "disputed": "Disputed"
+        },
+        "rate": {
+            "title": "Commission Rate",
+            "currentRate": "Current Rate",
+            "appliedTo": "Applied to all completed transactions:",
+            "productSales": "Product sales",
+            "serviceTransactions": "Service transactions",
+            "digitalGoods": "Digital goods"
+        },
+        "thisMonth": {
+            "title": "This Month",
+            "totalOrders": "Total Orders",
+            "commissionEarned": "Commission Earned",
+            "averagePerOrder": "Average per Order",
+            "growthVsLastMonth": "Growth vs Last Month"
+        }
+    },
+    "settings": {
+        "title": "Platform Settings",
+        "description": "Configure system rules and preferences",
+        "saveChanges": "Save Changes",
+        "toast": {
+            "success": "Settings updated successfully",
+            "error": "Failed to update settings"
+        }
+    },
+    "activities": {
+        "title": "Activity Log",
+        "description": "Track and filter all platform system events",
+        "filters": {
+            "search": "Search",
+            "type": "Type",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "allTypes": "All Types",
+            "resetFilters": "Reset Filters"
+        },
+        "types": {
+            "login": "Login",
+            "register": "Register",
+            "productCreate": "Product Create",
+            "productUpdate": "Product Update",
+            "orderPlaced": "Order Placed",
+            "orderStatusUpdate": "Order Status Update",
+            "paymentCompleted": "Payment Completed",
+            "withdrawalRequest": "Withdrawal Request",
+            "disputeCreated": "Dispute Created",
+            "disputeResolved": "Dispute Resolved",
+            "disputeCancelled": "Dispute Cancelled",
+            "refundProcessed": "Refund Processed"
+        },
+        "table": {
+            "systemActivities": "System Activities",
+            "showingResults": "Showing {count} of {total} results",
+            "noActivities": "No activities found",
+            "tryAdjustingFilters": "Try adjusting your filters or search term.",
+            "clearAllFilters": "Clear all filters"
+        }
+    },
+    "header": {
+        "admin": "Admin",
+        "administrator": "Administrator"
+    },
+    "auth": {
+        "logoutSuccess": "Logged out successfully"
+    },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    }
+}

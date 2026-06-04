@@ -1,4 +1,7 @@
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+
+export const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
     allowedDevOrigins: ["10.10.7.24", "djarnadash.apponislam.top"],
@@ -12,4 +15,4 @@ const nextConfig: NextConfig = {
     },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

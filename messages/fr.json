@@ -1,0 +1,343 @@
+{
+    "common": {
+        "loading": "Chargement...",
+        "noData": "Aucune donnée trouvée",
+        "cancel": "Annuler",
+        "delete": "Supprimer",
+        "save": "Enregistrer",
+        "edit": "Modifier",
+        "add": "Ajouter",
+        "logout": "Déconnexion",
+        "close": "Fermer",
+        "view": "Voir",
+        "reset": "Réinitialiser",
+        "search": "Rechercher"
+    },
+    "dashboard": {
+        "title": "Aperçu",
+        "description": "Vue d'ensemble de la plateforme",
+        "metrics": {
+            "totalUsers": "Utilisateurs totaux",
+            "activeListings": "Listes actives",
+            "ordersInProgress": "Commandes en cours",
+            "productBoosted": "Produits boostés"
+        }
+    },
+    "sidebar": {
+        "overview": "Aperçu",
+        "boostPacks": "Packs de Boost",
+        "verifications": "Vérifications",
+        "disputes": "Litiges",
+        "commission": "Commission",
+        "categories": "Catégories",
+        "users": "Utilisateurs",
+        "orders": "Commandes",
+        "settings": "Paramètres",
+        "activities": "Journal d'activité"
+    },
+    "categories": {
+        "title": "Catégories & Attributs",
+        "description": "Gérer la structure et la hiérarchie des produits",
+        "addCategory": "Ajouter une Catégorie",
+        "table": {
+            "category": "Catégorie",
+            "genders": "Genres",
+            "homePos": "Pos. Accueil",
+            "status": "Statut",
+            "action": "Action"
+        },
+        "noCategories": "Aucune catégorie trouvée.",
+        "subcategories": "sous-catégories",
+        "status": {
+            "active": "Actif",
+            "inactive": "Inactif"
+        },
+        "delete": {
+            "confirmTitle": "Êtes-vous absolument sûr ?",
+            "confirmMessage": "Cette action est irréversible. Cela supprimera définitivement la catégorie et peut affecter les produits associés.",
+            "success": "Catégorie supprimée avec succès",
+            "error": "Échec de la suppression de la catégorie"
+        },
+        "parentCategory": {
+            "select": "Sélectionnez une catégorie parente (facultative)",
+            "main": "Catégorie principale (aucune)",
+            "noParent": "Aucune catégorie parente"
+        }
+    },
+    "users": {
+        "title": "Gestion des Utilisateurs",
+        "description": "Gérer tous les utilisateurs de la plateforme",
+        "stats": {
+            "totalUsers": "Total des Utilisateurs",
+            "activeUsers": "Utilisateurs Actifs",
+            "suspended": "Suspendus",
+            "verified": "Vérifiés"
+        },
+        "filters": {
+            "all": "Tous",
+            "active": "Actif",
+            "suspended": "Suspendu",
+            "verified": "Vérifié"
+        },
+        "search": {
+            "placeholder": "Rechercher par nom, e-mail ou téléphone..."
+        },
+        "tip": {
+            "title": "Astuce :",
+            "message": "Les vendeurs vérifiés gagnent plus de confiance et de taux de conversion. Encouragez les utilisateurs à terminer la vérification pour une meilleure expérience de marché."
+        },
+        "table": {
+            "userId": "ID UTILISATEUR",
+            "name": "NOM",
+            "role": "RÔLE",
+            "phone": "TÉLÉPHONE",
+            "listings": "ANNONCES",
+            "status": "STATUT",
+            "action": "ACTION",
+            "loading": "Chargement des utilisateurs...",
+            "noUsers": "Aucun utilisateur trouvé.",
+            "showing": "Affichage de {from} à {to} sur {total} utilisateurs"
+        },
+        "modal": {
+            "title": "Détails de l'utilisateur",
+            "loading": "Chargement des détails de l'utilisateur...",
+            "error": "Échec du chargement des détails de l'utilisateur",
+            "info": {
+                "userId": "ID Utilisateur",
+                "phoneNumber": "Numéro de Téléphone",
+                "role": "Rôle",
+                "memberSince": "Membre Depuis"
+            },
+            "activity": {
+                "title": "Aperçu de l'Activité",
+                "listings": "Annonces",
+                "walletBalance": "Solde du Portefeuille",
+                "verification": "Vérification",
+                "verified": "Vérifié",
+                "standard": "Standard"
+            },
+            "actions": {
+                "title": "Actions Administratives",
+                "suspend": "Suspendre",
+                "activate": "Activer",
+                "removeBadge": "Supprimer le Badge"
+            },
+            "status": {
+                "activeAccount": "Compte Actif",
+                "suspended": "Suspendu"
+            },
+            "noEmail": "Aucun e-mail fourni"
+        }
+    },
+    "orders": {
+        "title": "Gestion des Commandes",
+        "description": "Suivre et gérer toutes les commandes de la plateforme",
+        "stats": {
+            "pending": "En attente",
+            "shipped": "Expédié",
+            "delivered": "Livré",
+            "completed": "Terminé"
+        },
+        "search": {
+            "placeholder": "Rechercher par ID Commande, Acheteur, Vendeur ou Produit..."
+        },
+        "filter": {
+            "allStatus": "Tous les Statuts",
+            "pending": "En attente",
+            "shipped": "Expédié",
+            "delivered": "Livré",
+            "completed": "Terminé",
+            "cancelled": "Annulé"
+        },
+        "flow": {
+            "title": "Flux de Commande :",
+            "message": "En attente → Expédié → Livré → Terminé (après 72h de fenêtre de litige)"
+        }
+    },
+    "boostPacks": {
+        "title": "Packs de Boost & Abonnement",
+        "description": "Gérer les packages de promotion des vendeurs",
+        "addNewPack": "Ajouter un Pack",
+        "productBoost": {
+            "title": "Packs de Boost Produit",
+            "subtitle": "Produits des Vendeurs",
+            "loading": "Chargement des packs de boost produit...",
+            "error": "Échec du chargement des packs de boost produit.",
+            "noPacks": "Aucun pack de boost produit trouvé."
+        },
+        "shopBoost": {
+            "title": "Packs de Boost Boutique",
+            "subtitle": "Boutiques des Vendeurs",
+            "loading": "Chargement des packs de boost boutique...",
+            "error": "Échec du chargement des packs de boost boutique.",
+            "noPacks": "Aucun pack de boost boutique trouvé."
+        },
+        "tip": {
+            "title": "Astuce :",
+            "message": "Boostez votre produit pour augmenter la visibilité et attirer plus d'acheteurs. Des niveaux de visibilité plus élevés entraînent un meilleur placement sur la plateforme."
+        }
+    },
+    "verifications": {
+        "title": "Vérifications d'Identité",
+        "description": "Examiner et gérer les demandes de vérification d'identité des utilisateurs",
+        "search": {
+            "placeholder": "Rechercher par nom d'utilisateur ou téléphone..."
+        },
+        "filters": {
+            "all": "Tous",
+            "pending": "En attente",
+            "approved": "Approuvé",
+            "rejected": "Rejeté"
+        },
+        "table": {
+            "user": "Utilisateur",
+            "documentType": "Type de Document",
+            "submitted": "Soumis",
+            "status": "Statut",
+            "action": "Action",
+            "viewDetails": "Voir les Détails",
+            "noRequests": "Aucune demande de vérification trouvée",
+            "showing": "Affichage de {from} à {to} sur {total} demandes"
+        },
+        "modal": {
+            "title": "Détails de la Demande de Vérification",
+            "userInfo": {
+                "title": "Informations Utilisateur",
+                "fullName": "Nom Complet",
+                "phone": "Téléphone",
+                "document": "Document",
+                "submittedOn": "Soumis Le"
+            },
+            "status": {
+                "title": "Statut Actuel"
+            },
+            "documents": {
+                "title": "Documents",
+                "frontImage": "Image Recto",
+                "backImage": "Image Verso",
+                "selfieImage": "Image Selfie",
+                "clickToExpand": "Cliquez pour agrandir"
+            },
+            "adminDecision": {
+                "title": "Décision Admin",
+                "commentPlaceholder": "Ajouter un commentaire pour l'utilisateur (facultatif, obligatoire si rejet)...",
+                "rejectRequest": "Rejeter la Demande",
+                "approveVerification": "Approuver la Vérification",
+                "provideReason": "Veuillez fournir une raison pour le rejet"
+            }
+        },
+        "toast": {
+            "success": "Demande {status} avec succès",
+            "error": "Échec de la mise à jour du statut"
+        }
+    },
+    "disputes": {
+        "title": "Centre des Litiges",
+        "description": "Résoudre les conflits acheteur-vendeur",
+        "stats": {
+            "totalDisputes": "Total des Litiges",
+            "pendingDisputes": "Litiges en Attente",
+            "resolved": "Résolus"
+        },
+        "tip": {
+            "title": "Sécurisé :",
+            "message": "Les fonds sont détenus en sécurité en séquestre jusqu'à confirmation de la livraison. La commission est versée après fermeture de la fenêtre de litige."
+        }
+    },
+    "commission": {
+        "title": "Commission & Gains",
+        "description": "Suivre les gains de la plateforme",
+        "stats": {
+            "totalEarnedCommission": "Commission Totale Gagnée",
+            "thisMonthCommission": "Commission Ce Mois",
+            "pendingEscrow": "En attente (Séquestre)",
+            "fromAllOrders": "{rate}% de toutes les commandes",
+            "readyToWithdraw": "Prêt à retirer",
+            "inDisputeWindow": "Dans la fenêtre de litige",
+            "total": "Total",
+            "ready": "Prêt",
+            "waiting": "En attente"
+        },
+        "policy": {
+            "title": "Politique de Versement des Commissions",
+            "message": "👉 La commission devient disponible après confirmation de la livraison + fenêtre de litige de 72h. Cela garantit une résolution équitable de tout litige potentiel."
+        },
+        "filter": {
+            "allStatus": "Tous les statuts",
+            "pending": "En attente",
+            "completed": "Terminé",
+            "failed": "Échoué",
+            "refunded": "Remboursé",
+            "cancelled": "Annulé",
+            "disputed": "Contesté"
+        },
+        "rate": {
+            "title": "Taux de Commission",
+            "currentRate": "Taux Actuel",
+            "appliedTo": "Appliqué à toutes les transactions terminées :",
+            "productSales": "Ventes de produits",
+            "serviceTransactions": "Transactions de services",
+            "digitalGoods": "Biens numériques"
+        },
+        "thisMonth": {
+            "title": "Ce Mois",
+            "totalOrders": "Total des Commandes",
+            "commissionEarned": "Commission Gagnée",
+            "averagePerOrder": "Moyenne par Commande",
+            "growthVsLastMonth": "Croissance vs Mois Dernier"
+        }
+    },
+    "settings": {
+        "title": "Paramètres de la Plateforme",
+        "description": "Configurer les règles et préférences du système",
+        "saveChanges": "Enregistrer les Modifications",
+        "toast": {
+            "success": "Paramètres mis à jour avec succès",
+            "error": "Échec de la mise à jour des paramètres"
+        }
+    },
+    "activities": {
+        "title": "Journal d'activité",
+        "description": "Suivre et filtrer tous les événements système de la plateforme",
+        "filters": {
+            "search": "Rechercher",
+            "type": "Type",
+            "startDate": "Date de début",
+            "endDate": "Date de fin",
+            "allTypes": "Tous les types",
+            "resetFilters": "Réinitialiser les filtres"
+        },
+        "types": {
+            "login": "Connexion",
+            "register": "Inscription",
+            "productCreate": "Création de produit",
+            "productUpdate": "Mise à jour de produit",
+            "orderPlaced": "Commande placée",
+            "orderStatusUpdate": "Mise à jour du statut de la commande",
+            "paymentCompleted": "Paiement terminé",
+            "withdrawalRequest": "Demande de retrait",
+            "disputeCreated": "Litige créé",
+            "disputeResolved": "Litige résolu",
+            "disputeCancelled": "Litige annulé",
+            "refundProcessed": "Remboursement traité"
+        },
+        "table": {
+            "systemActivities": "Activités système",
+            "showingResults": "Affichage de {count} sur {total} résultats",
+            "noActivities": "Aucune activité trouvée",
+            "tryAdjustingFilters": "Essayez d'ajuster vos filtres ou votre terme de recherche.",
+            "clearAllFilters": "Effacer tous les filtres"
+        }
+    },
+    "header": {
+        "admin": "Admin",
+        "administrator": "Administrateur"
+    },
+    "auth": {
+        "logoutSuccess": "Déconnexion réussie"
+    },
+    "pagination": {
+        "previous": "Précédent",
+        "next": "Suivant"
+    }
+}
