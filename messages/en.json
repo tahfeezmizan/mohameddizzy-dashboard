@@ -8,6 +8,7 @@
         "edit": "Edit",
         "add": "Add",
         "logout": "Logout",
+        "logoutSuccess": "Logged out successfully",
         "close": "Close",
         "view": "View",
         "reset": "Reset",

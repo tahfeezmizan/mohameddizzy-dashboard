@@ -8,6 +8,7 @@
         "edit": "Modifier",
         "add": "Ajouter",
         "logout": "Déconnexion",
+        "logoutSuccess": "Déconnexion réussie",
         "close": "Fermer",
         "view": "Voir",
         "reset": "Réinitialiser",

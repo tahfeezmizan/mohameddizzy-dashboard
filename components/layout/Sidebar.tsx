@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { logOut } from "@/redux/features/auth/authSlice";
 import { useLogoutMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
+import {useTranslations} from "next-intl"
 
 // const navItems = [
 //     { name: "Overview", href: "/", icon: LayoutDashboard },
@@ -24,30 +25,43 @@ import { toast } from "sonner";
 //     { name: "Settings", href: "/settings", icon: Settings },
 // ];
 
-const navItems = [
-    { name: "Vue d'ensemble", href: "/", icon: LayoutDashboard },
-    { name: "Packs de Boost", href: "/boost-packs", icon: Zap },
-    { name: "Vérifications", href: "/verifications", icon: ShieldCheck },
-    { name: "Litiges", href: "/disputes", icon: Scale },
-    { name: "Commission", href: "/commission", icon: DollarSign },
-    { name: "Catégories", href: "/categories", icon: List },
-    { name: "Utilisateurs", href: "/users", icon: Users },
-    { name: "Commandes", href: "/orders", icon: ShoppingCart },
-    { name: "Paramètres", href: "/settings", icon: Settings },
-];
+// const navItems = [
+//     { name: "Vue d'ensemble", href: "/", icon: LayoutDashboard },
+//     { name: "Packs de Boost", href: "/boost-packs", icon: Zap },
+//     { name: "Vérifications", href: "/verifications", icon: ShieldCheck },
+//     { name: "Litiges", href: "/disputes", icon: Scale },
+//     { name: "Commission", href: "/commission", icon: DollarSign },
+//     { name: "Catégories", href: "/categories", icon: List },
+//     { name: "Utilisateurs", href: "/users", icon: Users },
+//     { name: "Commandes", href: "/orders", icon: ShoppingCart },
+//     { name: "Paramètres", href: "/settings", icon: Settings },
+// ];
 
 export function Sidebar() {
+    const t = useTranslations();
     const pathname = usePathname();
     const router = useRouter();
     const dispatch = useDispatch();
     const [logoutApi] = useLogoutMutation();
     const { setOpenMobile } = useSidebar();
 
+    const navItems = [
+        { name: t("sidebar.overview"), href: "/", icon: LayoutDashboard },
+        { name: t("sidebar.boostPacks"), href: "/boost-packs", icon: Zap },
+        { name: t("sidebar.verifications"), href: "/verifications", icon: ShieldCheck },
+        { name: t("sidebar.disputes"), href: "/disputes", icon: Scale },
+        { name: t("sidebar.commission"), href: "/commission", icon: DollarSign },
+        { name: t("sidebar.categories"), href: "/categories", icon: List },
+        { name: t("sidebar.users"), href: "/users", icon: Users },
+        { name: t("sidebar.orders"), href: "/orders", icon: ShoppingCart },
+        { name: t("sidebar.settings"), href: "/settings", icon: Settings },
+    ];
+
     const handleLogout = async () => {
         try {
             await logoutApi().unwrap();
             dispatch(logOut());
-            toast.success("Logged out successfully");
+            toast.success(t("auth.logoutSuccess"));
             router.push("/login");
         } catch (error: any) {
             dispatch(logOut());
@@ -103,8 +117,7 @@ export function Sidebar() {
                     <SidebarMenuItem className="relative mx-3 px-5 py-2 transition-colors rounded-md bg-red-500 cursor-pointer" onClick={handleLogout}>
                         <SidebarMenuButton className="text-base! flex items-center text-white hover:text-white gap-2.5 p-0! bg-transparent! focus-visible:shadow-none">
                             <LogOut className="size-6!" />
-                            <span>Déconnexion</span>
-                            {/* <span>Logout</span> */}
+                            <span>{t("common.logout")}</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

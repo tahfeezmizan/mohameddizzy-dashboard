@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import Link from "next/link";
+import { useLocale } from "@/hooks/useLocale";
 
 type FormValues = {
     phone: string;
@@ -29,6 +30,7 @@ export default function LoginPage() {
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const { getPath } = useLocale();
 
     const onSubmit = async (data: FormValues) => {
         try {
@@ -37,7 +39,7 @@ export default function LoginPage() {
             if (res.success) {
                 dispatch(setUser({ user: res.data.user, token: res.data.accessToken }));
                 toast.success("Login successful");
-                router.push("/");
+                router.push(getPath("/"));
             } else {
                 toast.error(res.message || "Login failed");
             }
@@ -83,7 +85,7 @@ export default function LoginPage() {
                         </div>
 
                         <div className="flex justify-end">
-                            <Link href="/forgot-password" className="text-xs text-blue-500 hover:text-blue-400 transition-colors">
+                            <Link href={getPath("/forgot-password")} className="text-xs text-blue-500 hover:text-blue-400 transition-colors">
                                 Forgot password?
                             </Link>
                         </div>
