@@ -4,30 +4,29 @@ import DisputesTable from "@/components/dashboard/disputes/disputes-table";
 import StatsCard from "@/components/dashboard/stats-card";
 import { AlertCircle, CheckCircle2, Scale, Loader2 } from "lucide-react";
 import { useGetDisputeStatsQuery } from "@/redux/features/dispute/disputeApi";
+import { useTranslations } from "next-intl";
 
 export default function Disputes() {
     const { data: statsData, isLoading: isStatsLoading } = useGetDisputeStatsQuery();
+    const t = useTranslations("disputes");
 
     const stats = [
         {
-            // title: "Total Disputes",
-            title: "Total des Litiges",
+            title: t("stats.totalDisputes"),
             value: isStatsLoading ? "..." : statsData?.data?.total || 0,
             icon: Scale,
             iconBg: "bg-slate-50",
             iconColor: "text-slate-500",
         },
         {
-            // title: "Pending Disputes",
-            title: "Litiges en Attente",
+            title: t("stats.pendingDisputes"),
             value: isStatsLoading ? "..." : statsData?.data?.pending || 0,
             icon: AlertCircle,
             iconBg: "bg-red-50",
             iconColor: "text-red-500",
         },
         {
-            // title: "Resolved",
-            title: "Résolus",
+            title: t("stats.resolved"),
             value: isStatsLoading ? "..." : statsData?.data?.resolved || 0,
             icon: CheckCircle2,
             iconBg: "bg-emerald-50",
@@ -38,10 +37,8 @@ export default function Disputes() {
     return (
         <div className="space-y-6">
             <div className="mb-8">
-                {/* <h1 className="text-3xl font-bold text-slate-900 mb-2">Disputes Center</h1> */}
-                <h1 className="text-3xl font-bold text-slate-900 mb-2">Centre des Litiges</h1>
-                {/* <p className="text-slate-500">Resolve buyer-seller conflicts</p> */}
-                <p className="text-slate-500">Résoudre les conflits acheteur-vendeur</p>
+                <h1 className="text-3xl font-bold text-slate-900 mb-2">{t("title")}</h1>
+                <p className="text-slate-500">{t("description")}</p>
             </div>
 
             {isStatsLoading ? (
@@ -60,8 +57,7 @@ export default function Disputes() {
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
                 <p>
-                    {/* <span className="font-semibold text-slate-800">Secure:</span> Funds are held securely in escrow until delivery is confirmed. Commission is released after dispute window closes. */}
-                    <span className="font-semibold text-slate-800">Sécurisé :</span> Les fonds sont détenus en sécurité en séquestre jusqu'à confirmation de la livraison. La commission est versée après fermeture de la fenêtre de litige.
+                    <span className="font-semibold text-slate-800">{t("tip.title")}</span> {t("tip.message")}
                 </p>
             </div>
         </div>

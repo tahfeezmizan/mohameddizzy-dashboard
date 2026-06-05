@@ -320,6 +320,72 @@
         "tip": {
             "title": "Secure:",
             "message": "Funds are held securely in escrow until delivery is confirmed. Commission is released after dispute window closes."
+        },
+        "table": {
+            "columns": {
+                "disputeId": "DISPUTE ID",
+                "buyer": "BUYER",
+                "seller": "SELLER",
+                "amount": "AMOUNT",
+                "status": "STATUS",
+                "createdAt": "CREATED AT",
+                "action": "ACTION"
+            },
+            "filters": {
+                "all": "All",
+                "pending": "PENDING",
+                "resolved": "RESOLVED",
+                "cancelled": "CANCELLED"
+            },
+            "searchPlaceholder": "Search disputes...",
+            "loading": "Loading disputes...",
+            "noData": "No disputes found",
+            "view": "View",
+            "pagination": {
+                "showing": "Showing <from> to <to> of <total> disputes"
+            }
+        },
+        "modal": {
+            "title": "Dispute Details",
+            "loading": "Loading dispute details...",
+            "error": "Failed to load dispute details",
+            "close": "Close",
+            "info": {
+                "title": "Dispute Information",
+                "status": "Status",
+                "reason": "Reason",
+                "createdAt": "Created At",
+                "resolvedAt": "Resolved At",
+                "refundAmount": "Refund Amount",
+                "adminNote": "Admin Note"
+            },
+            "orderDetails": {
+                "title": "Order Details",
+                "productPrice": "Product Price",
+                "shippingCost": "Shipping Cost",
+                "totalAmount": "Total Amount",
+                "orderSummary": "Order Summary",
+                "total": "Total"
+            },
+            "paymentDetails": {
+                "title": "Payment Details",
+                "method": "Method",
+                "status": "Status"
+            },
+            "buyerComplaint": {
+                "title": "Buyer Complaint"
+            },
+            "resolve": {
+                "title": "Resolve Dispute",
+                "refundBuyer": "Refund Buyer",
+                "releaseToSeller": "Release to Seller",
+                "refundAmountLabel": "Refund Amount",
+                "refundAmountPlaceholder": "Enter refund amount",
+                "adminNoteLabel": "Admin Note",
+                "adminNotePlaceholder": "Enter admin note...",
+                "resolving": "Resolving...",
+                "resolveDispute": "Resolve Dispute"
+            }
         }
     },
     "commission": {

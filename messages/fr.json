@@ -320,6 +320,72 @@
         "tip": {
             "title": "Sécurisé :",
             "message": "Les fonds sont détenus en sécurité en séquestre jusqu'à confirmation de la livraison. La commission est versée après fermeture de la fenêtre de litige."
+        },
+        "table": {
+            "columns": {
+                "disputeId": "ID LITIGE",
+                "buyer": "ACHETEUR",
+                "seller": "VENDEUR",
+                "amount": "MONTANT",
+                "status": "STATUT",
+                "createdAt": "CRÉÉ LE",
+                "action": "ACTION"
+            },
+            "filters": {
+                "all": "Tous",
+                "pending": "PENDING",
+                "resolved": "RESOLVED",
+                "cancelled": "CANCELLED"
+            },
+            "searchPlaceholder": "Rechercher des litiges...",
+            "loading": "Chargement des litiges...",
+            "noData": "Aucun litige trouvé",
+            "view": "Voir",
+            "pagination": {
+                "showing": "Affichage de <from> à <to> sur <total> litiges"
+            }
+        },
+        "modal": {
+            "title": "Détails du Litige",
+            "loading": "Chargement des détails du litige...",
+            "error": "Échec du chargement des détails du litige",
+            "close": "Fermer",
+            "info": {
+                "title": "Informations sur le Litige",
+                "status": "Statut",
+                "reason": "Raison",
+                "createdAt": "Créé le",
+                "resolvedAt": "Résolu le",
+                "refundAmount": "Montant du Remboursement",
+                "adminNote": "Note Admin"
+            },
+            "orderDetails": {
+                "title": "Détails de la Commande",
+                "productPrice": "Prix du Produit",
+                "shippingCost": "Frais de Livraison",
+                "totalAmount": "Montant Total",
+                "orderSummary": "Résumé de la Commande",
+                "total": "Total"
+            },
+            "paymentDetails": {
+                "title": "Détails du Paiement",
+                "method": "Méthode",
+                "status": "Statut"
+            },
+            "buyerComplaint": {
+                "title": "Plainte de l'Acheteur"
+            },
+            "resolve": {
+                "title": "Résoudre le Litige",
+                "refundBuyer": "Rembourser l'Acheteur",
+                "releaseToSeller": "Libérer au Vendeur",
+                "refundAmountLabel": "Montant du Remboursement",
+                "refundAmountPlaceholder": "Entrez le montant du remboursement",
+                "adminNoteLabel": "Note Admin",
+                "adminNotePlaceholder": "Entrez la note admin...",
+                "resolving": "Résolution en cours...",
+                "resolveDispute": "Résoudre le Litige"
+            }
         }
     },
     "commission": {
