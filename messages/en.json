@@ -12,7 +12,9 @@
         "close": "Close",
         "view": "View",
         "reset": "Reset",
-        "search": "Search"
+        "search": "Search",
+        "active": "Active",
+        "suspended": "Suspended"
     },
     "dashboard": {
         "title": "Dashboard Overview",
@@ -84,6 +86,25 @@
             "select": "Select Parent (Optional)",
             "main": "Main Category (None)",
             "noParent": "No parent category"
+        },
+        "modal": {
+            "titleAdd": "Add New Category",
+            "titleEdit": "Edit Category",
+            "uploadIcon": "Upload Icon",
+            "remove": "Remove",
+            "categoryName": "Category Name",
+            "placeholderCategory": "e.g., Luxury Fashion",
+            "parentCategoryLabel": "Parent Category",
+            "parentHelp": "Leave as \"Main Category\" to create a top-level category.",
+            "targetGender": "Target Gender",
+            "homePosition": "Home Position",
+            "placeholderHomePos": "e.g., 1",
+            "createCategory": "Create Category",
+            "updateCategory": "Update Category",
+            "nameError": "Name must be at least 2 characters",
+            "updatedSuccess": "Category updated successfully",
+            "createdSuccess": "Category created successfully",
+            "generalError": "Something went wrong"
         }
     },
     "users": {

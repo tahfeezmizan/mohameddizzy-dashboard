@@ -12,7 +12,9 @@
         "close": "Fermer",
         "view": "Voir",
         "reset": "Réinitialiser",
-        "search": "Rechercher"
+        "search": "Rechercher",
+        "active": "Actif",
+        "suspended": "Suspendu"
     },
     "dashboard": {
         "title": "Aperçu",
@@ -84,6 +86,25 @@
             "select": "Sélectionnez une catégorie parente (facultative)",
             "main": "Catégorie principale (aucune)",
             "noParent": "Aucune catégorie parente"
+        },
+        "modal": {
+            "titleAdd": "Ajouter une Nouvelle Catégorie",
+            "titleEdit": "Modifier la Catégorie",
+            "uploadIcon": "Télécharger l'Icône",
+            "remove": "Supprimer",
+            "categoryName": "Nom de la Catégorie",
+            "placeholderCategory": "ex: Mode Luxe",
+            "parentCategoryLabel": "Catégorie Parente",
+            "parentHelp": "Laisser en \"Catégorie Principale\" pour créer une catégorie de niveau supérieur.",
+            "targetGender": "Genre Cible",
+            "homePosition": "Position Accueil",
+            "placeholderHomePos": "ex: 1",
+            "createCategory": "Créer la Catégorie",
+            "updateCategory": "Mettre à jour la Catégorie",
+            "nameError": "Le nom doit contenir au moins 2 caractères",
+            "updatedSuccess": "Catégorie mise à jour avec succès",
+            "createdSuccess": "Catégorie créée avec succès",
+            "generalError": "Quelque chose s'est mal passé"
         }
     },
     "users": {
