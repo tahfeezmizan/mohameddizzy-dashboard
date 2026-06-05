@@ -197,6 +197,57 @@
         "tip": {
             "title": "Astuce :",
             "message": "Boostez votre produit pour augmenter la visibilité et attirer plus d'acheteurs. Des niveaux de visibilité plus élevés entraînent un meilleur placement sur la plateforme."
+        },
+        "card": {
+            "recommended": "Recommandé",
+            "status": {
+                "active": "Actif",
+                "inactive": "Inactif"
+            },
+            "details": {
+                "duration": "Durée :",
+                "days": "Jours",
+                "status": "Statut :",
+                "type": "Type :",
+                "price": "Prix :"
+            },
+            "actions": {
+                "edit": "Modifier",
+                "disable": "Désactiver",
+                "enable": "Activer",
+                "recommend": "Recommander",
+                "delete": "Supprimer"
+            },
+            "toast": {
+                "deleteSuccess": "Pack supprimé avec succès",
+                "deleteError": "Échec de la suppression du pack",
+                "statusUpdated": "Statut mis à jour",
+                "statusUpdateError": "Échec de la mise à jour du statut",
+                "recommendedUpdated": "Statut recommandé mis à jour",
+                "recommendedUpdateError": "Échec de la définition du statut recommandé"
+            }
+        },
+        "modal": {
+            "titleCreate": "Créer un Nouveau Pack",
+            "titleUpdate": "Mettre à jour le Pack",
+            "packName": "Nom du Pack",
+            "packNamePlaceholder": "Entrez le nom du pack",
+            "description": "Description",
+            "descriptionPlaceholder": "Brève description",
+            "packType": "Type de Pack",
+            "packTypePlaceholder": "Sélectionner le type",
+            "duration": "Durée (jours)",
+            "durationPlaceholder": "ex: 30",
+            "price": "Prix",
+            "pricePlaceholder": "ex: 5000",
+            "cancel": "Annuler",
+            "createPack": "Créer le Pack",
+            "updatePack": "Mettre à jour le Pack",
+            "toast": {
+                "createSuccess": "Pack créé avec succès",
+                "updateSuccess": "Pack mis à jour avec succès",
+                "error": "Quelque chose s'est mal passé"
+            }
         }
     },
     "verifications": {

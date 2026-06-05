@@ -197,6 +197,57 @@
         "tip": {
             "title": "Tip:",
             "message": "Boost your product to increase visibility and attract more buyers. Higher visibility levels result in better placement across the platform."
+        },
+        "card": {
+            "recommended": "Recommended",
+            "status": {
+                "active": "Active",
+                "inactive": "Inactive"
+            },
+            "details": {
+                "duration": "Duration:",
+                "days": "Days",
+                "status": "Status:",
+                "type": "Type:",
+                "price": "Price:"
+            },
+            "actions": {
+                "edit": "Edit",
+                "disable": "Disable",
+                "enable": "Enable",
+                "recommend": "Recommend",
+                "delete": "Delete"
+            },
+            "toast": {
+                "deleteSuccess": "Pack deleted successfully",
+                "deleteError": "Failed to delete pack",
+                "statusUpdated": "Status updated",
+                "statusUpdateError": "Failed to update status",
+                "recommendedUpdated": "Recommended status updated",
+                "recommendedUpdateError": "Failed to set recommended"
+            }
+        },
+        "modal": {
+            "titleCreate": "Create New Pack",
+            "titleUpdate": "Update Pack",
+            "packName": "Pack Name",
+            "packNamePlaceholder": "Enter pack name",
+            "description": "Description",
+            "descriptionPlaceholder": "Brief description",
+            "packType": "Pack Type",
+            "packTypePlaceholder": "Select type",
+            "duration": "Duration (days)",
+            "durationPlaceholder": "e.g. 30",
+            "price": "Price",
+            "pricePlaceholder": "e.g. 5000",
+            "cancel": "Cancel",
+            "createPack": "Create Pack",
+            "updatePack": "Update Pack",
+            "toast": {
+                "createSuccess": "Pack created successfully",
+                "updateSuccess": "Pack updated successfully",
+                "error": "Something went wrong"
+            }
         }
     },
     "verifications": {

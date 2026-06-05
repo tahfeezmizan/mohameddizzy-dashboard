@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 
 const locales = [
     { code: "en", name: "English" },
@@ -10,29 +10,12 @@ const locales = [
 ];
 
 export function LanguageSwitch() {
-    const pathname = usePathname();
+    const currentLocale = useLocale();
     const router = useRouter();
-    const [currentLocale, setCurrentLocale] = useState("fr");
-
-    useEffect(() => {
-        const pathSegments = pathname.split("/");
-        const firstSegment = pathSegments[1];
-        const localeFromPath = locales.find((l) => l.code === firstSegment);
-        if (localeFromPath) {
-            setCurrentLocale(localeFromPath.code);
-        } else {
-            const savedLocale = localStorage.getItem("locale");
-            if (savedLocale && locales.find((l) => l.code === savedLocale)) {
-                setCurrentLocale(savedLocale);
-            }
-        }
-    }, [pathname]);
+    const pathname = usePathname();
 
     const changeLocale = (newLocale: string) => {
-        const pathWithoutLocale = pathname.split("/").slice(2).join("/");
-        const newPath = `/${newLocale}${pathWithoutLocale ? "/" + pathWithoutLocale : ""}`;
-        localStorage.setItem("locale", newLocale);
-        router.push(newPath);
+        router.replace(pathname, { locale: newLocale });
     };
 
     return (
