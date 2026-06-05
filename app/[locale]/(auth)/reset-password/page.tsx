@@ -12,6 +12,9 @@ import Image from "next/image";
 import logo from "@/public/logo.png";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/hooks/useLocale";
+import { useTranslations } from "next-intl";
+import { LanguageSwitch } from "@/components/shared/LanguageSwitch";
 
 type FormValues = {
     otp: string;
@@ -24,24 +27,27 @@ export default function ResetPasswordPage() {
     const { register, handleSubmit, watch } = useForm<FormValues>();
     const [resetPassword, { isLoading }] = useResetPasswordMutation();
     const router = useRouter();
+    const { getPath } = useLocale();
+    const t = useTranslations("auth.resetPassword");
+    const tAuth = useTranslations("auth");
 
     const password = watch("password");
 
     useEffect(() => {
         const storedPhone = sessionStorage.getItem("reset_phone");
         if (!storedPhone) {
-            toast.error("Session expired. Please request a new OTP.");
-            router.push("/forgot-password");
+            toast.error(t("sessionExpired"));
+            router.push(getPath("/forgot-password"));
         } else {
             setPhone(storedPhone);
         }
-    }, [router]);
+    }, [router, t, getPath]);
 
     const onSubmit = async (data: FormValues) => {
         if (!phone) return;
 
         if (data.password !== data.confirmPassword) {
-            toast.error("Passwords do not match");
+            toast.error(t("passwordsDoNotMatch"));
             return;
         }
 
@@ -53,29 +59,34 @@ export default function ResetPasswordPage() {
             }).unwrap();
 
             if (res.success) {
-                toast.success(res.message || "Password reset successful");
+                toast.success(res.message || t("passwordResetSuccess"));
                 sessionStorage.removeItem("reset_phone");
-                router.push("/login");
+                router.push(getPath("/login"));
             } else {
-                toast.error(res.message || "Reset failed");
+                toast.error(res.message || t("resetFailed"));
             }
         } catch (err: any) {
-            toast.error(err?.data?.message || err?.data?.err?.message || "Something went wrong. Please try again.");
+            toast.error(err?.data?.message || err?.data?.err?.message || tAuth("login.somethingWentWrong"));
         }
     };
 
     if (!phone) return null;
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4">
+        <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4 relative">
+            {/* Language Switch - Top Right */}
+            <div className="absolute top-6 right-6">
+                <LanguageSwitch />
+            </div>
+
             <div className="w-full max-w-100 space-y-8 bg-white/5 p-8 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl">
                 {/* Logo Section */}
                 <div className="flex flex-col items-center space-y-4">
                     <Image src={logo} alt="logo" width={120} height={120} className="w-24 object-contain" />
                     <div className="text-center">
-                        <h1 className="text-xl font-bold text-white">Reset Password</h1>
-                        <p className="text-sm text-slate-400">Enter the 6-digit OTP and your new password</p>
-                        <p className="text-xs text-blue-400 mt-1">Sent to {phone}</p>
+                        <h1 className="text-xl font-bold text-white">{t("title")}</h1>
+                        <p className="text-sm text-slate-400">{t("description")}</p>
+                        <p className="text-xs text-blue-400 mt-1">{t("otpSentTo", { phone })}</p>
                     </div>
                 </div>
 
@@ -84,7 +95,7 @@ export default function ResetPasswordPage() {
                         {/* OTP */}
                         <div className="space-y-2">
                             <Label htmlFor="otp" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
-                                Verification Code (OTP)
+                                {t("verificationCode")}
                             </Label>
                             <div className="relative group">
                                 <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
@@ -95,7 +106,7 @@ export default function ResetPasswordPage() {
                         {/* New Password */}
                         <div className="space-y-2">
                             <Label htmlFor="password" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
-                                New Password
+                                {t("newPassword")}
                             </Label>
                             <div className="relative group">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
@@ -106,7 +117,7 @@ export default function ResetPasswordPage() {
                         {/* Confirm Password */}
                         <div className="space-y-2">
                             <Label htmlFor="confirmPassword" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
-                                Confirm New Password
+                                {t("confirmNewPassword")}
                             </Label>
                             <div className="relative group">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
@@ -116,14 +127,14 @@ export default function ResetPasswordPage() {
                     </div>
 
                     <Button type="submit" disabled={isLoading} className="w-full h-12 text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-[0.98]">
-                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Reset Password"}
+                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : t("resetPasswordButton")}
                     </Button>
                 </form>
 
                 <div className="text-center">
-                    <Link href="/forgot-password" className="inline-flex items-center text-xs font-medium text-blue-500 hover:text-blue-400 transition-colors">
+                    <Link href={getPath("/forgot-password")} className="inline-flex items-center text-xs font-medium text-blue-500 hover:text-blue-400 transition-colors">
                         <ArrowLeft className="mr-2 h-3 w-3" />
-                        Resend OTP
+                        {t("resendOtp")}
                     </Link>
                 </div>
 
