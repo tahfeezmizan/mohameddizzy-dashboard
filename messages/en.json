@@ -8,6 +8,7 @@
         "edit": "Edit",
         "add": "Add",
         "logout": "Logout",
+        "logoutSuccess": "Logged out successfully",
         "close": "Close",
         "view": "View",
         "reset": "Reset",
@@ -21,7 +22,28 @@
             "activeListings": "Active Listings",
             "ordersInProgress": "Orders In Progress",
             "productBoosted": "Product Boosted"
-        }
+        },
+        "financialOverview": "Financial Overview",
+        "failedLoadCommission": "Failed to load commission data",
+        "totalRevenueCommission": "Total Revenue (Commission)",
+        "thisMonthCommission": "This Month Commission",
+        "pendingEscrow": "Pending Escrow",
+        "categoryPerformance": "Performance of the day by category",
+        "loadingPerformance": "Loading performance data...",
+        "noPerformanceData": "No performance data available",
+        "listingsCount": "{count} listings",
+        "ordersVsCompleted": "Orders vs Completed Orders",
+        "loadingChartData": "Loading chart data...",
+        "totalOrders": "Total Orders",
+        "completedOrders": "Completed Orders",
+        "noDataAvailable": "No data available",
+        "revenueTrend": "Revenue Trend (Last 30 days)",
+        "loadingRevenue": "Loading revenue data...",
+        "revenueLabel": "Revenue",
+        "recentActivityFeed": "Recent Activity Feed",
+        "loadingActivities": "Loading activities...",
+        "noRecentActivities": "No recent activities",
+        "justNow": "just now"
     },
     "sidebar": {
         "overview": "Overview",
@@ -334,7 +356,51 @@
         "administrator": "Administrator"
     },
     "auth": {
-        "logoutSuccess": "Logged out successfully"
+        "logoutSuccess": "Logged out successfully",
+        "login": {
+            "title": "Admin Login",
+            "description": "Access your dashboard",
+            "phoneNumber": "Phone Number",
+            "password": "Password",
+            "forgotPassword": "Forgot password?",
+            "loginButton": "Login",
+            "loginSuccess": "Login successful",
+            "loginFailed": "Login failed",
+            "somethingWentWrong": "Something went wrong. Please try again."
+        },
+        "register": {
+            "title": "Admin Register",
+            "description": "Create a new account",
+            "fullName": "Full Name",
+            "phoneNumber": "Phone Number",
+            "password": "Password",
+            "createAccountButton": "Create Account",
+            "alreadyHaveAccount": "Already have an account?",
+            "signIn": "Sign in"
+        },
+        "forgotPassword": {
+            "title": "Forgot Password",
+            "description": "Enter your phone number to receive an OTP",
+            "phoneNumber": "Phone Number",
+            "sendOtpButton": "Send OTP",
+            "otpSentSuccess": "OTP sent successfully",
+            "otpSentFailed": "Failed to send OTP",
+            "backToLogin": "Back to Login"
+        },
+        "resetPassword": {
+            "title": "Reset Password",
+            "description": "Enter the 6-digit OTP and your new password",
+            "otpSentTo": "Sent to {phone}",
+            "verificationCode": "Verification Code (OTP)",
+            "newPassword": "New Password",
+            "confirmNewPassword": "Confirm New Password",
+            "resetPasswordButton": "Reset Password",
+            "passwordsDoNotMatch": "Passwords do not match",
+            "passwordResetSuccess": "Password reset successful",
+            "resetFailed": "Reset failed",
+            "sessionExpired": "Session expired. Please request a new OTP.",
+            "resendOtp": "Resend OTP"
+        }
     },
     "pagination": {
         "previous": "Previous",

@@ -7,8 +7,14 @@ import { useSelector } from "react-redux";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import { useGetActivitiesQuery, TActivity, ActivityType } from "../../redux/features/activity/activityApi";
 import { formatDistanceToNow } from "date-fns";
+import { enUS, fr } from "date-fns/locale";
+import { useTranslations, useLocale } from "next-intl";
 
 export function RecentActivityFeed() {
+    const t = useTranslations("dashboard");
+    const locale = useLocale();
+    const dateFnsLocale = locale === "fr" ? fr : enUS;
+
     const user = useSelector(currentUser);
     const { data: activitiesResponse, isLoading } = useGetActivitiesQuery({ page: 1, limit: 10 });
 
@@ -74,23 +80,25 @@ export function RecentActivityFeed() {
 
     const formatActivityTime = (dateString: string) => {
         try {
-            return formatDistanceToNow(new Date(dateString), { addSuffix: true });
+            return formatDistanceToNow(new Date(dateString), { 
+                addSuffix: true,
+                locale: dateFnsLocale
+            });
         } catch {
-            return "just now";
+            return t("justNow");
         }
     };
 
     return (
         <Card className="col-span-1 lg:col-span-2 shadow-sm border-slate-200 flex flex-col h-full">
             <CardHeader className="pb-4">
-                {/* <CardTitle className="text-base font-bold text-slate-800">Recent Activity Feed</CardTitle> */}
-                <CardTitle className="text-base font-bold text-slate-800">Vue d'ensemble des activités récentes</CardTitle>
+                <CardTitle className="text-base font-bold text-slate-800">{t("recentActivityFeed")}</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-3 flex-1 overflow-y-auto max-h-100 scrollbar-thin scrollbar-thumb-slate-200">
                 {isLoading && activities.length === 0 ? (
-                    <div className="text-sm text-slate-500 text-center py-4">Loading activities...</div>
+                    <div className="text-sm text-slate-500 text-center py-4">{t("loadingActivities")}</div>
                 ) : activities.length === 0 ? (
-                    <div className="text-sm text-slate-500 text-center py-4">No recent activities</div>
+                    <div className="text-sm text-slate-500 text-center py-4">{t("noRecentActivities")}</div>
                 ) : (
                     activities.map((activity) => (
                         <div key={activity._id || Math.random().toString()} className="flex items-start gap-4 rounded-xl bg-slate-50 p-4 shrink-0 transition-colors hover:bg-slate-100">

@@ -8,6 +8,7 @@
         "edit": "Modifier",
         "add": "Ajouter",
         "logout": "Déconnexion",
+        "logoutSuccess": "Déconnexion réussie",
         "close": "Fermer",
         "view": "Voir",
         "reset": "Réinitialiser",
@@ -21,7 +22,28 @@
             "activeListings": "Listes actives",
             "ordersInProgress": "Commandes en cours",
             "productBoosted": "Produits boostés"
-        }
+        },
+        "financialOverview": "Vue d'ensemble financier",
+        "failedLoadCommission": "Échec du chargement des données de commission",
+        "totalRevenueCommission": "Revenu total (Commission)",
+        "thisMonthCommission": "Commission de ce mois-ci",
+        "pendingEscrow": "en attente de dépôt fiduciaire",
+        "categoryPerformance": "Vue d'ensemble de la performance par catégorie",
+        "loadingPerformance": "Chargement des données de performance...",
+        "noPerformanceData": "Aucune donnée de performance disponible pour cette catégorie",
+        "listingsCount": "{count} annonces",
+        "ordersVsCompleted": "Commandes vs Commandes terminées",
+        "loadingChartData": "Chargement des données...",
+        "totalOrders": "Commandes totales",
+        "completedOrders": "Commandes terminées",
+        "noDataAvailable": "Aucune donnée disponible",
+        "revenueTrend": "Évolution du chiffre d'affaires (30 derniers jours)",
+        "loadingRevenue": "Chargement des données de revenus...",
+        "revenueLabel": "Revenus",
+        "recentActivityFeed": "Vue d'ensemble des activités récentes",
+        "loadingActivities": "Chargement des activités...",
+        "noRecentActivities": "Aucune activité récente",
+        "justNow": "à l'instant"
     },
     "sidebar": {
         "overview": "Aperçu",
@@ -334,7 +356,51 @@
         "administrator": "Administrateur"
     },
     "auth": {
-        "logoutSuccess": "Déconnexion réussie"
+        "logoutSuccess": "Déconnexion réussie",
+        "login": {
+            "title": "Connexion Admin",
+            "description": "Accédez à votre tableau de bord",
+            "phoneNumber": "Numéro de téléphone",
+            "password": "Mot de passe",
+            "forgotPassword": "Mot de passe oublié?",
+            "loginButton": "Connexion",
+            "loginSuccess": "Connexion réussie",
+            "loginFailed": "Échec de la connexion",
+            "somethingWentWrong": "Quelque chose s'est mal passé. Veuillez réessayer."
+        },
+        "register": {
+            "title": "Inscription Admin",
+            "description": "Créez un nouveau compte",
+            "fullName": "Nom complet",
+            "phoneNumber": "Numéro de téléphone",
+            "password": "Mot de passe",
+            "createAccountButton": "Créer un compte",
+            "alreadyHaveAccount": "Vous avez déjà un compte?",
+            "signIn": "Se connecter"
+        },
+        "forgotPassword": {
+            "title": "Mot de passe oublié",
+            "description": "Entrez votre numéro de téléphone pour recevoir un OTP",
+            "phoneNumber": "Numéro de téléphone",
+            "sendOtpButton": "Envoyer l'OTP",
+            "otpSentSuccess": "OTP envoyé avec succès",
+            "otpSentFailed": "Échec de l'envoi de l'OTP",
+            "backToLogin": "Retour à la connexion"
+        },
+        "resetPassword": {
+            "title": "Réinitialiser le mot de passe",
+            "description": "Entrez l'OTP à 6 chiffres et votre nouveau mot de passe",
+            "otpSentTo": "Envoyé à {phone}",
+            "verificationCode": "Code de vérification (OTP)",
+            "newPassword": "Nouveau mot de passe",
+            "confirmNewPassword": "Confirmer le nouveau mot de passe",
+            "resetPasswordButton": "Réinitialiser le mot de passe",
+            "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+            "passwordResetSuccess": "Mot de passe réinitialisé avec succès",
+            "resetFailed": "Échec de la réinitialisation",
+            "sessionExpired": "Session expirée. Veuillez demander un nouveau OTP.",
+            "resendOtp": "Renvoyer l'OTP"
+        }
     },
     "pagination": {
         "previous": "Précédent",

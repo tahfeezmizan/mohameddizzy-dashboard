@@ -13,6 +13,9 @@ import { toast } from "sonner";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import Link from "next/link";
+import { useLocale } from "@/hooks/useLocale";
+import { useTranslations } from "next-intl";
+import { LanguageSwitch } from "@/components/shared/LanguageSwitch";
 
 type FormValues = {
     phone: string;
@@ -29,6 +32,8 @@ export default function LoginPage() {
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const { getPath } = useLocale();
+    const t = useTranslations("auth.login");
 
     const onSubmit = async (data: FormValues) => {
         try {
@@ -36,25 +41,30 @@ export default function LoginPage() {
 
             if (res.success) {
                 dispatch(setUser({ user: res.data.user, token: res.data.accessToken }));
-                toast.success("Login successful");
-                router.push("/");
+                toast.success(t("loginSuccess"));
+                router.push(getPath("/"));
             } else {
-                toast.error(res.message || "Login failed");
+                toast.error(res.message || t("loginFailed"));
             }
         } catch (err: any) {
-            toast.error(err?.data?.message || err?.data?.err?.message || "Something went wrong. Please try again.");
+            toast.error(err?.data?.message || err?.data?.err?.message || t("somethingWentWrong"));
         }
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4">
+        <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4 relative">
+            {/* Language Switch - Top Right */}
+            <div className="absolute top-6 right-6">
+                <LanguageSwitch />
+            </div>
+
             <div className="w-full max-w-100 space-y-8 bg-white/5 p-8 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl">
                 {/* Logo Section */}
                 <div className="flex flex-col items-center space-y-4">
                     <Image src={logo} alt="logo" width={120} height={120} className="w-24 object-contain" />
                     <div className="text-center">
-                        <h1 className="text-xl font-bold text-white">Admin Login</h1>
-                        <p className="text-sm text-slate-400">Access your dashboard</p>
+                        <h1 className="text-xl font-bold text-white">{t("title")}</h1>
+                        <p className="text-sm text-slate-400">{t("description")}</p>
                     </div>
                 </div>
 
@@ -63,7 +73,7 @@ export default function LoginPage() {
                         {/* Phone */}
                         <div className="space-y-2">
                             <Label htmlFor="phone" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
-                                Phone Number
+                                {t("phoneNumber")}
                             </Label>
                             <div className="relative group">
                                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
@@ -74,7 +84,7 @@ export default function LoginPage() {
                         {/* Password */}
                         <div className="space-y-2">
                             <Label htmlFor="password" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
-                                Password
+                                {t("password")}
                             </Label>
                             <div className="relative group">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
@@ -83,14 +93,14 @@ export default function LoginPage() {
                         </div>
 
                         <div className="flex justify-end">
-                            <Link href="/forgot-password" className="text-xs text-blue-500 hover:text-blue-400 transition-colors">
-                                Forgot password?
+                            <Link href={getPath("/forgot-password")} className="text-xs text-blue-500 hover:text-blue-400 transition-colors">
+                                {t("forgotPassword")}
                             </Link>
                         </div>
                     </div>
 
                     <Button type="submit" disabled={isLoading} className="w-full h-12 text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-[0.98]">
-                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Login"}
+                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : t("loginButton")}
                     </Button>
                 </form>
 

@@ -5,6 +5,7 @@ import { currentToken, currentUser } from "@/redux/features/auth/authSlice";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
+import { getLocaleFromPath, getPathWithLocale } from "@/hooks/useLocale";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const token = useAppSelector(currentToken);
@@ -15,19 +16,21 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
     useEffect(() => {
         const checkAuth = () => {
-            const isAuthPage = pathname === "/login" || pathname === "/register" || pathname === "/forgot-password" || pathname === "/reset-password";
+            const locale = getLocaleFromPath(pathname);
+            const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
+            const isAuthPage = pathWithoutLocale === "/login" || pathWithoutLocale === "/register" || pathWithoutLocale === "/forgot-password" || pathWithoutLocale === "/reset-password";
 
             if (!token || !user) {
                 // Not logged in
                 if (!isAuthPage) {
-                    router.replace("/login");
+                    router.replace(getPathWithLocale("/login", locale));
                 } else {
                     setIsLoading(false);
                 }
             } else {
                 // Logged in
                 if (isAuthPage) {
-                    router.replace("/");
+                    router.replace(getPathWithLocale("/", locale));
                 } else {
                     setIsLoading(false);
                 }

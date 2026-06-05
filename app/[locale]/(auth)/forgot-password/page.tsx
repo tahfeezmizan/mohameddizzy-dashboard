@@ -11,6 +11,9 @@ import { toast } from "sonner";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import Link from "next/link";
+import { useLocale } from "@/hooks/useLocale";
+import { useTranslations } from "next-intl";
+import { LanguageSwitch } from "@/components/shared/LanguageSwitch";
 
 type FormValues = {
     phone: string;
@@ -20,33 +23,41 @@ export default function ForgotPasswordPage() {
     const { register, handleSubmit } = useForm<FormValues>();
     const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
     const router = useRouter();
+    const { getPath } = useLocale();
+    const t = useTranslations("auth.forgotPassword");
+    const tAuth = useTranslations("auth");
 
     const onSubmit = async (data: FormValues) => {
         try {
             const res = await forgotPassword(data).unwrap();
 
             if (res.success) {
-                toast.success(res.message || "OTP sent successfully");
+                toast.success(res.message || t("otpSentSuccess"));
                 // Store phone in session storage for the next step
                 sessionStorage.setItem("reset_phone", data.phone);
-                router.push("/reset-password");
+                router.push(getPath("/reset-password"));
             } else {
-                toast.error(res.message || "Failed to send OTP");
+                toast.error(res.message || t("otpSentFailed"));
             }
         } catch (err: any) {
-            toast.error(err?.data?.message || err?.data?.err?.message || "Something went wrong. Please try again.");
+            toast.error(err?.data?.message || err?.data?.err?.message || tAuth("login.somethingWentWrong"));
         }
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4">
+        <div className="flex min-h-screen items-center justify-center bg-[#0F172B] px-4 relative">
+            {/* Language Switch - Top Right */}
+            <div className="absolute top-6 right-6">
+                <LanguageSwitch />
+            </div>
+
             <div className="w-full max-w-100 space-y-8 bg-white/5 p-8 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl">
                 {/* Logo Section */}
                 <div className="flex flex-col items-center space-y-4">
                     <Image src={logo} alt="logo" width={120} height={120} className="w-24 object-contain" />
                     <div className="text-center">
-                        <h1 className="text-xl font-bold text-white">Forgot Password</h1>
-                        <p className="text-sm text-slate-400">Enter your phone number to receive an OTP</p>
+                        <h1 className="text-xl font-bold text-white">{t("title")}</h1>
+                        <p className="text-sm text-slate-400">{t("description")}</p>
                     </div>
                 </div>
 
@@ -55,7 +66,7 @@ export default function ForgotPasswordPage() {
                         {/* Phone */}
                         <div className="space-y-2">
                             <Label htmlFor="phone" className="text-xs font-medium text-slate-400 uppercase tracking-wider ml-1">
-                                Phone Number
+                                {t("phoneNumber")}
                             </Label>
                             <div className="relative group">
                                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
@@ -65,14 +76,14 @@ export default function ForgotPasswordPage() {
                     </div>
 
                     <Button type="submit" disabled={isLoading} className="w-full h-12 text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-[0.98]">
-                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Send OTP"}
+                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : t("sendOtpButton")}
                     </Button>
                 </form>
 
                 <div className="text-center">
-                    <Link href="/login" className="inline-flex items-center text-xs font-medium text-blue-500 hover:text-blue-400 transition-colors">
+                    <Link href={getPath("/login")} className="inline-flex items-center text-xs font-medium text-blue-500 hover:text-blue-400 transition-colors">
                         <ArrowLeft className="mr-2 h-3 w-3" />
-                        Back to Login
+                        {t("backToLogin")}
                     </Link>
                 </div>
 
