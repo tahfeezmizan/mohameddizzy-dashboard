@@ -20,6 +20,7 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
     const [updateCategory, { isLoading: isUpdating }] = useUpdateCategoryMutation();
     const t = useTranslations("categories.modal");
     const tc = useTranslations("common");
+    const tCategories = useTranslations("categories");
 
     const [name, setName] = useState("");
     const [gender, setGender] = useState<string[]>([]);
@@ -167,10 +168,10 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                             <Label>{t("parentCategoryLabel")}</Label>
                             <Select value={parentCategory} onValueChange={(value) => setParentCategory(value || "none")}>
                                 <SelectTrigger className="h-11 w-full">
-                                    <SelectValue placeholder={t("parentCategory.select")}>{parentCategory === "none" ? t("parentCategory.main") : parents.find((p) => p._id === parentCategory)?.name || parentCategory}</SelectValue>
+                                    <SelectValue placeholder={tCategories("parentCategory.select")}>{parentCategory === "none" ? tCategories("parentCategory.main") : parents.find((p) => p._id === parentCategory)?.name || parentCategory}</SelectValue>
                                 </SelectTrigger>
                                 <SelectContent className="bg-white">
-                                    <SelectItem value="none">{t("parentCategory.main")}</SelectItem>
+                                    <SelectItem value="none">{tCategories("parentCategory.main")}</SelectItem>
                                     {parents
                                         .filter((p) => p._id !== editingCategory?._id)
                                         .map((parent) => (

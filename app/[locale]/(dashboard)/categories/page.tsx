@@ -239,7 +239,7 @@ export default function Categories() {
                         <AlertDialogDescription>{t("delete.confirmMessage")}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={isDeleting}>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogCancel disabled={isDeleting}>{tc("cancel")}</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={(e) => {
                                 e.preventDefault();
