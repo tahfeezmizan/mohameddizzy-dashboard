@@ -429,6 +429,22 @@
             "commissionEarned": "Commission Earned",
             "averagePerOrder": "Average per Order",
             "growthVsLastMonth": "Growth vs Last Month"
+        },
+        "history": {
+            "title": "Commission History",
+            "columns": {
+                "orderId": "Order ID",
+                "seller": "Seller",
+                "orderValue": "Order Value",
+                "commission": "Commission ({rate}%)",
+                "date": "Date",
+                "status": "Status"
+            },
+            "loading": "Loading commission history...",
+            "noData": "No commission history found.",
+            "pagination": {
+                "showing": "Showing <from> to <to> of <total> records"
+            }
         }
     },
     "settings": {

@@ -429,6 +429,22 @@
             "commissionEarned": "Commission Gagnée",
             "averagePerOrder": "Moyenne par Commande",
             "growthVsLastMonth": "Croissance vs Mois Dernier"
+        },
+        "history": {
+            "title": "Historique des Commissions",
+            "columns": {
+                "orderId": "ID Commande",
+                "seller": "Vendeur",
+                "orderValue": "Valeur de la Commande",
+                "commission": "Commission ({rate}%)",
+                "date": "Date",
+                "status": "Statut"
+            },
+            "loading": "Chargement de l'historique des commissions...",
+            "noData": "Aucun historique de commission trouvé.",
+            "pagination": {
+                "showing": "Affichage de <from> à <to> sur <total> enregistrements"
+            }
         }
     },
     "settings": {
