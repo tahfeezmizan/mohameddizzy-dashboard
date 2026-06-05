@@ -262,6 +262,11 @@
             "approved": "Approuvé",
             "rejected": "Rejeté"
         },
+        "status": {
+            "pending": "En attente",
+            "approved": "Approuvé",
+            "rejected": "Rejeté"
+        },
         "table": {
             "user": "Utilisateur",
             "documentType": "Type de Document",

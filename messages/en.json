@@ -262,6 +262,11 @@
             "approved": "Approved",
             "rejected": "Rejected"
         },
+        "status": {
+            "pending": "Pending",
+            "approved": "Approved",
+            "rejected": "Rejected"
+        },
         "table": {
             "user": "User",
             "documentType": "Document Type",
