@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { ShieldAlert, Home } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function InvalidReferralPage() {
     const router = useRouter();
+    const t = useTranslations("appscreen.invalidReferral");
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
@@ -16,12 +18,12 @@ export default function InvalidReferralPage() {
                     </div>
                 </div>
                 <div className="space-y-2">
-                    <h1 className="text-2xl font-bold text-slate-900">Invalid Referral Link</h1>
-                    <p className="text-slate-500">Oops! The referral link you're trying to use is either invalid or has expired.</p>
+                    <h1 className="text-2xl font-bold text-slate-900">{t("title")}</h1>
+                    <p className="text-slate-500">{t("description")}</p>
                 </div>
                 <Button onClick={() => router.push("/")} className="w-full bg-blue-600 hover:bg-blue-700">
                     <Home className="w-4 h-4 mr-2" />
-                    Go to Home
+                    {t("goHome")}
                 </Button>
             </div>
         </div>

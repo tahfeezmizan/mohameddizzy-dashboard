@@ -172,6 +172,31 @@
             "noEmail": "No email provided"
         }
     },
+    "settings": {
+        "title": "Platform Settings",
+        "description": "Configure system rules and preferences",
+        "saveChanges": "Save Changes",
+        "updateSuccess": "Settings updated successfully",
+        "updateError": "Failed to update settings",
+        "payment": {
+            "title": "Payment Settings",
+            "commissionRate": "Commission Rate (%)",
+            "commissionDescription": "Platform commission taken from each transaction",
+            "escrowDuration": "Escrow Duration (hours)",
+            "escrowDescription": "Time funds are held after delivery confirmation"
+        },
+        "notification": {
+            "title": "Notification Settings",
+            "email": {
+                "title": "Email Notifications",
+                "description": "Send email alerts for important platform events"
+            },
+            "push": {
+                "title": "Push Notifications",
+                "description": "Enable browser push notifications for real-time updates"
+            }
+        }
+    },
     "orders": {
         "title": "Orders Management",
         "description": "Track and manage all platform orders",
@@ -468,15 +493,6 @@
             }
         }
     },
-    "settings": {
-        "title": "Platform Settings",
-        "description": "Configure system rules and preferences",
-        "saveChanges": "Save Changes",
-        "toast": {
-            "success": "Settings updated successfully",
-            "error": "Failed to update settings"
-        }
-    },
     "activities": {
         "title": "Activity Log",
         "description": "Track and filter all platform system events",
@@ -564,5 +580,33 @@
     "pagination": {
         "previous": "Previous",
         "next": "Next"
+    },
+    "appscreen": {
+        "invalidReferral": {
+            "title": "Invalid Referral Link",
+            "description": "Oops! The referral link you're trying to use is either invalid or has expired.",
+            "goHome": "Go to Home"
+        },
+        "payment": {
+            "cancel": {
+                "title": "Payment Cancelled",
+                "description": "Opening Djarna to continue..."
+            },
+            "success": {
+                "title": "Payment Successful!",
+                "description": "Opening Djarna to see your payment details..."
+            },
+            "noApp": "Don't have the app yet?",
+            "getGooglePlay": "Get it on Google Play",
+            "downloadAppStore": "Download on App Store",
+            "mobileOnly": "Please visit us on your mobile device."
+        },
+        "referral": {
+            "opening": "Opening Djarna...",
+            "invitedBy": "You were invited by {name}!",
+            "invitedGeneral": "You were invited to join Djarna!",
+            "invalidTitle": "Invalid Referral Link",
+            "invalidDescription": "This referral link is invalid or has expired."
+        }
     }
 }

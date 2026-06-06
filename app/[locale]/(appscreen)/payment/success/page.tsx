@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Loader2, Smartphone } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function PaymentSuccessPage() {
     const [showAppStores, setShowAppStores] = useState(false);
+    const t = useTranslations("appscreen.payment");
 
     const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=your.app.id";
     const APP_STORE_URL = "https://apps.apple.com/app/your-app-id";
@@ -34,26 +36,26 @@ export default function PaymentSuccessPage() {
                 </div>
 
                 <div className="space-y-2">
-                    <h1 className="text-2xl font-bold text-slate-900">Payment Successful!</h1>
-                    <p className="text-slate-500">Opening Djarna to see your payment details...</p>
+                    <h1 className="text-2xl font-bold text-slate-900">{t("success.title")}</h1>
+                    <p className="text-slate-500">{t("success.description")}</p>
                 </div>
 
                 {showAppStores && (
                     <div className="space-y-4 pt-4">
-                        <p className="text-sm text-slate-500">Don't have the app yet?</p>
+                        <p className="text-sm text-slate-500">{t("noApp")}</p>
                         <div className="flex flex-col gap-3">
                             {isAndroid && (
                                 <Button onClick={() => window.open(PLAY_STORE_URL, "_blank")} className="w-full bg-green-600 hover:bg-green-700 text-white">
-                                    Get it on Google Play
+                                    {t("getGooglePlay")}
                                 </Button>
                             )}
                             {isIOS && (
                                 <Button onClick={() => window.open(APP_STORE_URL, "_blank")} className="w-full bg-slate-900 hover:bg-slate-800 text-white">
-                                    Download on App Store
+                                    {t("downloadAppStore")}
                                 </Button>
                             )}
                             {!isAndroid && !isIOS && (
-                                <p className="text-sm text-slate-400">Please visit us on your mobile device.</p>
+                                <p className="text-sm text-slate-400">{t("mobileOnly")}</p>
                             )}
                         </div>
                     </div>

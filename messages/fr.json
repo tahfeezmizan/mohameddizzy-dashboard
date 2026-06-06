@@ -172,6 +172,31 @@
             "noEmail": "Aucun e-mail fourni"
         }
     },
+    "settings": {
+        "title": "Paramètres de la Plateforme",
+        "description": "Configurer les règles et préférences du système",
+        "saveChanges": "Enregistrer les Modifications",
+        "updateSuccess": "Paramètres mis à jour avec succès",
+        "updateError": "Échec de la mise à jour des paramètres",
+        "payment": {
+            "title": "Paramètres de Paiement",
+            "commissionRate": "Taux de Commission (%)",
+            "commissionDescription": "Commission de la plateforme prélevée sur chaque transaction",
+            "escrowDuration": "Durée de l'Escrow (heures)",
+            "escrowDescription": "Temps pendant lequel les fonds sont conservés après confirmation de livraison"
+        },
+        "notification": {
+            "title": "Paramètres de Notifications",
+            "email": {
+                "title": "Notifications par Email",
+                "description": "Envoyer des alertes par email pour les événements importants de la plateforme"
+            },
+            "push": {
+                "title": "Notifications Push",
+                "description": "Activer les notifications push du navigateur pour les mises à jour en temps réel"
+            }
+        }
+    },
     "orders": {
         "title": "Gestion des Commandes",
         "description": "Suivre et gérer toutes les commandes de la plateforme",
@@ -468,15 +493,6 @@
             }
         }
     },
-    "settings": {
-        "title": "Paramètres de la Plateforme",
-        "description": "Configurer les règles et préférences du système",
-        "saveChanges": "Enregistrer les Modifications",
-        "toast": {
-            "success": "Paramètres mis à jour avec succès",
-            "error": "Échec de la mise à jour des paramètres"
-        }
-    },
     "activities": {
         "title": "Journal d'activité",
         "description": "Suivre et filtrer tous les événements système de la plateforme",
@@ -564,5 +580,33 @@
     "pagination": {
         "previous": "Précédent",
         "next": "Suivant"
+    },
+    "appscreen": {
+        "invalidReferral": {
+            "title": "Lien de Parrainage Invalide",
+            "description": "Oups! Le lien de parrainage que vous essayez d'utiliser est soit invalide, soit a expiré.",
+            "goHome": "Aller à l'Accueil"
+        },
+        "payment": {
+            "cancel": {
+                "title": "Paiement Annulé",
+                "description": "Ouverture de Djarna pour continuer..."
+            },
+            "success": {
+                "title": "Paiement Réussi!",
+                "description": "Ouverture de Djarna pour voir les détails de votre paiement..."
+            },
+            "noApp": "Vous n'avez pas encore l'application?",
+            "getGooglePlay": "Disponible sur Google Play",
+            "downloadAppStore": "Télécharger sur App Store",
+            "mobileOnly": "Veuillez nous visiter sur votre appareil mobile."
+        },
+        "referral": {
+            "opening": "Ouverture de Djarna...",
+            "invitedBy": "Vous avez été invité par {name}!",
+            "invitedGeneral": "Vous avez été invité à rejoindre Djarna!",
+            "invalidTitle": "Lien de Parrainage Invalide",
+            "invalidDescription": "Ce lien de parrainage est invalide ou a expiré."
+        }
     }
 }
