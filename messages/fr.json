@@ -220,6 +220,59 @@
         "flow": {
             "title": "Flux de Commande :",
             "message": "En attente → Expédié → Livré → Terminé (après 72h de fenêtre de litige)"
+        },
+        "table": {
+            "columns": {
+                "orderId": "ID COMMANDE",
+                "product": "PRODUIT",
+                "buyer": "ACHETEUR",
+                "seller": "VENDEUR",
+                "amount": "MONTANT",
+                "status": "STATUT",
+                "delivery": "LIVRAISON",
+                "action": "ACTION"
+            },
+            "loading": "Chargement des commandes...",
+            "noData": "Aucune commande trouvée.",
+            "view": "Voir",
+            "pagination": {
+                "showing": "Affichage de <strong>{from}</strong> à <strong>{to}</strong> sur <strong>{total}</strong> commandes"
+            }
+        },
+        "modal": {
+            "title": "Détails de la Commande",
+            "loading": "Chargement des détails de la commande...",
+            "notFound": "Commande non trouvée.",
+            "status": "Statut:",
+            "statusMessages": {
+                "pending": "En attente d'expédition",
+                "shipped": "En transit",
+                "delivered": "En attente de confirmation de l'acheteur",
+                "completed": "Transaction terminée",
+                "cancelled": "Commande annulée"
+            },
+            "productInfo": {
+                "title": "Informations sur le Produit",
+                "productTitle": "Titre du Produit",
+                "totalAmount": "Montant Total",
+                "orderDate": "Date de Commande",
+                "paymentStatus": "Statut du Paiement",
+                "deliveryMethod": "Méthode de Livraison",
+                "transactionId": "ID de Transaction"
+            },
+            "buyer": "Acheteur",
+            "seller": "Vendeur",
+            "priceBreakdown": {
+                "title": "Détail des Prix",
+                "productPrice": "Prix du Produit",
+                "buyerProtectionFee": "Frais de Protection Acheteur",
+                "shippingCost": "Frais de Livraison",
+                "totalAmount": "Montant Total"
+            },
+            "escrowProtection": {
+                "title": "Protection Escrow :",
+                "message": "Les fonds sont conservés en toute sécurité dans le portefeuille d'escrow de la plateforme. Ils ne seront libérés au vendeur qu'après confirmation de réception par l'acheteur ou après la fin de la fenêtre de litige de 72h."
+            }
         }
     },
     "boostPacks": {

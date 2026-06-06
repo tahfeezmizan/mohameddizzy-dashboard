@@ -7,6 +7,7 @@ import { CheckCircle2, Package, Clock, Truck, Eye, ChevronLeft, ChevronRight, Lo
 import { useState } from "react";
 import OrderDetailsModal from "./order-details-modal";
 import { useGetAllOrdersQuery } from "@/redux/features/order/orderApi";
+import { useTranslations } from "next-intl";
 
 interface OrdersTableProps {
     search: string;
@@ -34,6 +35,7 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
     const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
     const [page, setPage] = useState(1);
     const limit = 10;
+    const t = useTranslations("orders.table");
 
     const { data: ordersData, isLoading } = useGetAllOrdersQuery({
         page,
@@ -50,8 +52,7 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
         setOpen(true);
     };
 
-    // const columns = ["ORDER ID", "PRODUCT", "BUYER", "SELLER", "AMOUNT", "STATUS", "DELIVERY", "ACTION"];
-    const columns = ["ID COMMANDE", "PRODUIT", "ACHETEUR", "VENDEUR", "MONTANT", "STATUT", "LIVRAISON", "ACTION"];
+    const columns = [t("columns.orderId"), t("columns.product"), t("columns.buyer"), t("columns.seller"), t("columns.amount"), t("columns.status"), t("columns.delivery"), t("columns.action")];
 
     const filtered = orders;
 
@@ -74,16 +75,14 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
                                 <td colSpan={8} className="px-6 py-10 text-center">
                                     <div className="flex items-center justify-center gap-2 text-slate-500">
                                         <Loader2 className="h-5 w-5 animate-spin" />
-                                        {/* Loading orders... */}
-                                        Chargement des commandes...
+                                        {t("loading")}
                                     </div>
                                 </td>
                             </tr>
                         ) : filtered.length === 0 ? (
                             <tr>
                                 <td colSpan={8} className="px-6 py-10 text-center text-slate-400">
-                                    {/* No orders found. */}
-                                    Aucune commande trouvée.
+                                    {t("noData")}
                                 </td>
                             </tr>
                         ) : (
@@ -107,8 +106,7 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
                                         <td className="px-6 py-4">
                                             <Button variant="ghost" size="sm" onClick={() => handleViewDetails(item._id)} className="flex items-center gap-1.5 text-blue-600 font-medium hover:text-blue-700 hover:bg-blue-50 transition-colors">
                                                 <Eye className="h-4 w-4" />
-                                                {/* View */}
-                                                Voir
+                                                {t("view")}
                                             </Button>
                                         </td>
                                     </tr>
@@ -123,8 +121,12 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
             {meta && meta.totalPage > 1 && (
                 <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
                     <p className="text-sm text-slate-500">
-                        {/* Showing <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> to <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> of <span className="font-semibold text-slate-900">{meta.total}</span> orders */}
-                        Affichage de <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> à <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> sur <span className="font-semibold text-slate-900">{meta.total}</span> commandes
+                        {t.rich("pagination.showing", {
+                            from: (page - 1) * limit + 1,
+                            to: Math.min(page * limit, meta.total),
+                            total: meta.total,
+                            strong: (children) => <span className="font-semibold text-slate-900">{children}</span>,
+                        })}
                     </p>
                     <div className="flex items-center gap-2">
                         <Button variant="outline" size="icon" disabled={page === 1} onClick={() => setPage((p) => p - 1)} className="h-8 w-8">
