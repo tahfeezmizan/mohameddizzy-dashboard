@@ -220,6 +220,59 @@
         "flow": {
             "title": "Order Flow:",
             "message": "Pending → Shipped → Delivered → Completed (after 72h dispute window)"
+        },
+        "table": {
+            "columns": {
+                "orderId": "ORDER ID",
+                "product": "PRODUCT",
+                "buyer": "BUYER",
+                "seller": "SELLER",
+                "amount": "AMOUNT",
+                "status": "STATUS",
+                "delivery": "DELIVERY",
+                "action": "ACTION"
+            },
+            "loading": "Loading orders...",
+            "noData": "No orders found.",
+            "view": "View",
+            "pagination": {
+                "showing": "Showing <strong>{from}</strong> to <strong>{to}</strong> of <strong>{total}</strong> orders"
+            }
+        },
+        "modal": {
+            "title": "Order Details",
+            "loading": "Loading order details...",
+            "notFound": "Order not found.",
+            "status": "Status:",
+            "statusMessages": {
+                "pending": "Waiting for shipment",
+                "shipped": "In Transit",
+                "delivered": "Awaiting buyer confirmation",
+                "completed": "Transaction finished",
+                "cancelled": "Order cancelled"
+            },
+            "productInfo": {
+                "title": "Product Information",
+                "productTitle": "Product Title",
+                "totalAmount": "Total Amount",
+                "orderDate": "Order Date",
+                "paymentStatus": "Payment Status",
+                "deliveryMethod": "Delivery Method",
+                "transactionId": "Transaction ID"
+            },
+            "buyer": "Buyer",
+            "seller": "Seller",
+            "priceBreakdown": {
+                "title": "Price Breakdown",
+                "productPrice": "Product Price",
+                "buyerProtectionFee": "Buyer Protection Fee",
+                "shippingCost": "Shipping Cost",
+                "totalAmount": "Total Amount"
+            },
+            "escrowProtection": {
+                "title": "Escrow Protection:",
+                "message": "Funds are held securely in the platform's escrow wallet. They will only be released to the seller after the buyer confirms receipt or the 72h dispute window passes."
+            }
         }
     },
     "boostPacks": {
