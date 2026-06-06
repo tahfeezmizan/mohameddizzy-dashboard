@@ -1,9 +1,12 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { useGetAllPaymentsQuery, TPayment, TPaymentStatus } from "@/redux/features/payment/paymentApi";
+import { useTranslations } from "next-intl";
 
 const statusStyles: Record<string, string> = {
     PENDING: "bg-orange-50 text-orange-600",
@@ -22,6 +25,7 @@ interface CommissionHistoryTableProps {
 export default function CommissionHistoryTable({ commissionRate, status }: CommissionHistoryTableProps) {
     const [page, setPage] = useState(1);
     const limit = 10;
+    const t = useTranslations("commission.history");
 
     const { data: paymentsData, isLoading } = useGetAllPaymentsQuery({
         page,
@@ -32,14 +36,12 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
     const payments = paymentsData?.data || [];
     const meta = paymentsData?.meta;
 
-    // const columns = ["Order ID", "Seller", "Order Value", "Commission (" + commissionRate + "%)", "Date", "Status"];
-    const columns = ["ID Commande", "Vendeur", "Valeur de la Commande", "Commission (" + commissionRate + "%)", "Date", "Statut"];
+    const columns = [t("columns.orderId"), t("columns.seller"), t("columns.orderValue"), t("columns.commission", { rate: commissionRate }), t("columns.date"), t("columns.status")];
 
     return (
         <Card className="shadow-sm border-slate-200 overflow-hidden py-0 gap-0">
             <div className="px-6 py-4 border-b border-slate-100">
-                {/* <h2 className="text-lg font-bold text-slate-800">Commission History</h2> */}
-                <h2 className="text-lg font-bold text-slate-800">Historique des Commissions</h2>
+                <h2 className="text-lg font-bold text-slate-800">{t("title")}</h2>
             </div>
 
             <div className="overflow-x-auto">
@@ -60,16 +62,14 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
                                 <td colSpan={6} className="px-6 py-10 text-center">
                                     <div className="flex items-center justify-center gap-2 text-slate-500">
                                         <Loader2 className="h-5 w-5 animate-spin" />
-                                        {/* Loading commission history... */}
-                                        Chargement de l'historique des commissions...
+                                        {t("loading")}
                                     </div>
                                 </td>
                             </tr>
                         ) : payments.length === 0 ? (
                             <tr>
                                 <td colSpan={6} className="px-6 py-10 text-center text-slate-400">
-                                    {/* No commission history found. */}
-                                    Aucun historique de commission trouvé.
+                                    {t("noData")}
                                 </td>
                             </tr>
                         ) : (
@@ -96,21 +96,38 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
             {/* Pagination */}
             {meta && (
                 <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                    <p className="text-sm text-slate-500">
-                        {/* Showing <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> to <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> of <span className="font-semibold text-slate-900">{meta.total}</span> records */}
-                        Affichage de <span className="font-semibold text-slate-900">{(page - 1) * limit + 1}</span> à <span className="font-semibold text-slate-900">{Math.min(page * limit, meta.total)}</span> sur <span className="font-semibold text-slate-900">{meta.total}</span> enregistrements
-                    </p>
+                    <p
+                        className="text-sm text-slate-500"
+                        dangerouslySetInnerHTML={{
+                            __html: t("pagination.showing")
+                                .replace("<from>", `<span className="font-semibold text-slate-900">${(page - 1) * limit + 1}</span>`)
+                                .replace("<to>", `<span className="font-semibold text-slate-900">${Math.min(page * limit, meta.total)}</span>`)
+                                .replace("<total>", `<span className="font-semibold text-slate-900">${meta.total}</span>`),
+                        }}
+                    />
                     {meta.totalPage > 1 && (
                         <div className="flex items-center gap-2">
                             <Button variant="outline" size="icon" disabled={page === 1} onClick={() => setPage((p) => p - 1)} className="h-8 w-8">
                                 <ChevronLeft className="h-4 w-4 text-slate-600" />
                             </Button>
                             <div className="flex items-center gap-1">
-                                {[...Array(meta.totalPage)].map((_, i) => (
-                                    <Button key={i} variant={page === i + 1 ? "default" : "outline"} size="sm" onClick={() => setPage(i + 1)} className={`h-8 w-8 p-0 ${page === i + 1 ? "bg-blue-600 hover:bg-blue-700" : ""}`}>
-                                        {i + 1}
-                                    </Button>
-                                ))}
+                                {[...Array(meta.totalPage)].map((_, i) => {
+                                    const p = i + 1;
+                                    if (p === 1 || p === meta.totalPage || (p >= page - 1 && p <= page + 1)) {
+                                        return (
+                                            <Button key={p} variant={page === p ? "default" : "outline"} size="sm" onClick={() => setPage(p)} disabled={isLoading} className={`h-8 w-8 p-0 text-xs ${page === p ? "bg-blue-600 hover:bg-blue-700" : ""}`}>
+                                                {p}
+                                            </Button>
+                                        );
+                                    } else if (p === page - 2 || p === page + 2) {
+                                        return (
+                                            <span key={p} className="text-slate-400 px-1">
+                                                ...
+                                            </span>
+                                        );
+                                    }
+                                    return null;
+                                })}
                             </div>
                             <Button variant="outline" size="icon" disabled={page === meta.totalPage} onClick={() => setPage((p) => p + 1)} className="h-8 w-8">
                                 <ChevronRight className="h-4 w-4 text-slate-600" />

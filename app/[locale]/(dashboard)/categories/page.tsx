@@ -10,12 +10,15 @@ import { useGetAdminParentsQuery, useGetAdminSubcategoriesQuery, useDeleteCatego
 import Image from "next/image";
 import { toast } from "sonner";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { useTranslations } from "next-intl";
 
 export default function Categories() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingCategory, setEditingCategory] = useState<any>(null);
     const [expandedParents, setExpandedParents] = useState<string[]>([]);
     const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
+    const t = useTranslations("categories");
+    const tc = useTranslations("common");
 
     const { data: parentsResponse, isLoading: isParentsLoading } = useGetAdminParentsQuery();
     const { data: subResponse, isLoading: isSubLoading } = useGetAdminSubcategoriesQuery();
@@ -33,12 +36,10 @@ export default function Categories() {
         if (!categoryToDelete) return;
         try {
             await deleteCategory(categoryToDelete).unwrap();
-            // toast.success("Category deleted successfully");
-            toast.success("Catégorie supprimée avec succès");
+            toast.success(t("delete.success"));
             setCategoryToDelete(null);
         } catch (error: any) {
-            // toast.error(error?.data?.message || "Failed to delete category");
-            toast.error(error?.data?.message || "Échec de la suppression de la catégorie");
+            toast.error(error?.data?.message || t("delete.error"));
         }
     };
 
@@ -52,10 +53,8 @@ export default function Categories() {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    {/* <h1 className="text-3xl font-bold text-slate-900 mb-1">Categories & Attributes</h1> */}
-                    <h1 className="text-3xl font-bold text-slate-900 mb-1">Catégories & Attributs</h1>
-                    {/* <p className="text-slate-500">Manage product structure and hierarchy</p> */}
-                    <p className="text-slate-500">Gérer la structure et la hiérarchie des produits</p>
+                    <h1 className="text-3xl font-bold text-slate-900 mb-1">{t("title")}</h1>
+                    <p className="text-slate-500">{t("description")}</p>
                 </div>
                 <Button
                     onClick={() => {
@@ -65,8 +64,7 @@ export default function Categories() {
                     className="px-6 h-12 bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200"
                 >
                     <Plus className="mr-2 h-5 w-5" />
-                    {/* Add Category */}
-                    Ajouter une Catégorie
+                    {t("addCategory")}
                 </Button>
             </div>
 
@@ -76,16 +74,11 @@ export default function Categories() {
                         <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
                             <tr>
                                 <th className="px-6 py-4 uppercase text-xs tracking-wider w-10"></th>
-                                {/* <th className="px-6 py-4 uppercase text-xs tracking-wider">Category</th> */}
-                                <th className="px-6 py-4 uppercase text-xs tracking-wider">Catégorie</th>
-                                {/* <th className="px-6 py-4 uppercase text-xs tracking-wider">Genders</th> */}
-                                <th className="px-6 py-4 uppercase text-xs tracking-wider">Genres</th>
-                                {/* <th className="px-6 py-4 uppercase text-xs tracking-wider text-center">Home Pos.</th> */}
-                                <th className="px-6 py-4 uppercase text-xs tracking-wider text-center">Pos. Accueil</th>
-                                {/* <th className="px-6 py-4 uppercase text-xs tracking-wider">Status</th> */}
-                                <th className="px-6 py-4 uppercase text-xs tracking-wider">Statut</th>
-                                {/* <th className="px-6 py-4 uppercase text-xs tracking-wider text-right">Action</th> */}
-                                <th className="px-6 py-4 uppercase text-xs tracking-wider text-right">Action</th>
+                                <th className="px-6 py-4 uppercase text-xs tracking-wider">{t("table.category")}</th>
+                                <th className="px-6 py-4 uppercase text-xs tracking-wider">{t("table.genders")}</th>
+                                <th className="px-6 py-4 uppercase text-xs tracking-wider text-center">{t("table.homePos")}</th>
+                                <th className="px-6 py-4 uppercase text-xs tracking-wider">{t("table.status")}</th>
+                                <th className="px-6 py-4 uppercase text-xs tracking-wider text-right">{t("table.action")}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -100,8 +93,7 @@ export default function Categories() {
                             ) : parents.length === 0 ? (
                                 <tr>
                                     <td colSpan={6} className="px-6 py-12 text-center text-slate-500 font-medium">
-                                        {/* No categories found. */}
-                                        Aucune catégorie trouvée.
+                                        {t("noCategories")}
                                     </td>
                                 </tr>
                             ) : (
@@ -135,8 +127,9 @@ export default function Categories() {
                                                         </div>
                                                         <div>
                                                             <div className="font-bold text-slate-900">{parent.name}</div>
-                                                            {/* <div className="text-xs text-slate-500">{parent.subcategoryCount ?? parentSubs.length} subcategories</div> */}
-                                                            <div className="text-xs text-slate-500">{parent.subcategoryCount ?? parentSubs.length} sous-catégories</div>
+                                                            <div className="text-xs text-slate-500">
+                                                                {parent.subcategoryCount ?? parentSubs.length} {t("subcategories")}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -151,10 +144,7 @@ export default function Categories() {
                                                 </td>
                                                 <td className="px-6 py-4 text-center font-mono font-medium text-slate-600">{parent.homePosition ?? "-"}</td>
                                                 <td className="px-6 py-4">
-                                                    <Badge className={`${parent.isActive ? "bg-emerald-50 text-emerald-600 border-emerald-100" : "bg-red-50 text-red-600 border-red-100"} font-medium`}>
-                                                        {/* {parent.isActive ? "Active" : "Inactive"} */}
-                                                        {parent.isActive ? "Actif" : "Inactif"}
-                                                    </Badge>
+                                                    <Badge className={`${parent.isActive ? "bg-emerald-50 text-emerald-600 border-emerald-100" : "bg-red-50 text-red-600 border-red-100"} font-medium`}>{parent.isActive ? t("status.active") : t("status.inactive")}</Badge>
                                                 </td>
                                                 <td className="px-6 py-4 text-right">
                                                     <div className="flex items-center justify-end gap-2">
@@ -192,7 +182,6 @@ export default function Categories() {
                                                                 </div>
                                                                 <div>
                                                                     <div className="font-medium text-slate-700">{sub.name}</div>
-                                                                    {/* <div className="text-[10px] text-slate-400">Parent: {parent.name}</div> */}
                                                                     <div className="text-[10px] text-slate-400">Parent: {parent.name}</div>
                                                                 </div>
                                                             </div>
@@ -209,8 +198,7 @@ export default function Categories() {
                                                         <td className="px-6 py-3 text-center text-slate-400">-</td>
                                                         <td className="px-6 py-3">
                                                             <Badge variant="outline" className={`${sub.isActive ? "bg-white text-emerald-600 border-emerald-100" : "bg-white text-red-500 border-red-100"} text-[10px]`}>
-                                                                {/* {sub.isActive ? "Active" : "Inactive"} */}
-                                                                {sub.isActive ? "Actif" : "Inactif"}
+                                                                {sub.isActive ? t("status.active") : t("status.inactive")}
                                                             </Badge>
                                                         </td>
                                                         <td className="px-6 py-3 text-right">
@@ -247,14 +235,11 @@ export default function Categories() {
             <AlertDialog open={!!categoryToDelete} onOpenChange={() => setCategoryToDelete(null)}>
                 <AlertDialogContent className="bg-white">
                     <AlertDialogHeader>
-                        {/* <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle> */}
-                        <AlertDialogTitle>Êtes-vous absolument sûr ?</AlertDialogTitle>
-                        {/* <AlertDialogDescription>This action cannot be undone. This will permanently delete the category and may affect products associated with it.</AlertDialogDescription> */}
-                        <AlertDialogDescription>Cette action est irréversible. Cela supprimera définitivement la catégorie et peut affecter les produits associés.</AlertDialogDescription>
+                        <AlertDialogTitle>{t("delete.confirmTitle")}</AlertDialogTitle>
+                        <AlertDialogDescription>{t("delete.confirmMessage")}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        {/* <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel> */}
-                        <AlertDialogCancel disabled={isDeleting}>Annuler</AlertDialogCancel>
+                        <AlertDialogCancel disabled={isDeleting}>{tc("cancel")}</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={(e) => {
                                 e.preventDefault();
@@ -263,12 +248,7 @@ export default function Categories() {
                             disabled={isDeleting}
                             className="bg-red-500 hover:bg-red-600 text-white"
                         >
-                            {isDeleting ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                                // "Delete Category"
-                                "Supprimer la Catégorie"
-                            )}
+                            {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : t("delete")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

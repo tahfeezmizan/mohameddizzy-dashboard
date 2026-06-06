@@ -12,7 +12,9 @@
         "close": "Close",
         "view": "View",
         "reset": "Reset",
-        "search": "Search"
+        "search": "Search",
+        "active": "Active",
+        "suspended": "Suspended"
     },
     "dashboard": {
         "title": "Dashboard Overview",
@@ -84,6 +86,25 @@
             "select": "Select Parent (Optional)",
             "main": "Main Category (None)",
             "noParent": "No parent category"
+        },
+        "modal": {
+            "titleAdd": "Add New Category",
+            "titleEdit": "Edit Category",
+            "uploadIcon": "Upload Icon",
+            "remove": "Remove",
+            "categoryName": "Category Name",
+            "placeholderCategory": "e.g., Luxury Fashion",
+            "parentCategoryLabel": "Parent Category",
+            "parentHelp": "Leave as \"Main Category\" to create a top-level category.",
+            "targetGender": "Target Gender",
+            "homePosition": "Home Position",
+            "placeholderHomePos": "e.g., 1",
+            "createCategory": "Create Category",
+            "updateCategory": "Update Category",
+            "nameError": "Name must be at least 2 characters",
+            "updatedSuccess": "Category updated successfully",
+            "createdSuccess": "Category created successfully",
+            "generalError": "Something went wrong"
         }
     },
     "users": {
@@ -151,6 +172,31 @@
             "noEmail": "No email provided"
         }
     },
+    "settings": {
+        "title": "Platform Settings",
+        "description": "Configure system rules and preferences",
+        "saveChanges": "Save Changes",
+        "updateSuccess": "Settings updated successfully",
+        "updateError": "Failed to update settings",
+        "payment": {
+            "title": "Payment Settings",
+            "commissionRate": "Commission Rate (%)",
+            "commissionDescription": "Platform commission taken from each transaction",
+            "escrowDuration": "Escrow Duration (hours)",
+            "escrowDescription": "Time funds are held after delivery confirmation"
+        },
+        "notification": {
+            "title": "Notification Settings",
+            "email": {
+                "title": "Email Notifications",
+                "description": "Send email alerts for important platform events"
+            },
+            "push": {
+                "title": "Push Notifications",
+                "description": "Enable browser push notifications for real-time updates"
+            }
+        }
+    },
     "orders": {
         "title": "Orders Management",
         "description": "Track and manage all platform orders",
@@ -197,6 +243,57 @@
         "tip": {
             "title": "Tip:",
             "message": "Boost your product to increase visibility and attract more buyers. Higher visibility levels result in better placement across the platform."
+        },
+        "card": {
+            "recommended": "Recommended",
+            "status": {
+                "active": "Active",
+                "inactive": "Inactive"
+            },
+            "details": {
+                "duration": "Duration:",
+                "days": "Days",
+                "status": "Status:",
+                "type": "Type:",
+                "price": "Price:"
+            },
+            "actions": {
+                "edit": "Edit",
+                "disable": "Disable",
+                "enable": "Enable",
+                "recommend": "Recommend",
+                "delete": "Delete"
+            },
+            "toast": {
+                "deleteSuccess": "Pack deleted successfully",
+                "deleteError": "Failed to delete pack",
+                "statusUpdated": "Status updated",
+                "statusUpdateError": "Failed to update status",
+                "recommendedUpdated": "Recommended status updated",
+                "recommendedUpdateError": "Failed to set recommended"
+            }
+        },
+        "modal": {
+            "titleCreate": "Create New Pack",
+            "titleUpdate": "Update Pack",
+            "packName": "Pack Name",
+            "packNamePlaceholder": "Enter pack name",
+            "description": "Description",
+            "descriptionPlaceholder": "Brief description",
+            "packType": "Pack Type",
+            "packTypePlaceholder": "Select type",
+            "duration": "Duration (days)",
+            "durationPlaceholder": "e.g. 30",
+            "price": "Price",
+            "pricePlaceholder": "e.g. 5000",
+            "cancel": "Cancel",
+            "createPack": "Create Pack",
+            "updatePack": "Update Pack",
+            "toast": {
+                "createSuccess": "Pack created successfully",
+                "updateSuccess": "Pack updated successfully",
+                "error": "Something went wrong"
+            }
         }
     },
     "verifications": {
@@ -207,6 +304,11 @@
         },
         "filters": {
             "all": "All",
+            "pending": "Pending",
+            "approved": "Approved",
+            "rejected": "Rejected"
+        },
+        "status": {
             "pending": "Pending",
             "approved": "Approved",
             "rejected": "Rejected"
@@ -264,6 +366,72 @@
         "tip": {
             "title": "Secure:",
             "message": "Funds are held securely in escrow until delivery is confirmed. Commission is released after dispute window closes."
+        },
+        "table": {
+            "columns": {
+                "disputeId": "DISPUTE ID",
+                "buyer": "BUYER",
+                "seller": "SELLER",
+                "amount": "AMOUNT",
+                "status": "STATUS",
+                "createdAt": "CREATED AT",
+                "action": "ACTION"
+            },
+            "filters": {
+                "all": "All",
+                "pending": "PENDING",
+                "resolved": "RESOLVED",
+                "cancelled": "CANCELLED"
+            },
+            "searchPlaceholder": "Search disputes...",
+            "loading": "Loading disputes...",
+            "noData": "No disputes found",
+            "view": "View",
+            "pagination": {
+                "showing": "Showing <from> to <to> of <total> disputes"
+            }
+        },
+        "modal": {
+            "title": "Dispute Details",
+            "loading": "Loading dispute details...",
+            "error": "Failed to load dispute details",
+            "close": "Close",
+            "info": {
+                "title": "Dispute Information",
+                "status": "Status",
+                "reason": "Reason",
+                "createdAt": "Created At",
+                "resolvedAt": "Resolved At",
+                "refundAmount": "Refund Amount",
+                "adminNote": "Admin Note"
+            },
+            "orderDetails": {
+                "title": "Order Details",
+                "productPrice": "Product Price",
+                "shippingCost": "Shipping Cost",
+                "totalAmount": "Total Amount",
+                "orderSummary": "Order Summary",
+                "total": "Total"
+            },
+            "paymentDetails": {
+                "title": "Payment Details",
+                "method": "Method",
+                "status": "Status"
+            },
+            "buyerComplaint": {
+                "title": "Buyer Complaint"
+            },
+            "resolve": {
+                "title": "Resolve Dispute",
+                "refundBuyer": "Refund Buyer",
+                "releaseToSeller": "Release to Seller",
+                "refundAmountLabel": "Refund Amount",
+                "refundAmountPlaceholder": "Enter refund amount",
+                "adminNoteLabel": "Admin Note",
+                "adminNotePlaceholder": "Enter admin note...",
+                "resolving": "Resolving...",
+                "resolveDispute": "Resolve Dispute"
+            }
         }
     },
     "commission": {
@@ -307,15 +475,22 @@
             "commissionEarned": "Commission Earned",
             "averagePerOrder": "Average per Order",
             "growthVsLastMonth": "Growth vs Last Month"
-        }
-    },
-    "settings": {
-        "title": "Platform Settings",
-        "description": "Configure system rules and preferences",
-        "saveChanges": "Save Changes",
-        "toast": {
-            "success": "Settings updated successfully",
-            "error": "Failed to update settings"
+        },
+        "history": {
+            "title": "Commission History",
+            "columns": {
+                "orderId": "Order ID",
+                "seller": "Seller",
+                "orderValue": "Order Value",
+                "commission": "Commission ({rate}%)",
+                "date": "Date",
+                "status": "Status"
+            },
+            "loading": "Loading commission history...",
+            "noData": "No commission history found.",
+            "pagination": {
+                "showing": "Showing <from> to <to> of <total> records"
+            }
         }
     },
     "activities": {
@@ -405,5 +580,33 @@
     "pagination": {
         "previous": "Previous",
         "next": "Next"
+    },
+    "appscreen": {
+        "invalidReferral": {
+            "title": "Invalid Referral Link",
+            "description": "Oops! The referral link you're trying to use is either invalid or has expired.",
+            "goHome": "Go to Home"
+        },
+        "payment": {
+            "cancel": {
+                "title": "Payment Cancelled",
+                "description": "Opening Djarna to continue..."
+            },
+            "success": {
+                "title": "Payment Successful!",
+                "description": "Opening Djarna to see your payment details..."
+            },
+            "noApp": "Don't have the app yet?",
+            "getGooglePlay": "Get it on Google Play",
+            "downloadAppStore": "Download on App Store",
+            "mobileOnly": "Please visit us on your mobile device."
+        },
+        "referral": {
+            "opening": "Opening Djarna...",
+            "invitedBy": "You were invited by {name}!",
+            "invitedGeneral": "You were invited to join Djarna!",
+            "invalidTitle": "Invalid Referral Link",
+            "invalidDescription": "This referral link is invalid or has expired."
+        }
     }
 }

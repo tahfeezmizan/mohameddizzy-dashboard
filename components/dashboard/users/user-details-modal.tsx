@@ -1,8 +1,11 @@
+"use client";
+
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useGetSingleUserQuery, useToggleUserActiveMutation, useRemoveVerifiedBadgeMutation } from "@/redux/features/users/userApi";
 import { Loader2, CheckCircle2, ShieldAlert, Ban, UserX, ShieldMinus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 export default function UserDetailsModal({ open, setOpen, userId }: { open: boolean; setOpen: (open: boolean) => void; userId: string | null }) {
     const {
@@ -15,6 +18,8 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
 
     const [toggleActive, { isLoading: isToggling }] = useToggleUserActiveMutation();
     const [removeBadge, { isLoading: isRemovingBadge }] = useRemoveVerifiedBadgeMutation();
+    const t = useTranslations("users.modal");
+    const tCommon = useTranslations("common");
 
     const user = userResponse?.data;
 
@@ -42,17 +47,14 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                 {isLoading ? (
                     <div className="h-125 flex flex-col items-center justify-center gap-3">
                         <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-                        {/* <p className="text-slate-500 font-medium">Loading user details...</p> */}
-                        <p className="text-slate-500 font-medium">Chargement des détails de l'utilisateur...</p>
+                        <p className="text-slate-500 font-medium">{t("loading")}</p>
                     </div>
                 ) : isError || !user ? (
                     <div className="h-100 flex flex-col items-center justify-center gap-3">
                         <ShieldAlert className="h-12 w-12 text-red-500" />
-                        {/* <p className="text-slate-500 font-medium">Failed to load user details</p> */}
-                        <p className="text-slate-500 font-medium">Échec du chargement des détails de l'utilisateur</p>
+                        <p className="text-slate-500 font-medium">{t("error")}</p>
                         <Button variant="outline" onClick={() => setOpen(false)}>
-                            {/* Close */}
-                            Fermer
+                            {tCommon("close")}
                         </Button>
                     </div>
                 ) : (
@@ -68,12 +70,11 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                                         <h2 className="text-xl font-bold text-slate-900">{user.name}</h2>
                                         {user.verifiedBadge && <CheckCircle2 className="h-5 w-5 text-blue-500 fill-blue-50" />}
                                     </div>
-                                    <p className="text-sm text-slate-500">{user.email || "No email provided"}</p>
+                                    <p className="text-sm text-slate-500">{user.email || t("noEmail")}</p>
                                 </div>
                             </div>
                             <Badge variant="secondary" className={`${user.isActive ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-red-50 text-red-700 border-red-100"} px-3 py-1`}>
-                                {/* {user.isActive ? "Active Account" : "Suspended"} */}
-                                {user.isActive ? "Compte Actif" : "Suspendu"}
+                                {user.isActive ? t("status.activeAccount") : t("status.suspended")}
                             </Badge>
                         </div>
 
@@ -82,29 +83,25 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                             {/* Info Grid */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                                    {/* <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">User ID</p> */}
-                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">ID Utilisateur</p>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.userId")}</p>
                                     <p className="font-mono text-sm text-slate-900">{user._id}</p>
                                 </div>
 
                                 <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                                    {/* <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Phone Number</p> */}
-                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Numéro de Téléphone</p>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.phoneNumber")}</p>
                                     <p className="font-medium text-slate-900">{user.phone}</p>
                                 </div>
 
                                 <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                                    {/* <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Role</p> */}
-                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Rôle</p>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.role")}</p>
                                     <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-100 uppercase text-[10px]">
                                         {user.role}
                                     </Badge>
                                 </div>
 
                                 <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                                    {/* <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Member Since</p> */}
-                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Membre Depuis</p>
-                                    <p className="font-medium text-slate-900">{new Date(user.createdAt).toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}</p>
+                                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.memberSince")}</p>
+                                    <p className="font-medium text-slate-900">{new Date(user.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</p>
                                 </div>
                             </div>
 
@@ -112,36 +109,28 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                             <div className="space-y-4">
                                 <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
                                     <div className="h-1 w-4 bg-blue-600 rounded-full"></div>
-                                    {/* Activity Overview */}
-                                    Aperçu de l'Activité
+                                    {t("activity.title")}
                                 </h3>
 
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
-                                        {/* <p className="text-xs font-medium text-slate-500 mb-1">Listings</p> */}
-                                        <p className="text-xs font-medium text-slate-500 mb-1">Annonces</p>
+                                        <p className="text-xs font-medium text-slate-500 mb-1">{t("activity.listings")}</p>
                                         <p className="text-2xl font-bold text-slate-900">{user.publishedProductCount}</p>
                                     </div>
 
                                     <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
-                                        {/* <p className="text-xs font-medium text-slate-500 mb-1">Wallet Balance</p> */}
-                                        <p className="text-xs font-medium text-slate-500 mb-1">Solde du Portefeuille</p>
+                                        <p className="text-xs font-medium text-slate-500 mb-1">{t("activity.walletBalance")}</p>
                                         <p className="text-2xl font-bold text-blue-600">{user.balance?.toLocaleString() || 0}</p>
                                     </div>
 
                                     <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
-                                        {/* <p className="text-xs font-medium text-slate-500 mb-1">Verification</p> */}
-                                        <p className="text-xs font-medium text-slate-500 mb-1">Vérification</p>
+                                        <p className="text-xs font-medium text-slate-500 mb-1">{t("activity.verification")}</p>
                                         <div className="flex items-center gap-1.5 mt-1">
                                             {user.verifiedBadge ? (
-                                                <Badge className="bg-blue-600 hover:bg-blue-600">
-                                                    {/* Verified */}
-                                                    Vérifié
-                                                </Badge>
+                                                <Badge className="bg-blue-600 hover:bg-blue-600">{t("activity.verified")}</Badge>
                                             ) : (
                                                 <Badge variant="outline" className="text-slate-400">
-                                                    {/* Standard */}
-                                                    Standard
+                                                    {t("activity.standard")}
                                                 </Badge>
                                             )}
                                         </div>
@@ -153,22 +142,19 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                             <div className="space-y-4 pt-4 border-t">
                                 <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
                                     <div className="h-1 w-4 bg-red-600 rounded-full"></div>
-                                    {/* Administrative Actions */}
-                                    Actions Administratives
+                                    {t("actions.title")}
                                 </h3>
 
                                 <div className="grid grid-cols-2 gap-3">
                                     <Button variant="outline" onClick={handleToggleActive} disabled={isToggling} className={`flex flex-col h-auto py-3 gap-1 ${user?.isActive ? "border-orange-200 text-orange-700 hover:bg-orange-50 hover:text-orange-800" : "border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"}`}>
                                         {isToggling ? <Loader2 className="h-5 w-5 animate-spin" /> : <UserX className="h-5 w-5" />}
-                                        {/* <span className="text-[10px] font-bold uppercase">{user?.isActive ? "Suspend" : "Activate"}</span> */}
-                                        <span className="text-[10px] font-bold uppercase">{user?.isActive ? "Suspendre" : "Activer"}</span>
+                                        <span className="text-[10px] font-bold uppercase">{user?.isActive ? t("actions.suspend") : t("actions.activate")}</span>
                                     </Button>
 
                                     {user?.verifiedBadge && (
                                         <Button variant="outline" onClick={handleRemoveBadge} disabled={isRemovingBadge} className="flex flex-col h-auto py-3 gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800">
                                             {isRemovingBadge ? <Loader2 className="h-5 w-5 animate-spin" /> : <ShieldMinus className="h-5 w-5" />}
-                                            {/* <span className="text-[10px] font-bold uppercase">Remove Badge</span> */}
-                                            <span className="text-[10px] font-bold uppercase">Supprimer le Badge</span>
+                                            <span className="text-[10px] font-bold uppercase">{t("actions.removeBadge")}</span>
                                         </Button>
                                     )}
                                 </div>

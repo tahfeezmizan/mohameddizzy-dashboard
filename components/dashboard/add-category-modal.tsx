@@ -1,8 +1,9 @@
+"use client";
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState, useEffect, useRef } from "react";
@@ -10,12 +11,16 @@ import { TCategory, useCreateCategoryMutation, useUpdateCategoryMutation } from 
 import { toast } from "sonner";
 import { Loader2, Upload, X } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const GENDER_OPTIONS = ["MEN", "WOMEN", "KID"] as const;
 
 export default function AddCategoryModal({ open, setOpen, editingCategory, parents }: { open: boolean; setOpen: (open: boolean) => void; editingCategory?: TCategory | null; parents: TCategory[] }) {
     const [createCategory, { isLoading: isCreating }] = useCreateCategoryMutation();
     const [updateCategory, { isLoading: isUpdating }] = useUpdateCategoryMutation();
+    const t = useTranslations("categories.modal");
+    const tc = useTranslations("common");
+    const tCategories = useTranslations("categories");
 
     const [name, setName] = useState("");
     const [gender, setGender] = useState<string[]>([]);
@@ -72,8 +77,7 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
 
     const handleSubmit = async () => {
         if (!name || name.length < 2) {
-            // toast.error("Name must be at least 2 characters");
-            toast.error("Le nom doit contenir au moins 2 caractères");
+            toast.error(t("nameError"));
             return;
         }
 
@@ -97,17 +101,14 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
         try {
             if (editingCategory) {
                 await updateCategory({ id: editingCategory._id, data: formData }).unwrap();
-                // toast.success("Category updated successfully");
-                toast.success("Catégorie mise à jour avec succès");
+                toast.success(t("updatedSuccess"));
             } else {
                 await createCategory(formData).unwrap();
-                // toast.success("Category created successfully");
-                toast.success("Catégorie créée avec succès");
+                toast.success(t("createdSuccess"));
             }
             setOpen(false);
         } catch (error: any) {
-            // toast.error(error?.data?.message || "Something went wrong");
-            toast.error(error?.data?.message || "Quelque chose s'est mal passé");
+            toast.error(error?.data?.message || t("generalError"));
         }
     };
 
@@ -117,8 +118,7 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="sm:max-w-125 p-0 overflow-hidden bg-white">
                 <DialogHeader className="px-6 py-4 border-b">
-                    {/* <DialogTitle className="text-xl font-bold text-slate-900">{editingCategory ? "Edit Category" : "Add New Category"}</DialogTitle> */}
-                    <DialogTitle className="text-xl font-bold text-slate-900">{editingCategory ? "Modifier la Catégorie" : "Ajouter une Nouvelle Catégorie"}</DialogTitle>
+                    <DialogTitle className="text-xl font-bold text-slate-900">{editingCategory ? t("titleEdit") : t("titleAdd")}</DialogTitle>
                 </DialogHeader>
 
                 <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
@@ -127,7 +127,7 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                         <div className="relative h-24 w-24 rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden group cursor-pointer hover:border-blue-400 transition-colors" onClick={() => fileInputRef.current?.click()}>
                             {iconPreview ? (
                                 <>
-                                    <Image src={iconPreview} alt="Aperçu" fill className="object-cover" />
+                                    <Image src={iconPreview} alt={t("uploadIcon")} fill className="object-cover" />
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                         <Upload className="h-6 w-6 text-white" />
                                     </div>
@@ -135,8 +135,7 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                             ) : (
                                 <div className="flex flex-col items-center text-slate-400">
                                     <Upload className="h-8 w-8 mb-1" />
-                                    {/* <span className="text-xs">Upload Icon</span> */}
-                                    <span className="text-xs">Télécharger l'Icône</span>
+                                    <span className="text-xs">{t("uploadIcon")}</span>
                                 </div>
                             )}
                         </div>
@@ -152,8 +151,7 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                                 }}
                             >
                                 <X className="h-4 w-4 mr-1" />
-                                {/* Remove */}
-                                Supprimer
+                                {t("remove")}
                             </Button>
                         )}
                     </div>
@@ -161,24 +159,19 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                     <div className="grid grid-cols-1 gap-4">
                         {/* Category Name */}
                         <div className="space-y-2">
-                            {/* <Label htmlFor="name">Category Name</Label> */}
-                            <Label htmlFor="name">Nom de la Catégorie</Label>
-                            {/* <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Luxury Fashion" className="h-11" /> */}
-                            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="ex: Mode Luxe" className="h-11" />
+                            <Label htmlFor="name">{t("categoryName")}</Label>
+                            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={t("placeholderCategory")} className="h-11" />
                         </div>
 
                         {/* Parent Category */}
                         <div className="space-y-2">
-                            {/* <Label>Parent Category</Label> */}
-                            <Label>Catégorie Parente</Label>
+                            <Label>{t("parentCategoryLabel")}</Label>
                             <Select value={parentCategory} onValueChange={(value) => setParentCategory(value || "none")}>
                                 <SelectTrigger className="h-11 w-full">
-                                    {/* <SelectValue placeholder="Select Parent (Optional)">{parentCategory === "none" ? "Main Category (None)" : parents.find((p) => p._id === parentCategory)?.name || parentCategory}</SelectValue> */}
-                                    <SelectValue placeholder="Sélectionner la Parente (Optionnel)">{parentCategory === "none" ? "Catégorie Principale (Aucune)" : parents.find((p) => p._id === parentCategory)?.name || parentCategory}</SelectValue>
+                                    <SelectValue placeholder={tCategories("parentCategory.select")}>{parentCategory === "none" ? tCategories("parentCategory.main") : parents.find((p) => p._id === parentCategory)?.name || parentCategory}</SelectValue>
                                 </SelectTrigger>
                                 <SelectContent className="bg-white">
-                                    {/* <SelectItem value="none">Main Category (None)</SelectItem> */}
-                                    <SelectItem value="none">Catégorie Principale (Aucune)</SelectItem>
+                                    <SelectItem value="none">{tCategories("parentCategory.main")}</SelectItem>
                                     {parents
                                         .filter((p) => p._id !== editingCategory?._id)
                                         .map((parent) => (
@@ -188,14 +181,12 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                                         ))}
                                 </SelectContent>
                             </Select>
-                            {/* <p className="text-[11px] text-slate-500">Leave as "Main Category" to create a top-level category.</p> */}
-                            <p className="text-[11px] text-slate-500">Laisser en "Catégorie Principale" pour créer une catégorie de niveau supérieur.</p>
+                            <p className="text-[11px] text-slate-500">{t("parentHelp")}</p>
                         </div>
 
                         {/* Gender Selection */}
                         <div className="space-y-3">
-                            {/* <Label>Target Gender</Label> */}
-                            <Label>Genre Cible</Label>
+                            <Label>{t("targetGender")}</Label>
                             <div className="flex flex-wrap gap-4">
                                 {GENDER_OPTIONS.map((option) => (
                                     <div key={option} className="flex items-center space-x-2">
@@ -212,10 +203,8 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                             <div className="pt-2">
                                 {/* Home Position */}
                                 <div className="space-y-2 max-w-50">
-                                    {/* <Label htmlFor="homePosition">Home Position</Label> */}
-                                    <Label htmlFor="homePosition">Position Accueil</Label>
-                                    {/* <Input id="homePosition" type="number" value={homePosition} onChange={(e) => setHomePosition(e.target.value)} placeholder="e.g., 1" className="h-11" /> */}
-                                    <Input id="homePosition" type="number" value={homePosition} onChange={(e) => setHomePosition(e.target.value)} placeholder="ex: 1" className="h-11" />
+                                    <Label htmlFor="homePosition">{t("homePosition")}</Label>
+                                    <Input id="homePosition" type="number" value={homePosition} onChange={(e) => setHomePosition(e.target.value)} placeholder={t("placeholderHomePos")} className="h-11" />
                                 </div>
                             </div>
                         )}
@@ -224,19 +213,11 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                     {/* Actions */}
                     <div className="flex gap-3 pt-4">
                         <Button variant="outline" onClick={() => setOpen(false)} className="flex-1 h-12" disabled={isLoading}>
-                            {/* Cancel */}
-                            Annuler
+                            {tc("cancel")}
                         </Button>
 
                         <Button onClick={handleSubmit} className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 text-white" disabled={isLoading}>
-                            {isLoading ? (
-                                <Loader2 className="h-5 w-5 animate-spin" />
-                            ) : // editingCategory ? "Update Category" : "Create Category"
-                            editingCategory ? (
-                                "Mettre à jour la Catégorie"
-                            ) : (
-                                "Créer la Catégorie"
-                            )}
+                            {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : editingCategory ? t("updateCategory") : t("createCategory")}
                         </Button>
                     </div>
                 </div>
