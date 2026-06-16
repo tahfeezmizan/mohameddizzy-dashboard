@@ -13,9 +13,19 @@ import { Loader2, Upload, X } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-const GENDER_OPTIONS = ["MEN", "WOMEN", "KID"] as const;
-
-export default function AddCategoryModal({ open, setOpen, editingCategory, parents }: { open: boolean; setOpen: (open: boolean) => void; editingCategory?: TCategory | null; parents: TCategory[] }) {
+export default function AddCategoryModal({
+    open,
+    setOpen,
+    editingCategory,
+    parents,
+    subcategories = []
+}: {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    editingCategory?: TCategory | null;
+    parents: TCategory[];
+    subcategories?: TCategory[];
+}) {
     const [createCategory, { isLoading: isCreating }] = useCreateCategoryMutation();
     const [updateCategory, { isLoading: isUpdating }] = useUpdateCategoryMutation();
     const t = useTranslations("categories.modal");
@@ -23,9 +33,10 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
     const tCategories = useTranslations("categories");
 
     const [name, setName] = useState("");
-    const [gender, setGender] = useState<string[]>([]);
     const [isActive, setIsActive] = useState(true);
-    const [parentCategory, setParentCategory] = useState<string>("none");
+    const [selectedLevel1, setSelectedLevel1] = useState<string>("none");
+    const [selectedLevel2, setSelectedLevel2] = useState<string>("none");
+    const [selectedLevel3, setSelectedLevel3] = useState<string>("none");
     const [homePosition, setHomePosition] = useState<string>("");
     const [homeVisibility, setHomeVisibility] = useState(true);
     const [icon, setIcon] = useState<File | null>(null);
@@ -33,35 +44,140 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    const allCats = [...parents, ...subcategories];
+
+    const getParentId = (category: TCategory): string | null => {
+        if (!category || !category.parentCategory) return null;
+        if (typeof category.parentCategory === "object") {
+            return (category.parentCategory as any)._id || null;
+        }
+        return category.parentCategory;
+    };
+
+    const getDescendantIds = (catId: string, allCatsList: TCategory[]): string[] => {
+        const children = allCatsList.filter((c) => getParentId(c) === catId);
+        let ids = children.map((c) => c._id);
+        for (const child of children) {
+            ids = [...ids, ...getDescendantIds(child._id, allCatsList)];
+        }
+        return ids;
+    };
+
+    const buildTreeList = (
+        nodes: TCategory[],
+        parentId: string | null = null,
+        depth: number = 0
+    ): { category: TCategory; label: string }[] => {
+        const list: { category: TCategory; label: string }[] = [];
+
+        const levelNodes = nodes.filter((node) => {
+            const pId = getParentId(node);
+            return (parentId === null && !pId) || (parentId !== null && pId === parentId);
+        });
+
+        for (const node of levelNodes) {
+            const prefix = "— ".repeat(depth);
+            list.push({
+                category: node,
+                label: `${prefix}${node.name} (Lvl ${node.level || depth + 1})`,
+            });
+            list.push(...buildTreeList(nodes, node._id, depth + 1));
+        }
+
+        return list;
+    };
+
+    const excludedIds = editingCategory
+        ? [editingCategory._id, ...getDescendantIds(editingCategory._id, allCats)]
+        : [];
+
+    const level1Options = allCats.filter(
+        (c) => (c.level === 1 || !getParentId(c)) && !excludedIds.includes(c._id)
+    );
+
+    const level2Options = allCats.filter(
+        (c) => c.level === 2 && getParentId(c) === selectedLevel1 && !excludedIds.includes(c._id)
+    );
+
+    const level3Options = allCats.filter(
+        (c) => c.level === 3 && getParentId(c) === selectedLevel2 && !excludedIds.includes(c._id)
+    );
+
+    const getAncestors = (catId: string, allCatsList: TCategory[]): TCategory[] => {
+        const ancestors: TCategory[] = [];
+        let current = allCatsList.find((c) => c._id === catId);
+        while (current) {
+            const parentId = typeof current.parentCategory === "object" && current.parentCategory !== null
+                ? (current.parentCategory as any)._id
+                : current.parentCategory;
+            if (!parentId) break;
+            const parent = allCatsList.find((c) => c._id === parentId);
+            if (parent) {
+                ancestors.unshift(parent);
+                current = parent;
+            } else {
+                break;
+            }
+        }
+        return ancestors;
+    };
+
+    const handleLevel1Change = (val: string | null) => {
+        setSelectedLevel1(val || "none");
+        setSelectedLevel2("none");
+        setSelectedLevel3("none");
+    };
+
+    const handleLevel2Change = (val: string | null) => {
+        setSelectedLevel2(val || "none");
+        setSelectedLevel3("none");
+    };
+
+    const handleLevel3Change = (val: string | null) => {
+        setSelectedLevel3(val || "none");
+    };
+
     useEffect(() => {
         if (editingCategory) {
             setName(editingCategory.name);
-            setGender(editingCategory.gender);
             setIsActive(editingCategory.isActive);
 
             // Handle parentCategory being either a string ID or a populated object
             const pId = typeof editingCategory.parentCategory === "object" && editingCategory.parentCategory !== null ? (editingCategory.parentCategory as any)._id : editingCategory.parentCategory;
 
-            setParentCategory(pId || "none");
+            if (pId) {
+                const ancestors = getAncestors(pId, allCats);
+                const parentCat = allCats.find((c) => c._id === pId);
+                const fullPath = parentCat ? [...ancestors, parentCat] : ancestors;
+
+                const lvl1 = fullPath.find((c) => c.level === 1)?._id || "none";
+                const lvl2 = fullPath.find((c) => c.level === 2)?._id || "none";
+                const lvl3 = fullPath.find((c) => c.level === 3)?._id || "none";
+
+                setSelectedLevel1(lvl1);
+                setSelectedLevel2(lvl2);
+                setSelectedLevel3(lvl3);
+            } else {
+                setSelectedLevel1("none");
+                setSelectedLevel2("none");
+                setSelectedLevel3("none");
+            }
             setHomePosition(editingCategory.homePosition?.toString() || "");
             setHomeVisibility(editingCategory.homeVisibility);
             setIconPreview(editingCategory.icon ? (editingCategory.icon.startsWith("http") ? editingCategory.icon : `${process.env.NEXT_PUBLIC_API_URL}${editingCategory.icon.startsWith("/") ? "" : "/"}${editingCategory.icon}`) : "");
             setIcon(null);
         } else {
             setName("");
-            setGender([]);
             setIsActive(true);
-            setParentCategory("none");
+            setSelectedLevel1("none");
+            setSelectedLevel2("none");
+            setSelectedLevel3("none");
             setHomePosition("");
             setHomeVisibility(true);
             setIcon(null);
             setIconPreview("");
         }
     }, [editingCategory, open]);
-
-    const handleGenderChange = (value: string) => {
-        setGender((prev) => (prev.includes(value) ? prev.filter((g) => g !== value) : [...prev, value]));
-    };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -83,11 +199,19 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
 
         const formData = new FormData();
 
+        let finalParentId: string | null = null;
+        if (selectedLevel3 !== "none") {
+            finalParentId = selectedLevel3;
+        } else if (selectedLevel2 !== "none") {
+            finalParentId = selectedLevel2;
+        } else if (selectedLevel1 !== "none") {
+            finalParentId = selectedLevel1;
+        }
+
         const dataObj = {
             name,
-            gender,
             isActive,
-            parentCategory: parentCategory === "none" ? null : parentCategory,
+            parentCategory: finalParentId,
             homePosition: homePosition ? Number(homePosition) : null,
             homeVisibility,
         };
@@ -164,42 +288,80 @@ export default function AddCategoryModal({ open, setOpen, editingCategory, paren
                         </div>
 
                         {/* Parent Category */}
-                        <div className="space-y-2">
-                            <Label>{t("parentCategoryLabel")}</Label>
-                            <Select value={parentCategory} onValueChange={(value) => setParentCategory(value || "none")}>
-                                <SelectTrigger className="h-11 w-full">
-                                    <SelectValue placeholder={tCategories("parentCategory.select")}>{parentCategory === "none" ? tCategories("parentCategory.main") : parents.find((p) => p._id === parentCategory)?.name || parentCategory}</SelectValue>
-                                </SelectTrigger>
-                                <SelectContent className="bg-white">
-                                    <SelectItem value="none">{tCategories("parentCategory.main")}</SelectItem>
-                                    {parents
-                                        .filter((p) => p._id !== editingCategory?._id)
-                                        .map((parent) => (
-                                            <SelectItem key={parent._id} value={parent._id}>
-                                                {parent.name}
+                        <div className="space-y-4">
+                            {/* Dropdown 1: Main Category */}
+                            <div className="space-y-2">
+                                <Label>Main Category (Level 1)</Label>
+                                <Select value={selectedLevel1} onValueChange={handleLevel1Change}>
+                                    <SelectTrigger className="h-11 w-full bg-white border border-slate-200">
+                                        <SelectValue placeholder="Select Main Category">
+                                            {selectedLevel1 === "none"
+                                                ? tCategories("parentCategory.main")
+                                                : allCats.find((p) => p._id === selectedLevel1)?.name || selectedLevel1}
+                                        </SelectValue>
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-60 overflow-y-auto">
+                                        <SelectItem value="none">{tCategories("parentCategory.main")}</SelectItem>
+                                        {level1Options.map((opt) => (
+                                            <SelectItem key={opt._id} value={opt._id}>
+                                                {opt.name}
                                             </SelectItem>
                                         ))}
-                                </SelectContent>
-                            </Select>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            {/* Dropdown 2: Subcategory */}
+                            {selectedLevel1 !== "none" && level2Options.length > 0 && (
+                                <div className="space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                                    <Label>Subcategory (Level 2)</Label>
+                                    <Select value={selectedLevel2} onValueChange={handleLevel2Change}>
+                                        <SelectTrigger className="h-11 w-full bg-white border border-slate-200">
+                                            <SelectValue placeholder="Select Subcategory">
+                                                {selectedLevel2 === "none"
+                                                    ? "None (Keep Level 1 as parent)"
+                                                    : allCats.find((p) => p._id === selectedLevel2)?.name || selectedLevel2}
+                                            </SelectValue>
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-white max-h-60 overflow-y-auto">
+                                            <SelectItem value="none">None (Keep Level 1 as parent)</SelectItem>
+                                            {level2Options.map((opt) => (
+                                                <SelectItem key={opt._id} value={opt._id}>
+                                                    {opt.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            )}
+
+                            {/* Dropdown 3: Sub-Subcategory */}
+                            {selectedLevel2 !== "none" && level3Options.length > 0 && (
+                                <div className="space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                                    <Label>Sub-Subcategory (Level 3)</Label>
+                                    <Select value={selectedLevel3} onValueChange={handleLevel3Change}>
+                                        <SelectTrigger className="h-11 w-full bg-white border border-slate-200">
+                                            <SelectValue placeholder="Select Sub-Subcategory">
+                                                {selectedLevel3 === "none"
+                                                    ? "None (Keep Level 2 as parent)"
+                                                    : allCats.find((p) => p._id === selectedLevel3)?.name || selectedLevel3}
+                                            </SelectValue>
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-white max-h-60 overflow-y-auto">
+                                            <SelectItem value="none">None (Keep Level 2 as parent)</SelectItem>
+                                            {level3Options.map((opt) => (
+                                                <SelectItem key={opt._id} value={opt._id}>
+                                                    {opt.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            )}
                             <p className="text-[11px] text-slate-500">{t("parentHelp")}</p>
                         </div>
 
-                        {/* Gender Selection */}
-                        <div className="space-y-3">
-                            <Label>{t("targetGender")}</Label>
-                            <div className="flex flex-wrap gap-4">
-                                {GENDER_OPTIONS.map((option) => (
-                                    <div key={option} className="flex items-center space-x-2">
-                                        <Checkbox id={`gender-${option}`} checked={gender.includes(option)} onCheckedChange={() => handleGenderChange(option)} />
-                                        <label htmlFor={`gender-${option}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer">
-                                            {option}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {parentCategory === "none" && (
+                        {selectedLevel1 === "none" && (
                             <div className="pt-2">
                                 {/* Home Position */}
                                 <div className="space-y-2 max-w-50">

@@ -4,15 +4,15 @@ export type TCategory = {
     _id: string;
     name: string;
     icon?: string;
-    gender: ("MEN" | "WOMEN" | "KID")[];
     isActive: boolean;
-    parentCategory: string | null;
+    parentCategory: string | { _id: string; name: string; level: number } | null;
     homePosition: number | null;
     homeVisibility: boolean;
     createdAt: string;
     updatedAt: string;
     subcategoryCount?: number;
     productCount?: number;
+    level?: number;
 };
 
 export type TCategoryResponse = {
@@ -40,6 +40,13 @@ const categoryApi = baseApi.injectEndpoints({
         getAdminSubcategories: builder.query<TCategoryResponse, void>({
             query: () => ({
                 url: "/category/admin/subcategories",
+                method: "GET",
+            }),
+            providesTags: ["Category"],
+        }),
+        getAdminCategoryTree: builder.query<TCategoryResponse, void>({
+            query: () => ({
+                url: "/category/admin/tree",
                 method: "GET",
             }),
             providesTags: ["Category"],
@@ -77,4 +84,4 @@ const categoryApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetAdminParentsQuery, useGetAdminSubcategoriesQuery, useGetSingleCategoryQuery, useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation } = categoryApi;
+export const { useGetAdminParentsQuery, useGetAdminSubcategoriesQuery, useGetAdminCategoryTreeQuery, useGetSingleCategoryQuery, useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation } = categoryApi;
