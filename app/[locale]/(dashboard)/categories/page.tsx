@@ -198,7 +198,7 @@ export default function Categories() {
                             disabled={isDeleting}
                             className="bg-red-500 hover:bg-red-600 text-white"
                         >
-                            {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : t("delete")}
+                            {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : tc("delete")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
