@@ -383,7 +383,8 @@
                 "fullName": "Full Name",
                 "phone": "Phone",
                 "document": "Document",
-                "submittedOn": "Submitted On"
+                "submittedOn": "Submitted On",
+                "email": "Email"
             },
             "status": {
                 "title": "Current Status"
@@ -393,7 +394,8 @@
                 "frontImage": "Front Image",
                 "backImage": "Back Image",
                 "selfieImage": "Selfie Image",
-                "clickToExpand": "Click to Expand"
+                "clickToExpand": "Click to Expand",
+                "notProvided": "Not Provided"
             },
             "adminDecision": {
                 "title": "Admin Decision",
