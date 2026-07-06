@@ -118,7 +118,7 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
             </div>
 
             {/* Pagination */}
-            {meta && meta.totalPage > 1 && (
+            {meta && meta.totalPages > 1 && (
                 <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
                     <p className="text-sm text-slate-500">
                         {t.rich("pagination.showing", {
@@ -129,17 +129,17 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
                         })}
                     </p>
                     <div className="flex items-center gap-2">
-                        <Button variant="outline" size="icon" disabled={page === 1} onClick={() => setPage((p) => p - 1)} className="h-8 w-8">
+                        <Button variant="outline" size="icon" disabled={!meta.hasPrev} onClick={() => setPage((p) => p - 1)} className="h-8 w-8">
                             <ChevronLeft className="h-4 w-4 text-slate-600" />
                         </Button>
                         <div className="flex items-center gap-1">
-                            {[...Array(meta.totalPage)].map((_, i) => (
+                            {[...Array(meta.totalPages)].map((_, i) => (
                                 <Button key={i} variant={page === i + 1 ? "default" : "outline"} size="sm" onClick={() => setPage(i + 1)} className={`h-8 w-8 p-0 ${page === i + 1 ? "bg-blue-600 hover:bg-blue-700" : ""}`}>
                                     {i + 1}
                                 </Button>
                             ))}
                         </div>
-                        <Button variant="outline" size="icon" disabled={page === meta.totalPage} onClick={() => setPage((p) => p + 1)} className="h-8 w-8">
+                        <Button variant="outline" size="icon" disabled={!meta.hasNext} onClick={() => setPage((p) => p + 1)} className="h-8 w-8">
                             <ChevronRight className="h-4 w-4 text-slate-600" />
                         </Button>
                     </div>

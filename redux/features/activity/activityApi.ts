@@ -27,7 +27,9 @@ export type TActivityResponse = {
         page: number;
         limit: number;
         total: number;
-        totalPage: number;
+        totalPages: number;
+        hasNext: boolean;
+        hasPrev: boolean;
     };
 };
 

@@ -105,15 +105,15 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
                                 .replace("<total>", `<span className="font-semibold text-slate-900">${meta.total}</span>`),
                         }}
                     />
-                    {meta.totalPage > 1 && (
+                    {meta.totalPages > 1 && (
                         <div className="flex items-center gap-2">
-                            <Button variant="outline" size="icon" disabled={page === 1} onClick={() => setPage((p) => p - 1)} className="h-8 w-8">
-                                <ChevronLeft className="h-4 w-4 text-slate-600" />
+                            <Button variant="outline" size="icon" disabled={!meta.hasPrev} onClick={() => setPage((p) => p - 1)} className="h-8 w-8">
+                                <ChevronLeft className="h-4 w-4" />
                             </Button>
                             <div className="flex items-center gap-1">
-                                {[...Array(meta.totalPage)].map((_, i) => {
+                                {[...Array(meta.totalPages)].map((_, i) => {
                                     const p = i + 1;
-                                    if (p === 1 || p === meta.totalPage || (p >= page - 1 && p <= page + 1)) {
+                                    if (p === 1 || p === meta.totalPages || (p >= page - 1 && p <= page + 1)) {
                                         return (
                                             <Button key={p} variant={page === p ? "default" : "outline"} size="sm" onClick={() => setPage(p)} disabled={isLoading} className={`h-8 w-8 p-0 text-xs ${page === p ? "bg-blue-600 hover:bg-blue-700" : ""}`}>
                                                 {p}
@@ -129,7 +129,7 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
                                     return null;
                                 })}
                             </div>
-                            <Button variant="outline" size="icon" disabled={page === meta.totalPage} onClick={() => setPage((p) => p + 1)} className="h-8 w-8">
+                            <Button variant="outline" size="icon" disabled={!meta.hasNext} onClick={() => setPage((p) => p + 1)} className="h-8 w-8">
                                 <ChevronRight className="h-4 w-4 text-slate-600" />
                             </Button>
                         </div>

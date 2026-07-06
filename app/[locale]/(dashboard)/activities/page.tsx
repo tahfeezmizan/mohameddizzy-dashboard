@@ -122,7 +122,7 @@ export default function ActivitiesPage() {
         setPage(1);
     };
 
-    const totalPages = activitiesResponse?.meta?.totalPage || 1;
+    const totalPages = activitiesResponse?.meta?.totalPages || 1;
 
     return (
         <div className="space-y-6">
@@ -251,7 +251,7 @@ export default function ActivitiesPage() {
                 <Pagination className="mt-4 pb-8">
                     <PaginationContent>
                         <PaginationItem>
-                            <PaginationPrevious className={cn("cursor-pointer", page === 1 && "pointer-events-none opacity-50")} onClick={() => setPage((p) => Math.max(1, p - 1))} />
+                            <PaginationPrevious className={cn("cursor-pointer", !activitiesResponse?.meta?.hasPrev && "pointer-events-none opacity-50")} onClick={() => setPage((p) => Math.max(1, p - 1))} />
                         </PaginationItem>
 
                         {Array.from({ length: totalPages }).map((_, i) => {
@@ -277,7 +277,7 @@ export default function ActivitiesPage() {
                         })}
 
                         <PaginationItem>
-                            <PaginationNext className={cn("cursor-pointer", page === totalPages && "pointer-events-none opacity-50")} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} />
+                            <PaginationNext className={cn("cursor-pointer", !activitiesResponse?.meta?.hasNext && "pointer-events-none opacity-50")} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} />
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>

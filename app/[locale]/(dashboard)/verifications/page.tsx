@@ -174,21 +174,21 @@ export default function VerificationsPage() {
                     </table>
                 </div>
 
-                {meta && meta.totalPage > 1 && (
+                {meta && meta.totalPages > 1 && (
                     <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
                         <p className="text-sm text-slate-500">{t("table.showing", { from: (page - 1) * 10 + 1, to: Math.min(page * 10, meta.total), total: meta.total })}</p>
                         <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" onClick={() => setPage(page - 1)} disabled={page === 1} className="h-9 w-9 p-0 rounded-lg border-slate-200">
+                            <Button variant="outline" size="sm" onClick={() => setPage(page - 1)} disabled={!meta.hasPrev} className="h-9 w-9 p-0 rounded-lg border-slate-200">
                                 <ChevronLeft className="h-4 w-4" />
                             </Button>
                             <div className="flex items-center gap-1">
-                                {Array.from({ length: meta.totalPage }).map((_, i) => (
+                                {Array.from({ length: meta.totalPages }).map((_, i) => (
                                     <Button key={i} variant={page === i + 1 ? "default" : "outline"} size="sm" onClick={() => setPage(i + 1)} className={`h-9 w-9 p-0 rounded-lg ${page === i + 1 ? "bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-200" : "border-slate-200 text-slate-600"}`}>
                                         {i + 1}
                                     </Button>
                                 ))}
                             </div>
-                            <Button variant="outline" size="sm" onClick={() => setPage(page + 1)} disabled={page === meta.totalPage} className="h-9 w-9 p-0 rounded-lg border-slate-200">
+                            <Button variant="outline" size="sm" onClick={() => setPage(page + 1)} disabled={!meta.hasNext} className="h-9 w-9 p-0 rounded-lg border-slate-200">
                                 <ChevronRight className="h-4 w-4" />
                             </Button>
                         </div>

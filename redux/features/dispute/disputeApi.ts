@@ -46,7 +46,9 @@ export type TDisputesResponse = {
         page: number;
         limit: number;
         total: number;
-        totalPage: number;
+        totalPages: number;
+        hasNext: boolean;
+        hasPrev: boolean;
     };
     data: TDispute[];
 };
