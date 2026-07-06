@@ -216,6 +216,12 @@ export default function VerificationsPage() {
                                             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t("modal.userInfo.phone")}</p>
                                             <p className="font-medium text-slate-900">{selectedRequest.user.phone}</p>
                                         </div>
+                                        {selectedRequest.user.email && (
+                                            <div>
+                                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t("modal.userInfo.email")}</p>
+                                                <p className="font-medium text-slate-900 break-all">{selectedRequest.user.email}</p>
+                                            </div>
+                                        )}
                                         <div>
                                             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t("modal.userInfo.document")}</p>
                                             <Badge variant="outline" className="mt-1 bg-blue-50 text-blue-700 border-blue-100 uppercase text-[10px]">
@@ -243,48 +249,69 @@ export default function VerificationsPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     <div className="space-y-2">
                                         <p className="text-sm font-semibold text-slate-700">{t("modal.documents.frontImage")}</p>
-                                        <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner group relative">
-                                            <Image src={getImageUrl(selectedRequest.frontImage)} alt="Front" fill className="object-cover transition-transform group-hover:scale-110" />
-                                            <button
-                                                onClick={() => {
-                                                    setFullscreenImage(getImageUrl(selectedRequest.frontImage));
-                                                    setIsFullscreenOpen(true);
-                                                }}
-                                                className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold z-10 w-full"
-                                            >
-                                                {t("modal.documents.clickToExpand")}
-                                            </button>
-                                        </div>
+                                        {selectedRequest.frontImage ? (
+                                            <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner group relative">
+                                                <Image src={getImageUrl(selectedRequest.frontImage)} alt="Front" fill className="object-cover transition-transform group-hover:scale-110" />
+                                                <button
+                                                    onClick={() => {
+                                                        setFullscreenImage(getImageUrl(selectedRequest.frontImage));
+                                                        setIsFullscreenOpen(true);
+                                                    }}
+                                                    className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold z-10 w-full"
+                                                >
+                                                    {t("modal.documents.clickToExpand")}
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="aspect-video bg-slate-50 rounded-xl border border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 p-4">
+                                                <XCircle className="h-6 w-6 mb-1 text-slate-300" />
+                                                <span className="text-xs font-medium">{t("modal.documents.notProvided")}</span>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="space-y-2">
                                         <p className="text-sm font-semibold text-slate-700">{t("modal.documents.backImage")}</p>
-                                        <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner group relative">
-                                            <Image src={getImageUrl(selectedRequest.backImage)} alt="Back" fill className="object-cover transition-transform group-hover:scale-110" />
-                                            <button
-                                                onClick={() => {
-                                                    setFullscreenImage(getImageUrl(selectedRequest.backImage));
-                                                    setIsFullscreenOpen(true);
-                                                }}
-                                                className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold z-10 w-full"
-                                            >
-                                                {t("modal.documents.clickToExpand")}
-                                            </button>
-                                        </div>
+                                        {selectedRequest.backImage ? (
+                                            <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner group relative">
+                                                <Image src={getImageUrl(selectedRequest.backImage)} alt="Back" fill className="object-cover transition-transform group-hover:scale-110" />
+                                                <button
+                                                    onClick={() => {
+                                                        setFullscreenImage(getImageUrl(selectedRequest.backImage));
+                                                        setIsFullscreenOpen(true);
+                                                    }}
+                                                    className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold z-10 w-full"
+                                                >
+                                                    {t("modal.documents.clickToExpand")}
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="aspect-video bg-slate-50 rounded-xl border border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 p-4">
+                                                <XCircle className="h-6 w-6 mb-1 text-slate-300" />
+                                                <span className="text-xs font-medium">{t("modal.documents.notProvided")}</span>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="space-y-2">
                                         <p className="text-sm font-semibold text-slate-700">{t("modal.documents.selfieImage")}</p>
-                                        <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner group relative">
-                                            <Image src={getImageUrl(selectedRequest.selfieImage)} alt="Selfie" fill className="object-cover transition-transform group-hover:scale-110" />
-                                            <button
-                                                onClick={() => {
-                                                    setFullscreenImage(getImageUrl(selectedRequest.selfieImage));
-                                                    setIsFullscreenOpen(true);
-                                                }}
-                                                className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold z-10 w-full"
-                                            >
-                                                {t("modal.documents.clickToExpand")}
-                                            </button>
-                                        </div>
+                                        {selectedRequest.selfieImage ? (
+                                            <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-inner group relative">
+                                                <Image src={getImageUrl(selectedRequest.selfieImage)} alt="Selfie" fill className="object-cover transition-transform group-hover:scale-110" />
+                                                <button
+                                                    onClick={() => {
+                                                        setFullscreenImage(getImageUrl(selectedRequest.selfieImage));
+                                                        setIsFullscreenOpen(true);
+                                                    }}
+                                                    className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold z-10 w-full"
+                                                >
+                                                    {t("modal.documents.clickToExpand")}
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="aspect-video bg-slate-50 rounded-xl border border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 p-4">
+                                                <XCircle className="h-6 w-6 mb-1 text-slate-300" />
+                                                <span className="text-xs font-medium">{t("modal.documents.notProvided")}</span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -327,7 +354,7 @@ export default function VerificationsPage() {
             </Dialog>
 
             <Dialog open={isFullscreenOpen} onOpenChange={setIsFullscreenOpen}>
-                <DialogContent className="max-w-[95vw] w-full max-h-[95vh] h-full p-0 overflow-hidden bg-black/95 border-none">
+                <DialogContent className="max-w-[95vw] w-full max-h-[95vh] h-full p-0 overflow-hidden bg-black/95 border-none [&>button]:hidden">
                     <div className="relative w-full h-full flex items-center justify-center">
                         {fullscreenImage && <Image src={fullscreenImage} alt="Fullscreen preview" fill className="object-contain" priority />}
                         <Button variant="ghost" className="absolute top-4 right-4 text-white hover:bg-white/20 z-50" onClick={() => setIsFullscreenOpen(false)}>

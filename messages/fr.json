@@ -383,7 +383,8 @@
                 "fullName": "Nom Complet",
                 "phone": "Téléphone",
                 "document": "Document",
-                "submittedOn": "Soumis Le"
+                "submittedOn": "Soumis Le",
+                "email": "E-mail"
             },
             "status": {
                 "title": "Statut Actuel"
@@ -393,7 +394,8 @@
                 "frontImage": "Image Recto",
                 "backImage": "Image Verso",
                 "selfieImage": "Image Selfie",
-                "clickToExpand": "Cliquez pour agrandir"
+                "clickToExpand": "Cliquez pour agrandir",
+                "notProvided": "Non fourni"
             },
             "adminDecision": {
                 "title": "Décision Admin",
