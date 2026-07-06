@@ -123,7 +123,7 @@ export default function DisputesTable() {
                                     <td className="px-6 py-4 font-semibold text-slate-900">
                                         {item.payment?.totalAmount || item.order?.totalAmount ? (
                                             <>
-                                                {item.payment?.totalAmount || item.order?.totalAmount} {item.payment?.currency || "FCFA"}
+                                                {item.payment?.totalAmount || item.order?.totalAmount} {item.payment?.currency || "CFA"}
                                             </>
                                         ) : (
                                             "-"

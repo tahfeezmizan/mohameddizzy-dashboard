@@ -96,7 +96,7 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
 
                             <div className="flex justify-between items-center pt-2">
                                 <span className="text-slate-500">{t("card.details.price")}</span>
-                                <span className="text-xl font-bold text-blue-600">{item.price.toLocaleString()} FCFA</span>
+                                <span className="text-xl font-bold text-blue-600">{item.price.toLocaleString()} CFA</span>
                             </div>
                         </div>
 

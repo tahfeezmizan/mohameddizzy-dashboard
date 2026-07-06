@@ -24,7 +24,7 @@ export default function Commission() {
     const commissionStats = [
         {
             title: t("stats.totalEarnedCommission"),
-            value: `${commissionData?.data.totalRevenue.toLocaleString()} FCFA`,
+            value: `${commissionData?.data.totalRevenue.toLocaleString()} CFA`,
             description: t("stats.fromAllOrders", { rate: commissionRate }),
             badge: t("stats.total"),
             bgColor: "bg-[#2f6bf8]",
@@ -34,7 +34,7 @@ export default function Commission() {
         },
         {
             title: t("stats.thisMonthCommission"),
-            value: `${commissionData?.data.thisMonthCommission.toLocaleString()} FCFA`,
+            value: `${commissionData?.data.thisMonthCommission.toLocaleString()} CFA`,
             description: t("stats.readyToWithdraw"),
             badge: t("stats.ready"),
             bgColor: "bg-[#12b362]",
@@ -44,7 +44,7 @@ export default function Commission() {
         },
         {
             title: t("stats.pendingEscrow"),
-            value: `${commissionData?.data.pendingEscrow.toLocaleString()} FCFA`,
+            value: `${commissionData?.data.pendingEscrow.toLocaleString()} CFA`,
             description: t("stats.inDisputeWindow"),
             badge: t("stats.waiting"),
             bgColor: "bg-[#fb610c]",
@@ -141,11 +141,11 @@ export default function Commission() {
                             </div>
                             <div className="flex justify-between items-center p-4 bg-emerald-50 rounded-xl">
                                 <span className="text-sm font-medium text-slate-600">{t("thisMonth.commissionEarned")}</span>
-                                <span className="font-bold text-emerald-600 text-lg">{thisMonthData?.data.commissionEarned.toLocaleString()} FCFA</span>
+                                <span className="font-bold text-emerald-600 text-lg">{thisMonthData?.data.commissionEarned.toLocaleString()} CFA</span>
                             </div>
                             <div className="flex justify-between items-center p-4 bg-orange-50 rounded-xl">
                                 <span className="text-sm font-medium text-slate-600">{t("thisMonth.averagePerOrder")}</span>
-                                <span className="font-bold text-orange-600 text-lg">{thisMonthData?.data.averagePerOrder} FCFA</span>
+                                <span className="font-bold text-orange-600 text-lg">{thisMonthData?.data.averagePerOrder} CFA</span>
                             </div>
                             <div className="flex justify-between items-center p-4 bg-purple-50 rounded-xl">
                                 <span className="text-sm font-medium text-slate-600">{t("thisMonth.growthVsLastMonth")}</span>

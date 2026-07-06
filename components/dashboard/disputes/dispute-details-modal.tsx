@@ -106,7 +106,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.refundAmount")}</p>
                                     <p className="font-medium text-slate-900">
-                                        {dispute.refundAmount} {dispute.payment?.currency || "FCFA"}
+                                        {dispute.refundAmount} {dispute.payment?.currency || "CFA"}
                                     </p>
                                 </div>
                             )}
@@ -130,19 +130,19 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                 <div>
                                     <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{t("orderDetails.productPrice")}</p>
                                     <p className="font-medium text-slate-900">
-                                        {dispute.order.productPrice || "-"} {dispute.payment?.currency || "FCFA"}
+                                        {dispute.order.productPrice || "-"} {dispute.payment?.currency || "CFA"}
                                     </p>
                                 </div>
                                 <div>
                                     <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{t("orderDetails.shippingCost")}</p>
                                     <p className="font-medium text-slate-900">
-                                        {dispute.order.shippingCost || "-"} {dispute.payment?.currency || "FCFA"}
+                                        {dispute.order.shippingCost || "-"} {dispute.payment?.currency || "CFA"}
                                     </p>
                                 </div>
                                 <div className="col-span-2">
                                     <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{t("orderDetails.totalAmount")}</p>
                                     <p className="text-xl font-bold text-blue-700">
-                                        {dispute.order.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "FCFA"}
+                                        {dispute.order.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "CFA"}
                                     </p>
                                 </div>
                             </div>
@@ -217,19 +217,19 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                                 <div className="flex justify-between text-sm">
                                                     <span className="text-slate-600">{t("orderDetails.productPrice")}</span>
                                                     <span className="font-medium">
-                                                        {dispute.order?.productPrice || "-"} {dispute.payment?.currency || "FCFA"}
+                                                        {dispute.order?.productPrice || "-"} {dispute.payment?.currency || "CFA"}
                                                     </span>
                                                 </div>
                                                 <div className="flex justify-between text-sm">
                                                     <span className="text-slate-600">{t("orderDetails.shippingCost")}</span>
                                                     <span className="font-medium">
-                                                        {dispute.order?.shippingCost || "-"} {dispute.payment?.currency || "FCFA"}
+                                                        {dispute.order?.shippingCost || "-"} {dispute.payment?.currency || "CFA"}
                                                     </span>
                                                 </div>
                                                 <div className="flex justify-between text-sm border-t border-slate-200 pt-1.5 mt-1.5">
                                                     <span className="font-semibold text-slate-900">{t("orderDetails.total")}</span>
                                                     <span className="font-bold text-blue-700">
-                                                        {dispute.order?.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "FCFA"}
+                                                        {dispute.order?.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "CFA"}
                                                     </span>
                                                 </div>
                                             </div>

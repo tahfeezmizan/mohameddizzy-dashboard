@@ -30,7 +30,7 @@ export function RevenueChart() {
                                 <XAxis dataKey="date" axisLine={true} tickLine={true} tick={{ fontSize: 10, fill: "#64748b" }} stroke="#cbd5e1" minTickGap={10} />
                                 <YAxis axisLine={true} tickLine={true} tick={{ fontSize: 12, fill: "#64748b" }} stroke="#cbd5e1" tickFormatter={(value: any) => `${Number(value).toLocaleString()}`} />
                                 <Tooltip
-                                    formatter={(value: any) => [`${Number(value).toLocaleString()} FCFA`, t("revenueLabel")]}
+                                    formatter={(value: any) => [`${Number(value).toLocaleString()} CFA`, t("revenueLabel")]}
                                     contentStyle={{
                                         backgroundColor: "#fff",
                                         borderRadius: "8px",
