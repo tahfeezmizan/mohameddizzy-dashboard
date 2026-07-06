@@ -79,8 +79,8 @@ export default function CommissionHistoryTable({ commissionRate, status }: Commi
                                     <tr key={item._id} className="hover:bg-slate-50/50 transition-colors">
                                         <td className="px-6 py-4 font-bold text-slate-800">#{item._id.slice(-5).toUpperCase()}</td>
                                         <td className="px-6 py-4 text-slate-600">{item.sellerId.name}</td>
-                                        <td className="px-6 py-4 text-slate-700">{item.productPrice.toLocaleString()} FCFA</td>
-                                        <td className="px-6 py-4 font-bold text-emerald-600">{item.siteFee.toLocaleString()} FCFA</td>
+                                        <td className="px-6 py-4 text-slate-700">{item.productPrice.toLocaleString()} CFA</td>
+                                        <td className="px-6 py-4 font-bold text-emerald-600">{item.siteFee.toLocaleString()} CFA</td>
                                         <td className="px-6 py-4 text-slate-500">{new Date(item.createdAt).toLocaleDateString()}</td>
                                         <td className="px-6 py-4">
                                             <Badge className={`${statusStyle} hover:${statusStyle} border-0 font-medium whitespace-nowrap`}>{item.status}</Badge>

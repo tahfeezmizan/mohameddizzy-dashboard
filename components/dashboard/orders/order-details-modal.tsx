@@ -82,7 +82,7 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
 
                                 <div className="space-y-1">
                                     <p className="text-slate-500 font-medium">{t("productInfo.totalAmount")}</p>
-                                    <p className="font-bold text-slate-900 text-base">{order.totalAmount.toLocaleString()} FCFA</p>
+                                    <p className="font-bold text-slate-900 text-base">{order.totalAmount.toLocaleString()} CFA</p>
                                 </div>
 
                                 <div className="space-y-1">
@@ -138,19 +138,19 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
                             <div className="p-4 space-y-2 text-sm">
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">{t("priceBreakdown.productPrice")}</span>
-                                    <span className="font-medium">{order.productPrice.toLocaleString()} FCFA</span>
+                                    <span className="font-medium">{order.productPrice.toLocaleString()} CFA</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">{t("priceBreakdown.buyerProtectionFee")}</span>
-                                    <span className="font-medium">+{order.buyerProtectionFee?.toLocaleString() || 0} FCFA</span>
+                                    <span className="font-medium">+{order.buyerProtectionFee?.toLocaleString() || 0} CFA</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">{t("priceBreakdown.shippingCost")}</span>
-                                    <span className="font-medium">+{order.shippingCost?.toLocaleString() || 0} FCFA</span>
+                                    <span className="font-medium">+{order.shippingCost?.toLocaleString() || 0} CFA</span>
                                 </div>
                                 <div className="pt-2 border-t border-slate-100 flex justify-between">
                                     <span className="font-bold text-slate-900">{t("priceBreakdown.totalAmount")}</span>
-                                    <span className="font-bold text-blue-600 text-base">{order.totalAmount.toLocaleString()} FCFA</span>
+                                    <span className="font-bold text-blue-600 text-base">{order.totalAmount.toLocaleString()} CFA</span>
                                 </div>
                             </div>
                         </div>

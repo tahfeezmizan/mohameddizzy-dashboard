@@ -40,7 +40,7 @@ export function FinancialOverview() {
     const financialData = [
         {
             title: t("totalRevenueCommission"),
-            value: `${commissionData?.data.totalRevenue.toLocaleString()} FCFA`,
+            value: `${commissionData?.data.totalRevenue.toLocaleString()} CFA`,
             textColor: "text-blue-600",
             valueColor: "text-blue-700",
             bgColor: "bg-[#eef2ff]",
@@ -48,7 +48,7 @@ export function FinancialOverview() {
         },
         {
             title: t("thisMonthCommission"),
-            value: `${commissionData?.data.thisMonthCommission.toLocaleString()} FCFA`,
+            value: `${commissionData?.data.thisMonthCommission.toLocaleString()} CFA`,
             textColor: "text-emerald-600",
             valueColor: "text-emerald-700",
             bgColor: "bg-[#ecfdf5]",
@@ -56,7 +56,7 @@ export function FinancialOverview() {
         },
         {
             title: t("pendingEscrow"),
-            value: `${commissionData?.data.pendingEscrow.toLocaleString()} FCFA`,
+            value: `${commissionData?.data.pendingEscrow.toLocaleString()} CFA`,
             textColor: "text-orange-600",
             valueColor: "text-orange-700",
             bgColor: "bg-[#fff7ed]",

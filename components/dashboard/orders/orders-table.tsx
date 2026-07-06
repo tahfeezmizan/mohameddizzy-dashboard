@@ -95,7 +95,7 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
                                         <td className="px-6 py-4 text-slate-700 whitespace-nowrap">{item.product.title}</td>
                                         <td className="px-6 py-4 text-slate-700">{item.buyer.name}</td>
                                         <td className="px-6 py-4 text-slate-700">{item.seller.name}</td>
-                                        <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">{item.totalAmount.toLocaleString()} FCFA</td>
+                                        <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">{item.totalAmount.toLocaleString()} CFA</td>
                                         <td className="px-6 py-4">
                                             <Badge variant="secondary" className={`${statusStyle} hover:${statusStyle} font-medium flex items-center gap-1 w-fit`}>
                                                 <StatusIcon className="h-3.5 w-3.5" />
