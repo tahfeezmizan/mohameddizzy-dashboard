@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export default function VerificationsPage() {
     const [page, setPage] = useState(1);
@@ -24,9 +25,11 @@ export default function VerificationsPage() {
     const [adminComment, setAdminComment] = useState("");
     const t = useTranslations("verifications");
 
+    const debouncedSearch = useDebounce(search, 500);
+
     const queryParams: any = { page, limit: 10 };
     if (statusFilter !== "ALL") queryParams.status = statusFilter;
-    if (search) queryParams.searchTerm = search;
+    if (debouncedSearch) queryParams.searchTerm = debouncedSearch;
 
     const { data: response, isLoading, isFetching } = useGetVerificationRequestsQuery(queryParams);
     const [updateStatus, { isLoading: isUpdating }] = useUpdateVerificationStatusMutation();
@@ -94,7 +97,7 @@ export default function VerificationsPage() {
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                        <Input placeholder={t("search.placeholder")} className="pl-10 h-11 border-slate-200" value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <Input placeholder={t("search.placeholder")} className="pl-10 h-11 border-slate-200" value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
                     </div>
                     <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
                         <Filter className="h-4 w-4 text-slate-400 mr-2 shrink-0" />
