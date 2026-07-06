@@ -111,7 +111,7 @@ export default function UsersTable({ searchTerm, filter, page, setPage }: UsersT
             </div>
 
             {/* Pagination */}
-            {meta && meta.totalPage > 1 && (
+            {meta && meta.totalPages > 1 && (
                 <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
                     <p
                         className="text-xs text-slate-500"
@@ -124,14 +124,14 @@ export default function UsersTable({ searchTerm, filter, page, setPage }: UsersT
                         }}
                     />
                     <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" disabled={page === 1 || isFetching} onClick={() => setPage(page - 1)} className="h-8 w-8 p-0">
+                        <Button variant="outline" size="sm" disabled={!meta.hasPrev || isFetching} onClick={() => setPage(page - 1)} className="h-8 w-8 p-0">
                             <ChevronLeft className="h-4 w-4" />
                         </Button>
                         <div className="flex items-center gap-1">
-                            {[...Array(meta.totalPage)].map((_, i) => {
+                            {[...Array(meta.totalPages)].map((_, i) => {
                                 const p = i + 1;
                                 // Simple pagination logic to show current, first, last and surrounding
-                                if (p === 1 || p === meta.totalPage || (p >= page - 1 && p <= page + 1)) {
+                                if (p === 1 || p === meta.totalPages || (p >= page - 1 && p <= page + 1)) {
                                     return (
                                         <Button key={p} variant={page === p ? "default" : "outline"} size="sm" onClick={() => setPage(p)} disabled={isFetching} className={`h-8 w-8 p-0 text-xs ${page === p ? "bg-blue-600" : ""}`}>
                                             {p}
@@ -147,7 +147,7 @@ export default function UsersTable({ searchTerm, filter, page, setPage }: UsersT
                                 return null;
                             })}
                         </div>
-                        <Button variant="outline" size="sm" disabled={page === meta.totalPage || isFetching} onClick={() => setPage(page + 1)} className="h-8 w-8 p-0">
+                        <Button variant="outline" size="sm" disabled={!meta.hasNext || isFetching} onClick={() => setPage(page + 1)} className="h-8 w-8 p-0">
                             <ChevronRight className="h-4 w-4" />
                         </Button>
                     </div>
