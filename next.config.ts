@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
+                hostname: "api.djarna.com",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
+                hostname: "*.djarna.com",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
                 hostname: "djarna.apponislam.top",
                 pathname: "/**",
             },
