@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Zap, Edit, MinusCircle, Trash2, Star, Loader2, CheckCircle2 } from "lucide-react";
+import { Zap, Edit, MinusCircle, Trash2, Star, Loader2, CheckCircle2, Check } from "lucide-react";
 import { useState } from "react";
 import AddNewPackModal from "./add-new-pack.modal";
 import { useDeleteBoostPackMutation, useToggleBoostPackStatusMutation, useSetBoostPackRecommendedMutation, TBoostPack } from "@/redux/features/boostPack/boostPackApi";
@@ -99,6 +99,20 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                                 <span className="text-xl font-bold text-blue-600">{item.price.toLocaleString()} CFA</span>
                             </div>
                         </div>
+
+                        {item.features && item.features.length > 0 && (
+                            <div className="mt-4 pt-4 border-t border-slate-100 mb-6">
+                                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">{t("card.details.features")}</span>
+                                <ul className="space-y-2">
+                                    {item.features.map((feature, idx) => (
+                                        <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
+                                            <Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                                            <span>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
 
                         <div className="flex flex-col gap-2">
                             <div className="grid grid-cols-2 gap-3">

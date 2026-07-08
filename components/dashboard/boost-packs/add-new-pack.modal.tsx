@@ -8,8 +8,8 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { useCreateBoostPackMutation, useUpdateBoostPackMutation, TBoostPack } from "@/redux/features/boostPack/boostPackApi";
 import { toast } from "sonner";
-import { useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Loader2, Plus, Trash2 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTranslations } from "next-intl";
 
@@ -32,6 +32,9 @@ export default function AddNewPackModal({ open, setOpen, editData }: { open: boo
     const [updateBoostPack, { isLoading: isUpdating }] = useUpdateBoostPackMutation();
     const t = useTranslations("boostPacks.modal");
 
+    const [features, setFeatures] = useState<string[]>([]);
+    const [featureInput, setFeatureInput] = useState("");
+
     useEffect(() => {
         if (editData) {
             reset({
@@ -41,6 +44,7 @@ export default function AddNewPackModal({ open, setOpen, editData }: { open: boo
                 duration: editData.duration,
                 price: editData.price,
             });
+            setFeatures(editData.features || []);
         } else {
             reset({
                 name: "",
@@ -49,19 +53,34 @@ export default function AddNewPackModal({ open, setOpen, editData }: { open: boo
                 duration: 0,
                 price: 0,
             });
+            setFeatures([]);
         }
+        setFeatureInput("");
     }, [editData, reset, open]);
+
+    const handleAddFeature = () => {
+        const trimmed = featureInput.trim();
+        if (trimmed && !features.includes(trimmed)) {
+            setFeatures([...features, trimmed]);
+            setFeatureInput("");
+        }
+    };
+
+    const handleRemoveFeature = (index: number) => {
+        setFeatures(features.filter((_, i) => i !== index));
+    };
 
     const onSubmit = async (data: FormValues) => {
         try {
+            const payload = { ...data, features };
             if (editData) {
-                const res = await updateBoostPack({ id: editData._id, body: data }).unwrap();
+                const res = await updateBoostPack({ id: editData._id, body: payload }).unwrap();
                 if (res.success) {
                     toast.success(t("toast.updateSuccess"));
                     setOpen(false);
                 }
             } else {
-                const res = await createBoostPack(data).unwrap();
+                const res = await createBoostPack(payload).unwrap();
                 if (res.success) {
                     toast.success(t("toast.createSuccess"));
                     setOpen(false);
@@ -115,6 +134,47 @@ export default function AddNewPackModal({ open, setOpen, editData }: { open: boo
                             <Label className="text-sm mb-2 block">{t("price")}</Label>
                             <Input {...register("price", { required: true, valueAsNumber: true })} type="number" placeholder={t("pricePlaceholder")} className="rounded-md text-base! h-12" />
                         </div>
+                    </div>
+
+                    <div>
+                        <Label className="text-sm mb-2 block">{t("features")}</Label>
+                        <div className="flex gap-2 mb-2">
+                            <Input
+                                value={featureInput}
+                                onChange={(e) => setFeatureInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        e.preventDefault();
+                                        handleAddFeature();
+                                    }
+                                }}
+                                placeholder={t("featuresPlaceholder")}
+                                className="rounded-md text-base! h-12 flex-1"
+                            />
+                            <Button
+                                type="button"
+                                onClick={handleAddFeature}
+                                className="h-12 px-4 bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-200"
+                            >
+                                <Plus className="h-5 w-5" />
+                            </Button>
+                        </div>
+                        {features.length > 0 && (
+                            <div className="space-y-2 mt-3 max-h-40 overflow-y-auto p-2 border rounded-md bg-slate-50/50">
+                                {features.map((feature, index) => (
+                                    <div key={index} className="flex items-center justify-between bg-white px-3 py-2 rounded-md border border-slate-100 text-sm text-slate-700 shadow-sm animate-in fade-in slide-in-from-top-1 duration-200">
+                                        <span className="truncate pr-4">{feature}</span>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveFeature(index)}
+                                            className="text-red-500 hover:text-red-700 hover:bg-red-50 p-1.5 rounded-md transition-colors shrink-0"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <DialogFooter className="flex justify-between sm:justify-end gap-2 pt-4">

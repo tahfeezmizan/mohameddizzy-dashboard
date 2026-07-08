@@ -10,6 +10,7 @@ export type TBoostPack = {
     isActive: boolean;
     isRecommended: boolean;
     isDeleted: boolean;
+    features?: string[];
     createdAt: string;
     updatedAt: string;
 };
