@@ -308,7 +308,8 @@
                 "days": "Jours",
                 "status": "Statut :",
                 "type": "Type :",
-                "price": "Prix :"
+                "price": "Prix :",
+                "features": "Caractéristiques :"
             },
             "actions": {
                 "edit": "Modifier",
@@ -339,6 +340,8 @@
             "durationPlaceholder": "ex: 30",
             "price": "Prix",
             "pricePlaceholder": "ex: 5000",
+            "features": "Avantages / Caractéristiques",
+            "featuresPlaceholder": "Ajouter une caractéristique",
             "cancel": "Annuler",
             "createPack": "Créer le Pack",
             "updatePack": "Mettre à jour le Pack",
