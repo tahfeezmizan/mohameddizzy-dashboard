@@ -53,7 +53,7 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {data.map((item: TBoostPack) => (
-                <Card key={item._id} className={`shadow-sm border-slate-200 relative overflow-hidden ${item.isRecommended ? "ring-2 ring-blue-500/50" : ""}`}>
+                <Card key={item._id} className={`shadow-sm border-slate-200 relative overflow-hidden flex flex-col h-full ${item.isRecommended ? "ring-2 ring-blue-500/50" : ""}`}>
                     {item.isRecommended && (
                         <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider flex items-center gap-1">
                             <Star className="h-3 w-3 fill-white" />
@@ -61,7 +61,7 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                         </div>
                     )}
 
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 flex flex-col flex-1">
                         <div className="flex items-start gap-4 mb-6">
                             <div className="h-10 w-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
                                 <Zap className="h-5 w-5 text-blue-600" />
@@ -114,7 +114,7 @@ export default function BoostPackCard({ data }: { data: TBoostPack[] }) {
                             </div>
                         )}
 
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 mt-auto">
                             <div className="grid grid-cols-2 gap-3">
                                 <Button variant="outline" onClick={() => setEditingPack(item)} className="w-full py-5.5 text-base! text-slate-700 border-slate-200">
                                     <Edit className="mr-2 h-4 w-4" />
