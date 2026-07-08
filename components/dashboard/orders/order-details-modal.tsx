@@ -104,7 +104,7 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
 
                                 <div className="space-y-1">
                                     <p className="text-slate-500 font-medium">{t("productInfo.transactionId")}</p>
-                                    <p className="font-mono text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded w-fit">{order.payment?.transactionId || "N/A"}</p>
+                                    <p className="font-mono text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded w-fit">{order.payment?.paydunyaInvoiceToken || "N/A"}</p>
                                 </div>
                             </div>
                         </div>

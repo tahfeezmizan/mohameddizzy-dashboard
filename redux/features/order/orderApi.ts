@@ -30,8 +30,15 @@ export type TOrder = {
     buyerProtectionFee?: number;
     shippingCost?: number;
     payment?: {
-        transactionId: string;
+        _id?: string;
+        transactionId?: string;
         status: string;
+        currency?: string;
+        method?: string;
+        metadata?: any;
+        paydunyaInvoiceToken?: string;
+        paydunyaReceiptUrl?: string;
+        paidAt?: string;
     };
     deliveryMethod?: string;
     createdAt: string;
