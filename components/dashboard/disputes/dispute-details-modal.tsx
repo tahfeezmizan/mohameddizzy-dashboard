@@ -42,7 +42,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
         return (
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogContent className="sm:max-w-3xl p-0 overflow-hidden gap-0">
-                    <div className="h-100 flex flex-col items-center justify-center gap-3">
+                    <div className="h-64 flex flex-col items-center justify-center gap-3">
                         <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
                         <p className="text-slate-500 font-medium">{t("loading")}</p>
                     </div>
@@ -55,7 +55,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
         return (
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogContent className="sm:max-w-3xl p-0 overflow-hidden gap-0">
-                    <div className="h-100 flex flex-col items-center justify-center gap-3">
+                    <div className="h-64 flex flex-col items-center justify-center gap-3">
                         <XCircle className="h-12 w-12 text-red-500" />
                         <p className="text-slate-500 font-medium">{t("error")}</p>
                         <Button variant="outline" onClick={() => setOpen(false)}>
@@ -83,7 +83,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                     {/* Dispute Info */}
                     <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
                         <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">{t("info.title")}</h3>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.status")}</p>
                                 <p className="font-medium text-slate-900">{dispute.status}</p>
@@ -126,7 +126,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                 <Package className="h-4 w-4" />
                                 {t("orderDetails.title")}
                             </h3>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{t("orderDetails.productPrice")}</p>
                                     <p className="font-medium text-slate-900">
@@ -156,7 +156,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                 <CreditCard className="h-4 w-4" />
                                 {t("paymentDetails.title")}
                             </h3>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">{t("paymentDetails.method")}</p>
                                     <p className="font-medium text-slate-900">{dispute.payment.method || "-"}</p>
@@ -179,7 +179,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                             <p className="font-medium text-slate-900 mb-0.5">{dispute.buyer.name}</p>
                             <p className="text-sm text-slate-600 mb-4">{dispute.description}</p>
                             {dispute.images && dispute.images.length > 0 && (
-                                <div className="grid grid-cols-3 gap-2">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                                     {dispute.images.map((image, index) => (
                                         <div key={index} className="aspect-square rounded-lg overflow-hidden border border-red-200">
                                             <img src={`${process.env.NEXT_PUBLIC_API_URL}${image}`} alt={`Litige image ${index + 1}`} className="w-full h-full object-cover" />
@@ -198,7 +198,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                 {t("resolve.title")}
                             </h3>
                             <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <Button onClick={() => setResolution("RESOLVED")} variant={resolution === "RESOLVED" ? "default" : "outline"} className={`py-6 ${resolution === "RESOLVED" ? "bg-red-600 hover:bg-red-700" : "border-red-200 text-red-700 hover:bg-red-50"}`}>
                                         <XCircle className="w-5 h-5 mr-2" />
                                         {t("resolve.refundBuyer")}

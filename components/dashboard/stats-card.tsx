@@ -13,9 +13,9 @@ export default function StatsCard({ stats }: { stats: StatItem[] }) {
     <div
       className={`grid gap-6 ${
         stats.length === 3
-          ? "grid-cols-3"
+          ? "grid-cols-1 md:grid-cols-3"
           : stats.length >= 4
-            ? "grid-cols-4"
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
             : "grid-cols-1"
       }`}
     >

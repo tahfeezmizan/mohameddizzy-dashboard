@@ -27,7 +27,7 @@ export function Header() {
                         <AvatarImage src="" alt="Admin user" />
                         <AvatarFallback className="bg-blue-600 text-white font-medium text-xs">AD</AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col">
+                    <div className="hidden sm:flex flex-col">
                         <span className="text-sm font-semibold text-slate-900 leading-none mb-1">Admin</span>
                         <span className="text-xs text-slate-500 leading-none">Administrator</span>
                     </div>

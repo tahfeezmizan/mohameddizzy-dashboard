@@ -150,9 +150,9 @@ export default function DisputesTable() {
 
             {/* Pagination */}
             {meta && meta.totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
+                <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/30">
                     <p
-                        className="text-xs text-slate-500"
+                        className="text-xs text-slate-500 text-center sm:text-left"
                         dangerouslySetInnerHTML={{
                             __html: t("pagination.showing")
                                 .replace("<from>", `<span className="font-medium">${(page - 1) * 10 + 1}</span>`)
@@ -161,11 +161,11 @@ export default function DisputesTable() {
                         }}
                     />
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap justify-center">
                         <Button variant="outline" size="sm" disabled={!meta.hasPrev || isFetching} onClick={() => setPage(page - 1)} className="h-8 w-8 p-0">
                             <ChevronLeft className="h-4 w-4" />
                         </Button>
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 flex-wrap justify-center">
                             {[...Array(meta.totalPages)].map((_, i) => {
                                 const p = i + 1;
                                 if (p === 1 || p === meta.totalPages || (p >= page - 1 && p <= page + 1)) {
