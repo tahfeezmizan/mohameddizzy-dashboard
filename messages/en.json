@@ -57,7 +57,75 @@
         "users": "Users",
         "orders": "Orders",
         "settings": "Settings",
-        "activities": "Activity Log"
+        "activities": "Activity Log",
+        "boostPayments": "Boost Payments"
+    },
+    "boostPayments": {
+        "title": "Boost Payments",
+        "description": "View and manage all product and shop promotion transactions",
+        "filters": {
+            "allStatus": "All Statuses",
+            "pending": "Pending",
+            "completed": "Completed",
+            "failed": "Failed",
+            "refunded": "Refunded",
+            "cancelled": "Cancelled",
+            "allTypes": "All Boost Types",
+            "product": "Product Boost",
+            "shop": "Shop Boost"
+        },
+        "metrics": {
+            "totalVolume": "Total Volume",
+            "completedPayments": "Completed Boosts",
+            "pendingPayments": "Pending Boosts",
+            "failedPayments": "Failed Boosts",
+            "volumeDesc": "Cumulative boost revenue",
+            "completedDesc": "Promotion transactions completed",
+            "pendingDesc": "Transactions awaiting payment",
+            "failedDesc": "Transactions failed/cancelled"
+        },
+        "table": {
+            "title": "Boost Payment Logs",
+            "id": "ID",
+            "user": "User",
+            "type": "Type",
+            "pack": "Boost Pack",
+            "amount": "Amount",
+            "status": "Status",
+            "date": "Paid At",
+            "actions": "Actions",
+            "noData": "No boost payments found",
+            "loading": "Loading boost payments...",
+            "pagination": {
+                "showing": "Showing {from} to {to} of {total} entries"
+            }
+        },
+        "details": {
+            "title": "Boost Payment Details",
+            "invoiceToken": "Invoice Token",
+            "receipt": "Receipt PDF",
+            "viewReceipt": "View Receipt",
+            "notAvailable": "N/A",
+            "paymentInfo": "Payment Information",
+            "transactionId": "Transaction ID",
+            "createdAt": "Created At",
+            "paidAt": "Paid At",
+            "userInfo": "User Information",
+            "userName": "Name",
+            "userEmail": "Email",
+            "userPhone": "Phone",
+            "boostInfo": "Boost Details",
+            "boostType": "Promotion Type",
+            "boostPackName": "Pack Name",
+            "duration": "Duration",
+            "durationDays": "{days} days",
+            "productInfo": "Product Information",
+            "productId": "Product ID",
+            "productName": "Title",
+            "productPrice": "Price",
+            "productCategory": "Category",
+            "viewProduct": "View Product Detail"
+        }
     },
     "categories": {
         "title": "Categories & Attributes",

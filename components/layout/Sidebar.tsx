@@ -3,7 +3,7 @@
 import { Sidebar as ShadcnSidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 
 import logo from "@/public/logo.png";
-import { DollarSign, LayoutDashboard, List, LogOut, Scale, Settings, ShoppingCart, Users, Zap, ShieldCheck } from "lucide-react";
+import { DollarSign, LayoutDashboard, List, LogOut, Scale, Settings, ShoppingCart, Users, Zap, ShieldCheck, CreditCard } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -48,6 +48,7 @@ export function Sidebar() {
     const navItems = [
         { name: t("sidebar.overview"), href: "/", icon: LayoutDashboard },
         { name: t("sidebar.boostPacks"), href: "/boost-packs", icon: Zap },
+        { name: t("sidebar.boostPayments"), href: "/boost-payments", icon: CreditCard },
         { name: t("sidebar.verifications"), href: "/verifications", icon: ShieldCheck },
         { name: t("sidebar.disputes"), href: "/disputes", icon: Scale },
         { name: t("sidebar.commission"), href: "/commission", icon: DollarSign },

@@ -22,6 +22,7 @@ export type TUser = {
     boostPack: string;
     boostStartTime: string;
     isBoosted: boolean;
+    photo?: string;
 };
 
 type TAuthState = {

@@ -76,3 +76,5 @@ const paymentApi = baseApi.injectEndpoints({
 });
 
 export const { useGetAllPaymentsQuery } = paymentApi;
+
+

@@ -57,7 +57,75 @@
         "users": "Utilisateurs",
         "orders": "Commandes",
         "settings": "Paramètres",
-        "activities": "Journal d'activité"
+        "activities": "Journal d'activité",
+        "boostPayments": "Paiements Boost"
+    },
+    "boostPayments": {
+        "title": "Paiements Boost",
+        "description": "Consulter et gérer toutes les transactions de promotion de produits et de boutiques",
+        "filters": {
+            "allStatus": "Tous les statuts",
+            "pending": "En attente",
+            "completed": "Complété",
+            "failed": "Échoué",
+            "refunded": "Remboursé",
+            "cancelled": "Annulé",
+            "allTypes": "Tous les types de Boost",
+            "product": "Boost de Produit",
+            "shop": "Boost de Boutique"
+        },
+        "metrics": {
+            "totalVolume": "Volume Total",
+            "completedPayments": "Boosts Réussis",
+            "pendingPayments": "Boosts En Attente",
+            "failedPayments": "Boosts Échoués",
+            "volumeDesc": "Revenu cumulatif des boosts",
+            "completedDesc": "Transactions de promotion complétées",
+            "pendingDesc": "Transactions en attente de paiement",
+            "failedDesc": "Transactions échouées/annulées"
+        },
+        "table": {
+            "title": "Historique des Paiements Boost",
+            "id": "ID",
+            "user": "Utilisateur",
+            "type": "Type",
+            "pack": "Pack de Boost",
+            "amount": "Montant",
+            "status": "Statut",
+            "date": "Payé le",
+            "actions": "Actions",
+            "noData": "Aucun paiement de boost trouvé",
+            "loading": "Chargement des paiements...",
+            "pagination": {
+                "showing": "Affichage de {from} à {to} sur {total} entrées"
+            }
+        },
+        "details": {
+            "title": "Détails du Paiement Boost",
+            "invoiceToken": "Jeton de Facture",
+            "receipt": "Reçu PDF",
+            "viewReceipt": "Voir le Reçu",
+            "notAvailable": "N/A",
+            "paymentInfo": "Informations de Paiement",
+            "transactionId": "ID Transaction",
+            "createdAt": "Créé le",
+            "paidAt": "Payé le",
+            "userInfo": "Informations de l'Utilisateur",
+            "userName": "Nom",
+            "userEmail": "E-mail",
+            "userPhone": "Téléphone",
+            "boostInfo": "Détails du Boost",
+            "boostType": "Type de Promotion",
+            "boostPackName": "Nom du Pack",
+            "duration": "Durée",
+            "durationDays": "{days} jours",
+            "productInfo": "Informations du Produit",
+            "productId": "ID Produit",
+            "productName": "Titre",
+            "productPrice": "Prix",
+            "productCategory": "Catégorie",
+            "viewProduct": "Voir les détails du produit"
+        }
     },
     "categories": {
         "title": "Catégories & Attributs",

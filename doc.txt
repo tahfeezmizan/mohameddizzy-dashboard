@@ -1,0 +1,14 @@
+{{baseUrl}}/boost-payment?status=COMPLETED&type=PRODUCT&page=1&limit=10
+
+okay give enums also 
+6:20 AM
+Here are the allowed enums for the query filters:
+
+status (BoostPaymentStatus)
+"PENDING"
+"COMPLETED"
+"FAILED"
+"CANCELLED"
+type (BoostType)
+"PRODUCT"
+"SHOP"

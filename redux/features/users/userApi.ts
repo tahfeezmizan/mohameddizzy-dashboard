@@ -18,6 +18,7 @@ export type TUser = {
     publishedProductCount: number;
     balance?: number;
     referralCode?: string;
+    photo?: string;
     createdAt: string;
     updatedAt: string;
 };
