@@ -231,7 +231,17 @@
                 "title": "Administrative Actions",
                 "suspend": "Suspend",
                 "activate": "Activate",
-                "removeBadge": "Remove Badge"
+                "removeBadge": "Remove Badge",
+                "changePassword": "Change Password"
+            },
+            "changePasswordForm": {
+                "title": "Set New Password",
+                "placeholder": "Enter new password",
+                "submit": "Update Password",
+                "cancel": "Cancel",
+                "validationError": "Password must be at least 6 characters long",
+                "successToast": "Password updated successfully",
+                "errorToast": "Failed to update password"
             },
             "status": {
                 "activeAccount": "Active Account",

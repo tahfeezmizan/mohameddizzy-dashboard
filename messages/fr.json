@@ -231,7 +231,17 @@
                 "title": "Actions Administratives",
                 "suspend": "Suspendre",
                 "activate": "Activer",
-                "removeBadge": "Supprimer le Badge"
+                "removeBadge": "Supprimer le Badge",
+                "changePassword": "Modifier le mot de passe"
+            },
+            "changePasswordForm": {
+                "title": "Définir le nouveau mot de passe",
+                "placeholder": "Entrez le nouveau mot de passe",
+                "submit": "Mettre à jour",
+                "cancel": "Annuler",
+                "validationError": "Le mot de passe doit contenir au moins 6 caractères",
+                "successToast": "Mot de passe mis à jour avec succès",
+                "errorToast": "Échec de la mise à jour du mot de passe"
             },
             "status": {
                 "activeAccount": "Compte Actif",

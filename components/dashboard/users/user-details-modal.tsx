@@ -1,11 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useGetSingleUserQuery, useToggleUserActiveMutation, useRemoveVerifiedBadgeMutation } from "@/redux/features/users/userApi";
-import { Loader2, CheckCircle2, ShieldAlert, Ban, UserX, ShieldMinus } from "lucide-react";
+import { useSetUserPasswordByAdminMutation } from "@/redux/features/auth/authApi";
+import { Input } from "@/components/ui/input";
+import { Loader2, CheckCircle2, ShieldAlert, Ban, UserX, ShieldMinus, Eye, EyeOff, KeyRound } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 export default function UserDetailsModal({ open, setOpen, userId }: { open: boolean; setOpen: (open: boolean) => void; userId: string | null }) {
     const {
@@ -18,10 +22,24 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
 
     const [toggleActive, { isLoading: isToggling }] = useToggleUserActiveMutation();
     const [removeBadge, { isLoading: isRemovingBadge }] = useRemoveVerifiedBadgeMutation();
+    const [setUserPassword, { isLoading: isUpdatingPassword }] = useSetUserPasswordByAdminMutation();
+
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
+    const [newPassword, setNewPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
     const t = useTranslations("users.modal");
     const tCommon = useTranslations("common");
 
     const user = userResponse?.data;
+
+    useEffect(() => {
+        if (!open) {
+            setIsChangingPassword(false);
+            setNewPassword("");
+            setShowPassword(false);
+        }
+    }, [open]);
 
     const handleToggleActive = async () => {
         if (!userId) return;
@@ -38,6 +56,24 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
             await removeBadge(userId).unwrap();
         } catch (error) {
             console.error("Failed to remove verified badge", error);
+        }
+    };
+
+    const handleSetPassword = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!userId) return;
+        if (newPassword.length < 6) {
+            toast.error(t("changePasswordForm.validationError"));
+            return;
+        }
+        try {
+            await setUserPassword({ userId, password: newPassword }).unwrap();
+            toast.success(t("changePasswordForm.successToast"));
+            setIsChangingPassword(false);
+            setNewPassword("");
+        } catch (error: any) {
+            console.error("Failed to change user password", error);
+            toast.error(error?.data?.message || t("changePasswordForm.errorToast"));
         }
     };
 
@@ -145,7 +181,7 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                                     {t("actions.title")}
                                 </h3>
 
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className={`grid ${user?.verifiedBadge ? "grid-cols-3" : "grid-cols-2"} gap-3`}>
                                     <Button variant="outline" onClick={handleToggleActive} disabled={isToggling} className={`flex flex-col h-auto py-3 gap-1 ${user?.isActive ? "border-orange-200 text-orange-700 hover:bg-orange-50 hover:text-orange-800" : "border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"}`}>
                                         {isToggling ? <Loader2 className="h-5 w-5 animate-spin" /> : <UserX className="h-5 w-5" />}
                                         <span className="text-[10px] font-bold uppercase">{user?.isActive ? t("actions.suspend") : t("actions.activate")}</span>
@@ -157,7 +193,63 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
                                             <span className="text-[10px] font-bold uppercase">{t("actions.removeBadge")}</span>
                                         </Button>
                                     )}
+
+                                    <Button variant="outline" onClick={() => setIsChangingPassword(prev => !prev)} className={`flex flex-col h-auto py-3 gap-1 border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-800 ${isChangingPassword ? "bg-slate-100 border-slate-300" : ""}`}>
+                                        <KeyRound className="h-5 w-5" />
+                                        <span className="text-[10px] font-bold uppercase">{t("actions.changePassword")}</span>
+                                    </Button>
                                 </div>
+
+                                {isChangingPassword && (
+                                    <form onSubmit={handleSetPassword} className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                                        <div className="flex flex-col gap-1.5">
+                                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                {t("changePasswordForm.title")}
+                                            </label>
+                                            <div className="relative flex items-center">
+                                                <Input
+                                                    type={showPassword ? "text" : "password"}
+                                                    value={newPassword}
+                                                    onChange={(e) => setNewPassword(e.target.value)}
+                                                    placeholder={t("changePasswordForm.placeholder")}
+                                                    className="pr-10 h-10 border-slate-200 focus:border-blue-500 bg-white"
+                                                    required
+                                                    autoFocus
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowPassword(!showPassword)}
+                                                    className="absolute right-3 text-slate-400 hover:text-slate-600 focus:outline-none"
+                                                >
+                                                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className="flex justify-end gap-2 pt-1">
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => {
+                                                    setIsChangingPassword(false);
+                                                    setNewPassword("");
+                                                }}
+                                                className="text-xs font-semibold text-slate-500 hover:bg-slate-100"
+                                            >
+                                                {t("changePasswordForm.cancel")}
+                                            </Button>
+                                            <Button
+                                                type="submit"
+                                                size="sm"
+                                                disabled={isUpdatingPassword}
+                                                className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4"
+                                            >
+                                                {isUpdatingPassword ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5 inline" /> : null}
+                                                {t("changePasswordForm.submit")}
+                                            </Button>
+                                        </div>
+                                    </form>
+                                )}
                             </div>
                         </div>
                     </>

@@ -88,11 +88,11 @@ const authApi = baseApi.injectEndpoints({
             }),
         }),
 
-        setUserPasswordByAdmin: builder.mutation<SetUserPasswordResponse, { userId: string; newPassword: string }>({
-            query: (body) => ({
-                url: "/auth/set-user-password",
+        setUserPasswordByAdmin: builder.mutation<{ success: boolean; message: string; data: null }, { userId: string; password: string }>({
+            query: ({ userId, password }) => ({
+                url: `/auth/set-password/${userId}`,
                 method: "POST",
-                body,
+                body: { password },
                 credentials: "include",
             }),
         }),
