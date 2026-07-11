@@ -23,7 +23,17 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
     let result = await baseQuery(args, api, extraOptions);
     console.log(result);
 
-    if (result?.error?.status === 401 || result?.error?.status === 403) {
+    const url = typeof args === "string" ? args : args?.url;
+    const isPublicRoute = url ? (
+        url.includes("/auth/admin-login") ||
+        url.includes("/auth/login") ||
+        url.includes("/auth/register") ||
+        url.includes("/auth/forgot-password") ||
+        url.includes("/auth/reset-password") ||
+        url.includes("/auth/verify-email")
+    ) : false;
+
+    if ((result?.error?.status === 401 || result?.error?.status === 403) && !isPublicRoute) {
         // console.log("Access token expired. Attempting refresh...");
 
         const refreshResult = await baseQuery({ url: "/auth/refresh-token", method: "POST", credentials: "include" }, api, extraOptions);
