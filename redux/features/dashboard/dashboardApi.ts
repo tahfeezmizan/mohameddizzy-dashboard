@@ -51,7 +51,13 @@ export type TCategoryPerformanceResponse = {
 
 export type TCommissionData = {
     totalRevenue: number;
+    thisMonthRevenue: number;
+    totalCommission: number;
     thisMonthCommission: number;
+    totalBoost: number;
+    thisMonthBoost: number;
+    totalBuyerProtectionFee: number;
+    thisMonthBuyerProtectionFee: number;
     pendingEscrow: number;
 };
 

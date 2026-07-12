@@ -24,7 +24,7 @@ export default function Commission() {
     const commissionStats = [
         {
             title: t("stats.totalEarnedCommission"),
-            value: `${commissionData?.data.totalRevenue.toLocaleString()} CFA`,
+            value: `${(commissionData?.data.totalCommission || 0).toLocaleString()} CFA`,
             description: t("stats.fromAllOrders", { rate: commissionRate }),
             badge: t("stats.total"),
             bgColor: "bg-[#2f6bf8]",
@@ -34,7 +34,7 @@ export default function Commission() {
         },
         {
             title: t("stats.thisMonthCommission"),
-            value: `${commissionData?.data.thisMonthCommission.toLocaleString()} CFA`,
+            value: `${(commissionData?.data.thisMonthCommission || 0).toLocaleString()} CFA`,
             description: t("stats.readyToWithdraw"),
             badge: t("stats.ready"),
             bgColor: "bg-[#12b362]",
@@ -44,7 +44,7 @@ export default function Commission() {
         },
         {
             title: t("stats.pendingEscrow"),
-            value: `${commissionData?.data.pendingEscrow.toLocaleString()} CFA`,
+            value: `${(commissionData?.data.pendingEscrow || 0).toLocaleString()} CFA`,
             description: t("stats.inDisputeWindow"),
             badge: t("stats.waiting"),
             bgColor: "bg-[#fb610c]",
