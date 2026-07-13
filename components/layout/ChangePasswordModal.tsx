@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useChangePasswordMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
-import { Eye, EyeOff, Lock, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 interface ChangePasswordModalProps {
     open: boolean;
@@ -24,9 +24,7 @@ export function ChangePasswordModal({ open, onOpenChange }: ChangePasswordModalP
 
     const [changePassword, { isLoading }] = useChangePasswordMutation();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    const handleSubmit = async () => {
         if (!currentPassword || !newPassword || !confirmPassword) {
             toast.error("Please fill in all fields");
             return;
@@ -74,22 +72,12 @@ export function ChangePasswordModal({ open, onOpenChange }: ChangePasswordModalP
 
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
-            <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                    <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50">
-                            <Lock className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <div>
-                            <DialogTitle>Change Password</DialogTitle>
-                            <DialogDescription>
-                                Enter your current password and choose a new one.
-                            </DialogDescription>
-                        </div>
-                    </div>
+            <DialogContent className="sm:max-w-md p-0 overflow-hidden bg-white">
+                <DialogHeader className="px-6 py-4 border-b">
+                    <DialogTitle className="text-xl font-bold text-slate-900">Change Password</DialogTitle>
                 </DialogHeader>
 
-                <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+                <div className="p-6 space-y-6">
                     {/* Current Password */}
                     <div className="space-y-2">
                         <Label htmlFor="change-pw-current">Current Password</Label>
@@ -100,13 +88,13 @@ export function ChangePasswordModal({ open, onOpenChange }: ChangePasswordModalP
                                 placeholder="Enter current password"
                                 value={currentPassword}
                                 onChange={(e) => setCurrentPassword(e.target.value)}
-                                className="pr-10 h-9"
+                                className="h-11 pr-10"
                                 autoComplete="current-password"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                                 tabIndex={-1}
                             >
                                 {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -124,13 +112,13 @@ export function ChangePasswordModal({ open, onOpenChange }: ChangePasswordModalP
                                 placeholder="Enter new password (min 6 characters)"
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
-                                className="pr-10 h-9"
+                                className="h-11 pr-10"
                                 autoComplete="new-password"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowNewPassword(!showNewPassword)}
-                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                                 tabIndex={-1}
                             >
                                 {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -148,13 +136,13 @@ export function ChangePasswordModal({ open, onOpenChange }: ChangePasswordModalP
                                 placeholder="Re-enter new password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="pr-10 h-9"
+                                className="h-11 pr-10"
                                 autoComplete="new-password"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                                 tabIndex={-1}
                             >
                                 {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -162,27 +150,25 @@ export function ChangePasswordModal({ open, onOpenChange }: ChangePasswordModalP
                         </div>
                     </div>
 
-                    <DialogFooter>
+                    {/* Actions */}
+                    <div className="flex gap-3 pt-4">
                         <Button
-                            type="button"
                             variant="outline"
                             onClick={() => handleOpenChange(false)}
+                            className="flex-1 h-12"
                             disabled={isLoading}
                         >
                             Cancel
                         </Button>
-                        <Button type="submit" disabled={isLoading}>
-                            {isLoading ? (
-                                <>
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                    Changing…
-                                </>
-                            ) : (
-                                "Change Password"
-                            )}
+                        <Button
+                            onClick={handleSubmit}
+                            className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 text-white"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Change Password"}
                         </Button>
-                    </DialogFooter>
-                </form>
+                    </div>
+                </div>
             </DialogContent>
         </Dialog>
     );
