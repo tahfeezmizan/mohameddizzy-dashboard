@@ -96,7 +96,15 @@ const authApi = baseApi.injectEndpoints({
                 credentials: "include",
             }),
         }),
+        changePassword: builder.mutation<{ success: boolean; message: string; data: null }, { currentPassword: string; newPassword: string }>({
+            query: (body) => ({
+                url: "/auth/change-password",
+                method: "POST",
+                body,
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation, useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailQuery, useSetUserPasswordByAdminMutation, useValidateReferralCodeQuery } = authApi;
+export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation, useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailQuery, useSetUserPasswordByAdminMutation, useValidateReferralCodeQuery, useChangePasswordMutation } = authApi;
