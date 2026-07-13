@@ -30,7 +30,7 @@ export function Header() {
     const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
     const userName = user?.name || "Admin";
-    const userRole = user?.role === "ADMIN" ? "Administrator" : "User";
+    const userRole = user?.role || "ADMIN";
     const userPhoto = user?.photo ? `${process.env.NEXT_PUBLIC_API_URL}${user.photo}` : "";
     const initials = userName
         .split(" ")
@@ -77,19 +77,19 @@ export function Header() {
                                 </div>
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" sideOffset={8} className="w-52">
+                        <DropdownMenuContent align="end" sideOffset={8} className="w-56 bg-white rounded-xl shadow-lg border border-slate-200 p-1.5">
                             <DropdownMenuGroup>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">My Account</DropdownMenuLabel>
                             </DropdownMenuGroup>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => setChangePasswordOpen(true)}>
+                            <DropdownMenuSeparator className="bg-slate-100" />
+                            <DropdownMenuItem onClick={() => setChangePasswordOpen(true)} className="px-3 py-2.5 rounded-lg cursor-pointer text-slate-700 hover:bg-blue-50 hover:text-blue-600 focus:bg-blue-50 focus:text-blue-600 gap-2.5 transition-colors">
                                 <Lock className="h-4 w-4" />
-                                Change Password
+                                <span className="text-sm font-medium">Change Password</span>
                             </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem variant="destructive" onClick={handleLogout}>
+                            <DropdownMenuSeparator className="bg-slate-100" />
+                            <DropdownMenuItem variant="destructive" onClick={handleLogout} className="px-3 py-2.5 rounded-lg cursor-pointer gap-2.5 transition-colors">
                                 <LogOut className="h-4 w-4" />
-                                Logout
+                                <span className="text-sm font-medium">Logout</span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
