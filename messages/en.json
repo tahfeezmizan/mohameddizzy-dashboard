@@ -52,6 +52,7 @@
         "boostPacks": "Boost Packs",
         "verifications": "Verifications",
         "disputes": "Disputes",
+        "reports": "Reports",
         "commission": "Commission",
         "categories": "Categories",
         "users": "Users",
@@ -567,6 +568,88 @@
                 "adminNotePlaceholder": "Enter admin note...",
                 "resolving": "Resolving...",
                 "resolveDispute": "Resolve Dispute"
+            }
+        }
+    },
+    "reports": {
+        "title": "Reports Management",
+        "description": "Monitor and resolve listing or user violations",
+        "stats": {
+            "totalReports": "Total Reports",
+            "open": "Open",
+            "inReview": "Under Review",
+            "resolved": "Resolved",
+            "listing": "Listing Reports",
+            "user": "User Reports"
+        },
+        "table": {
+            "columns": {
+                "reportId": "REPORT ID",
+                "type": "TYPE",
+                "reporter": "REPORTER",
+                "target": "REPORTED TARGET",
+                "reason": "REASON",
+                "status": "STATUS",
+                "createdAt": "DATE",
+                "action": "ACTION"
+            },
+            "filters": {
+                "all": "All",
+                "open": "OPEN",
+                "in_review": "IN REVIEW",
+                "resolved": "RESOLVED"
+            },
+            "types": {
+                "all": "All Categories",
+                "listing": "Listing Reports",
+                "user": "User Reports"
+            },
+            "searchPlaceholder": "Search reports...",
+            "loading": "Loading reports...",
+            "noData": "No reports found",
+            "view": "View",
+            "pagination": {
+                "showing": "Showing <from> to <to> of <total> reports"
+            }
+        },
+        "modal": {
+            "title": "Report Details",
+            "loading": "Loading report details...",
+            "error": "Failed to load report details",
+            "close": "Close",
+            "info": {
+                "title": "Report Information",
+                "status": "Status",
+                "reason": "Reason",
+                "details": "Details",
+                "createdAt": "Reported At"
+            },
+            "reporterInfo": {
+                "title": "Reporter Information",
+                "name": "Name",
+                "email": "Email",
+                "phone": "Phone",
+                "verified": "Verified Reporter",
+                "standard": "Standard User"
+            },
+            "reportedTargetInfo": {
+                "title": "Reported Target Information",
+                "name": "Name",
+                "email": "Email",
+                "phone": "Phone",
+                "verified": "Verified User",
+                "standard": "Standard User",
+                "listingTitle": "Reported Listing",
+                "listingPrice": "Price",
+                "listingOwner": "Owner"
+            },
+            "actions": {
+                "title": "Administrative Actions",
+                "markInReview": "Mark Under Review",
+                "markResolved": "Mark Resolved",
+                "updating": "Updating Status...",
+                "successMessage": "Report status updated successfully",
+                "errorMessage": "Failed to update report status"
             }
         }
     },

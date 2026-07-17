@@ -1,14 +1,180 @@
-{{baseUrl}}/boost-payment?status=COMPLETED&type=PRODUCT&page=1&limit=10
+1. Statistics Cards (Dashboard Widgets)
+Fetch counts of reports to populate summary widgets at the top of the Admin Dashboard.
 
-okay give enums also 
-6:20 AM
-Here are the allowed enums for the query filters:
+Route: GET /api/v1/report/stats
+Auth: Admin Token required (Authorization: Bearer <TOKEN>)
+JSON View (Response)
+json
 
-status (BoostPaymentStatus)
-"PENDING"
-"COMPLETED"
-"FAILED"
-"CANCELLED"
-type (BoostType)
-"PRODUCT"
-"SHOP"
+{
+  "success": true,
+  "statusCode": 200,
+  "message": "Statistiques des signalements récupérées avec succès",
+  "data": {
+    "total": 12,
+    "status": {
+      "open": 5,
+      "inReview": 3,
+      "resolved": 4
+    },
+    "type": {
+      "listing": 8,
+      "user": 4
+    }
+  }
+}
+Dashboard Mapping UI Example:
+Total Reports Card: Display data.total
+Pending/Open Reports Card: Display data.status.open
+Under Review Card: Display data.status.inReview
+Resolved Reports Card: Display data.status.resolved
+Listing Reports Card: Display data.type.listing
+User Reports Card: Display data.type.user
+2. Reports Table (List View)
+Load reports into the main data table, with search, pagination, and filter dropdowns.
+
+Route: GET /api/v1/report
+Auth: Admin Token required (Authorization: Bearer <TOKEN>)
+Query Params:
+page (number, e.g., 1) — for pagination.
+limit (number, e.g., 10) — rows per page.
+searchTerm (string) — filters by reportId or reason (case-insensitive).
+type (string: "LISTING" or "USER") — filter by report category.
+status (string: "OPEN", "IN_REVIEW", or "RESOLVED") — filter by status.
+JSON View (Response)
+json
+
+{
+  "success": true,
+  "statusCode": 200,
+  "message": "Signalements récupérés avec succès",
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 12,
+    "totalPages": 2,
+    "hasNext": true,
+    "hasPrev": false
+  },
+  "data": [
+    {
+      "_id": "60d5ecb8629ef52d9c8b4570",
+      "reportId": "RPT-004",
+      "type": "LISTING",
+      "reportedItem": {
+        "_id": "60d5ecb8629ef52d9c8b4567",
+        "title": "Produit suspect",
+        "price": 15000,
+        "images": ["image1.jpg"]
+      },
+      "reporter": {
+        "_id": "60d5ecb8629ef52d9c8b4569",
+        "name": "Jean Dupont",
+        "email": "jean.dupont@gmail.com",
+        "phone": "+221770000000",
+        "photo": "/uploads/images/path.jpg",
+        "verifiedBadge": true
+      },
+      "reportedUser": {
+        "_id": "60d5ecb8629ef52d9c8b4568",
+        "name": "Target Shop",
+        "email": "target.shop@gmail.com",
+        "phone": "+221771111111",
+        "photo": "/uploads/images/shop.jpg",
+        "verifiedBadge": false
+      },
+      "reason": "Contrefaçon ou article interdit",
+      "details": "Cet article semble être une copie non autorisée.",
+      "status": "OPEN",
+      "createdAt": "2026-07-17T06:00:00.000Z",
+      "updatedAt": "2026-07-17T06:00:00.000Z"
+    }
+  ]
+}
+Dashboard Table Column Mapping:
+ID: item.reportId (e.g. "RPT-004")
+Type: item.type (Render Badge: Green/Blue for "USER", Orange/Red for "LISTING")
+Reporter: Render avatar item.reporter.photo and name item.reporter.name
+Reported Target:
+If item.type === "LISTING", display product link item.reportedItem.title (or ID) + owner item.reportedUser.name.
+If item.type === "USER", display reported user item.reportedUser.name.
+Reason: item.reason
+Status: item.status (Render badge styling based on value)
+Date: Formatted item.createdAt (using locale formatting)
+3. Detail View Modal
+When an admin clicks a table row, fetch the detailed view of the report to populate the details modal.
+
+Route: GET /api/v1/report/:id (where :id is the _id field from the list item, e.g., 60d5ecb8629ef52d9c8b4570)
+Auth: Admin Token required (Authorization: Bearer <TOKEN>)
+JSON View (Response)
+json
+
+{
+  "success": true,
+  "statusCode": 200,
+  "message": "Détails du signalement récupérés avec succès",
+  "data": {
+    "_id": "60d5ecb8629ef52d9c8b4570",
+    "reportId": "RPT-004",
+    "type": "LISTING",
+    "reportedItem": {
+      "_id": "60d5ecb8629ef52d9c8b4567",
+      "title": "Produit suspect",
+      "price": 15000,
+      "images": ["image1.jpg"]
+    },
+    "reporter": {
+      "_id": "60d5ecb8629ef52d9c8b4569",
+      "name": "Jean Dupont",
+      "email": "jean.dupont@gmail.com",
+      "phone": "+221770000000",
+      "photo": "/uploads/images/path.jpg",
+      "verifiedBadge": true
+    },
+    "reportedUser": {
+      "_id": "60d5ecb8629ef52d9c8b4568",
+      "name": "Target Shop",
+      "email": "target.shop@gmail.com",
+      "phone": "+221771111111",
+      "photo": "/uploads/images/shop.jpg",
+      "verifiedBadge": false
+    },
+    "reason": "Contrefaçon ou article interdit",
+    "details": "Cet article semble être une copie non autorisée.",
+    "status": "OPEN",
+    "createdAt": "2026-07-17T06:00:00.000Z",
+    "updatedAt": "2026-07-17T06:00:00.000Z"
+  }
+}
+4. Status Action Controls (Status Dropdown / Buttons)
+Change a report status to "IN_REVIEW" or "RESOLVED" from the actions bar or details modal.
+
+Route: PATCH /api/v1/report/:id/status (where :id is the _id field from the report)
+Auth: Admin Token required (Authorization: Bearer <TOKEN>)
+JSON View (Request Body)
+json
+
+{
+  "status": "RESOLVED"
+}
+JSON View (Response)
+json
+
+{
+  "success": true,
+  "statusCode": 200,
+  "message": "Statut du signalement mis à jour à résolu",
+  "data": {
+    "_id": "60d5ecb8629ef52d9c8b4570",
+    "reportId": "RPT-004",
+    "type": "LISTING",
+    "reportedItem": "60d5ecb8629ef52d9c8b4567",
+    "reporter": "60d5ecb8629ef52d9c8b4569",
+    "reportedUser": "60d5ecb8629ef52d9c8b4568",
+    "reason": "Contrefaçon ou article interdit",
+    "details": "Cet article semble être une copie non autorisée.",
+    "status": "RESOLVED",
+    "createdAt": "2026-07-17T06:00:00.000Z",
+    "updatedAt": "2026-07-17T06:15:00.000Z"
+  }
+}

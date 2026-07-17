@@ -52,6 +52,7 @@
         "boostPacks": "Packs de Boost",
         "verifications": "Vérifications",
         "disputes": "Litiges",
+        "reports": "Signalements",
         "commission": "Commission",
         "categories": "Catégories",
         "users": "Utilisateurs",
@@ -567,6 +568,88 @@
                 "adminNotePlaceholder": "Entrez la note admin...",
                 "resolving": "Résolution en cours...",
                 "resolveDispute": "Résoudre le Litige"
+            }
+        }
+    },
+    "reports": {
+        "title": "Gestion des Signalements",
+        "description": "Surveiller et résoudre les violations d'annonces ou d'utilisateurs",
+        "stats": {
+            "totalReports": "Total des Signalements",
+            "open": "Ouverts",
+            "inReview": "En cours d'examen",
+            "resolved": "Résolus",
+            "listing": "Signalements d'Annonces",
+            "user": "Signalements d'Utilisateurs"
+        },
+        "table": {
+            "columns": {
+                "reportId": "ID SIGNALEMENT",
+                "type": "TYPE",
+                "reporter": "SIGNALÉ PAR",
+                "target": "CIBLE SIGNALÉE",
+                "reason": "RAISON",
+                "status": "STATUT",
+                "createdAt": "DATE",
+                "action": "ACTION"
+            },
+            "filters": {
+                "all": "Tous",
+                "open": "OUVERT",
+                "in_review": "EN COURS",
+                "resolved": "RÉSOLU"
+            },
+            "types": {
+                "all": "Toutes Catégories",
+                "listing": "Signalements d'Annonces",
+                "user": "Signalements d'Utilisateurs"
+            },
+            "searchPlaceholder": "Rechercher des signalements...",
+            "loading": "Chargement des signalements...",
+            "noData": "Aucun signalement trouvé",
+            "view": "Voir",
+            "pagination": {
+                "showing": "Affichage de <from> à <to> sur <total> signalements"
+            }
+        },
+        "modal": {
+            "title": "Détails du Signalement",
+            "loading": "Chargement des détails...",
+            "error": "Échec du chargement des détails du signalement",
+            "close": "Fermer",
+            "info": {
+                "title": "Informations sur le Signalement",
+                "status": "Statut",
+                "reason": "Raison",
+                "details": "Détails",
+                "createdAt": "Signalé le"
+            },
+            "reporterInfo": {
+                "title": "Informations du Rapporteur",
+                "name": "Nom",
+                "email": "E-mail",
+                "phone": "Téléphone",
+                "verified": "Rapporteur Vérifié",
+                "standard": "Utilisateur Standard"
+            },
+            "reportedTargetInfo": {
+                "title": "Informations Cible Signalée",
+                "name": "Nom",
+                "email": "E-mail",
+                "phone": "Téléphone",
+                "verified": "Utilisateur Vérifié",
+                "standard": "Utilisateur Standard",
+                "listingTitle": "Annonce Signalée",
+                "listingPrice": "Prix",
+                "listingOwner": "Propriétaire"
+            },
+            "actions": {
+                "title": "Actions Administratives",
+                "markInReview": "Marquer En cours",
+                "markResolved": "Marquer Résolu",
+                "updating": "Mise à jour du statut...",
+                "successMessage": "Statut du signalement mis à jour avec succès",
+                "errorMessage": "Échec de la mise à jour du statut"
             }
         }
     },
