@@ -1,0 +1,30 @@
+name: Deploy Djarna Dashboard
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Deploy to Hostinger VPS
+              uses: appleboy/ssh-action@v1.2.2
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.PORT }}
+                  script: |
+                      export FNM_PATH="/root/.local/share/fnm"
+                      export PATH="$FNM_PATH:$PATH"
+                      eval "$(/root/.local/share/fnm/fnm env --shell bash)"
+
+                      cd /srv/Djarna_Dashboard
+
+                      git pull origin main
+                      npm install
+                      npm run build
+                      pm2 restart Djarna_Dashboard

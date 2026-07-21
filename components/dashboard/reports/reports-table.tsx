@@ -184,7 +184,7 @@ export default function ReportsTable() {
                                             </Avatar>
                                             <div className="flex flex-col">
                                                 <span className="font-medium text-slate-900">{item.reporter.name}</span>
-                                                <span className="text-xs text-slate-400 font-mono truncate max-w-[140px]">{item.reporter.email || item.reporter.phone}</span>
+                                                <span className="text-xs text-slate-400 font-mono truncate max-w-35">{item.reporter.email || item.reporter.phone}</span>
                                             </div>
                                         </div>
                                     </td>
@@ -206,7 +206,7 @@ export default function ReportsTable() {
                                     </td>
 
                                     {/* Reason */}
-                                    <td className="px-6 py-4 text-slate-700 max-w-[200px] truncate">{item.reason}</td>
+                                    <td className="px-6 py-4 text-slate-700 max-w-50 truncate">{item.reason}</td>
 
                                     {/* Status */}
                                     <td className="px-6 py-4">
